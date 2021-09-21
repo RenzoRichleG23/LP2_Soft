@@ -36,5 +36,4 @@ public class Evento extends Post{
     public void setArchivo(byte[] archivo) {
         this.archivo = archivo;
     }
-    
 }
