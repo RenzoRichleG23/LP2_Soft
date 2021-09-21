@@ -4,6 +4,7 @@
 package pe.edu.pucp.LP2Soft.GestUsuarios.model;
 import pe.edu.pucp.LP2Soft.GestCursos.model.Curso;
 import pe.edu.pucp.LP2Soft.GestPublicaciones.model.Post;
+import pe.edu.pucp.LP2Soft.GestPublicaciones.model.Resenia;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,6 +28,7 @@ public class Usuario {
     private ArrayList<Post> posts;
     private ArrayList<Curso> cursosAprobados;
     private ArrayList<Usuario> amigos;
+    private ArrayList<Resenia> resenias;
     private Calendar calendario;   // Cómo lo implementamos?
     
     // Constructor
@@ -48,6 +50,7 @@ public class Usuario {
         this.cursosAprobados = new ArrayList<Curso>();
         this.posts = new ArrayList<Post>();
         this.amigos = new ArrayList<Usuario>();
+        this.resenias = new ArrayList<Resenia>();
     }
     // Getters
     public int getCodigoPUCP() {
@@ -97,6 +100,9 @@ public class Usuario {
     }
     public ArrayList<Usuario> getAmigos() {
         return amigos;
+    }
+    public ArrayList<Resenia> getResenias() {
+        return resenias;
     }
     // Setters
     public void setCodigoPUCP(int codigoPUCP) {
