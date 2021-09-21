@@ -4,6 +4,7 @@
 package pe.edu.pucp.LP2Soft.GestCursos.model;
 import java.util.ArrayList;
 import pe.edu.pucp.LP2Soft.GestPublicaciones.model.Comentario;
+import pe.edu.pucp.LP2Soft.GestPublicaciones.model.Resenia;
 
 public class Profesor{
     private int idProfesor;
@@ -14,11 +15,13 @@ public class Profesor{
     private String descripcion;
     private ArrayList<Curso>cursos;
     private ArrayList<Comentario>comentarios;
+    private ArrayList<Resenia>resenias;
 
     // Constructor
     public Profesor(int idProfesor, String nombre, float calificacion, String correo, String descripcion){
         this.cursos = new ArrayList<Curso>();
         this.comentarios = new ArrayList<Comentario>();
+        this.resenias = new ArrayList<Resenia>();
         this.idProfesor = idProfesor;
         this.nombre = nombre;
         this.calificacion = calificacion;
@@ -50,5 +53,8 @@ public class Profesor{
     }
     public ArrayList<Comentario> getComentarios() {
         return comentarios;
+    }
+    public ArrayList<Resenia> getResenias() {
+        return resenias;
     }
 }
