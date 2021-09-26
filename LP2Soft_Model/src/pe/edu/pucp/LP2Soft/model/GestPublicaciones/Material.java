@@ -6,7 +6,7 @@ package pe.edu.pucp.LP2Soft.model.GestPublicaciones;
 public class Material extends Post {
     private byte[] archivo;
     // Constructor
-    public Material(byte[] archivo, String comentarioPost, int likes, int prioridad) {
+    public Material(byte[] archivo, String comentarioPost) {
         super(comentarioPost);
         this.archivo = archivo;
     }

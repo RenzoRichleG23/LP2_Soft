@@ -8,10 +8,12 @@ import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Resenia;
 public class Profesor{
     private int idProfesor;
     private String nombre;
-    private float calificacion;
     private String correo;
-    private byte[] foto; // Cómo es esto?
     private String descripcion;
+    private float calificacion;
+    private byte[] foto; // Cómo es esto?
+    private boolean activo;
+    
     private ArrayList<Curso>cursos;
     private ArrayList<Resenia>resenias;
 
@@ -24,6 +26,7 @@ public class Profesor{
         this.calificacion = 0;
         this.correo = correo;
         this.descripcion = descripcion;
+        this.activo = true;
     }
     // Getters
     public int getIdProfesor() {
@@ -50,4 +53,13 @@ public class Profesor{
     public ArrayList<Resenia> getResenias() {
         return resenias;
     }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+    
 }

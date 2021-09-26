@@ -8,8 +8,9 @@ public class Resenia extends Post{
     private int calificacion;
     private Usuario usuarioReseniado;
     // Constructor
-    public Resenia(int calificacion, Usuario usuario, String comentarioPost, int likes, int prioridad) {
+    public Resenia(int calificacion, Usuario usuarioReseniado, String comentarioPost) {
         super(comentarioPost);
+        this.usuarioReseniado = usuarioReseniado;
         this.calificacion = calificacion;
     }
     // Getters
@@ -19,6 +20,7 @@ public class Resenia extends Post{
     public Usuario getUsuarioReseniado() {
         return usuarioReseniado;
     }
+    
     // Setters
     public void setCalificacion(int calificacion) {
         this.calificacion = calificacion;

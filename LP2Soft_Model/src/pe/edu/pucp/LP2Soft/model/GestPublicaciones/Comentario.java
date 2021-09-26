@@ -9,12 +9,15 @@ public class Comentario {
     private int idComentario;
     private String comentario;
     private Date fechaRegistro;
+    private boolean activo;
+    
     private Usuario usuario;
     // Constructor
     public Comentario(Usuario usuario, String comentario) {
         this.comentario = comentario;
         this.fechaRegistro = new Date();
         this.usuario = usuario;
+        this.activo = true;
     }
     // Getters
     public int getIdComentario() {

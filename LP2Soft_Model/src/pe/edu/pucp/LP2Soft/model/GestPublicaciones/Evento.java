@@ -9,11 +9,11 @@ public class Evento extends Post{
     private Date fechaDelEvento;
     private byte[] archivo;
     // Constructor
-    public Evento(Date fecha, byte[] archivo, String descripcion,
-            String comentarioPost, int likes, int prioridad) {
+    public Evento(Date fecha, byte[] archivo, String descripcion, String comentarioPost) {
         super(comentarioPost);
         this.fechaDelEvento = fecha;
         this.archivo = archivo;
+        this.descripcion = descripcion;
     }
     // Getters
     public Date getFechaDelEvento() {

@@ -8,12 +8,13 @@ import java.util.ArrayList;
 public class Curso{
     private String codigo;
     private String nombre;
-    private float creditos;
-    private String especialidad;
-    private int nivel;
     private String descripcion;
+    private String especialidad;
+    private float creditos;
+    private int nivel;
     private float creditosRequeridos;
     private int estado;
+    private boolean activo;
     
     private ArrayList<Profesor>profesores;
     private ArrayList<Post>posts;
@@ -29,6 +30,7 @@ public class Curso{
             this.descripcion = descripcion;
             this.creditosRequeridos = creditosRequeridos;
             this.estado = estado;
+            this.activo = true;
             this.profesores = new ArrayList<Profesor>();
             this.posts = new ArrayList<Post>();
             this.cursosRequeridos = new ArrayList<Curso>();
@@ -67,4 +69,13 @@ public class Curso{
     public int getEstado() {
         return estado;
     }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+    
 }

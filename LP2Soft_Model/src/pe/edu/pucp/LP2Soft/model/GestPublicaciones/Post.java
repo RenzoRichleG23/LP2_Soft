@@ -8,13 +8,15 @@ import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
 public class Post {
     private int idPost;
-    private boolean bloqueado;
-    private String comentarioPost;
     private int likes;
     private int prioridad;
     private Date fechaRegistro;
-    private ArrayList<Comentario> comentarios;
+    private String comentarioPost;
+    private boolean bloqueado;
+    private boolean activo;
+    
     private Usuario usuario;
+    private ArrayList<Comentario> comentarios;
     // Constructor   
     public Post(String comentarioPost){
         this.comentarioPost = comentarioPost;
@@ -22,6 +24,7 @@ public class Post {
         this.prioridad = 0;
         this.comentarios = new ArrayList<>();
         this.fechaRegistro = new Date();
+        this.activo = true;
     }  
     // Getters
     public String getComentarioPost() {

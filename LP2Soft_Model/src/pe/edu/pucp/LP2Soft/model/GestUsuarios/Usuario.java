@@ -15,12 +15,11 @@ public class Usuario {
     private String correo;
     private String especialidad;
     private String contrasenia;
-    private Date fechaNacimiento;
     private String descripcion;
+    private Date fechaNacimiento;
     private byte[] foto;
-    private int tipo;
-    private boolean esActivo;
     private float creditosTotales;
+    private boolean activo;
     private boolean esAsesor;
     private boolean esAdmin;
     
@@ -42,8 +41,7 @@ public class Usuario {
         this.contrasenia = contrasenia;
         this.fechaNacimiento = fechaNacimiento;
         this.descripcion = descripcion;
-        this.esActivo = true;
-        this.tipo = 0;
+        this.activo = true;
         this.creditosTotales = 0;
         this.esAsesor = false;
         this.esAdmin = false;
@@ -78,12 +76,6 @@ public class Usuario {
     }
     public byte[] getFoto() {
         return foto;
-    }
-    public int getTipo() {
-        return tipo;
-    }
-    public boolean isEsActivo() {
-        return esActivo;
     }
     public float getCreditosTotales() {
         return creditosTotales;
@@ -134,11 +126,8 @@ public class Usuario {
     public void setFoto(byte[] foto) {
         this.foto = foto;
     }
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
-    }
-    public void setEsActivo(boolean esActivo) {
-        this.esActivo = esActivo;
+    public void setActivo(boolean esActivo) {
+        this.activo = esActivo;
     }
     public void setCreditosTotales(float creditosTotales) {
         this.creditosTotales = creditosTotales;

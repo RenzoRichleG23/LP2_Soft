@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Asesor{
     private float calificacion;
     private float precioPorHora;
+    
     private Ubicacion ubicacion;
     private ArrayList<Curso>cursos;
     // Constructor
