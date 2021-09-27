@@ -53,6 +53,9 @@ public class Usuario {
         this.asesor = null; // Agregación
     }
     // Getters
+    
+    public Usuario(){}
+    
     public int getCodigoPUCP() {
         return codigoPUCP;
     }

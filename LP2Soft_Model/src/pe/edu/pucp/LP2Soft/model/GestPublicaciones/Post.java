@@ -17,15 +17,29 @@ public class Post {
     
     private Usuario usuario;
     private ArrayList<Comentario> comentarios;
-    // Constructor   
+    // Constructor
+    
     public Post(String comentarioPost){
         this.comentarioPost = comentarioPost;
         this.likes = 0;
-        this.prioridad = 0;
         this.comentarios = new ArrayList<>();
         this.fechaRegistro = new Date();
         this.activo = true;
-    }  
+        this.bloqueado = false;
+    }
+    
+    public Post(String comentarioPost,int prioridad){
+        this.comentarioPost = comentarioPost;
+        this.likes = 0;
+        this.prioridad = prioridad;
+        this.comentarios = new ArrayList<>();
+        this.fechaRegistro = new Date();
+        this.activo = true;
+        this.bloqueado = false;
+    }
+    
+    public Post(){}
+    
     // Getters
     public String getComentarioPost() {
         return comentarioPost;
@@ -41,6 +55,9 @@ public class Post {
     }
     public Date getFechaRegistro() {
         return fechaRegistro;
+    }
+    public void setFechaRegistro(Date fechaRegistro){
+        this.fechaRegistro=fechaRegistro;
     }
     public int getIdPost() {
         return idPost;
@@ -58,4 +75,29 @@ public class Post {
     public void setIdPost(int idPost) {
         this.idPost = idPost;
     }
+
+    public boolean isBloqueado() {
+        return bloqueado;
+    }
+
+    public void setBloqueado(boolean bloqueado) {
+        this.bloqueado = bloqueado;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
 }
