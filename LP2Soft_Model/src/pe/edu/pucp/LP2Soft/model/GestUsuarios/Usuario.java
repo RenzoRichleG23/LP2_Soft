@@ -32,6 +32,7 @@ public class Usuario {
     
     
     // Constructor
+    public Usuario() {}
     public Usuario(int codigoPUCP, String nombre, String correo, String especialidad,
             String contrasenia, Date fechaNacimiento, String descripcion) {
         this.codigoPUCP = codigoPUCP;
@@ -54,7 +55,6 @@ public class Usuario {
     }
     // Getters
     
-    public Usuario(){}
     
     public int getCodigoPUCP() {
         return codigoPUCP;
