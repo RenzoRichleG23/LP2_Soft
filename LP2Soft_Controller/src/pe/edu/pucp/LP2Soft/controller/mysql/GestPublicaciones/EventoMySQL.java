@@ -72,8 +72,11 @@ public class EventoMySQL implements EventoDAO{
       
             cs.setInt("_idPost",evento.getIdPost());
             cs.setString("_comentarioPost",evento.getComentarioPost());
-            cs.setInt("_bloqueado", 0);
-            cs.setInt("_likes", 0);
+            if(evento.getBloqueado()==false)
+                cs.setInt("_bloqueado", 0);
+            else
+                cs.setInt("_bloqueado", 1);
+            cs.setInt("_likes", evento.getLikes());
             cs.setDate("_fechaDelEvento",new java.sql.Date(evento.getFechaDelEvento().getTime()));
             /*File file=new File(evento.getNombreArchivo());
             FileInputStream input = new FileInputStream(file);
