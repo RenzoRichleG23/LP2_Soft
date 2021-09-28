@@ -13,12 +13,14 @@ import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 import java.util.Date;
 import pe.edu.pucp.LP2Soft.controller.dao.GestUsuarios.UsuarioDAO;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestUsuarios.UsuarioMySQL;
-
 public class Principal {
     public static void main(String[] args) {
         int a1= 78;
         int a2= 65;
         
+        int i = 4;
+        if( i == 4){
+            System.out.println("Soy el numero "+i);
         Curso c1 = new Curso("INF239","Sistemas Operativos",4.0f,
         "Informática",7,"Curso Complejo",0.0f,0);
         CursoDAO daoCurso = new CursoMySQL();
@@ -53,8 +55,11 @@ public class Principal {
         }
         System.out.println("Programa Finalizado con exito!");
         
-        double i=23489;
+        
+        
         double ac= 99.9;
         ac = i+56;
     }
+    }
+    
 }
