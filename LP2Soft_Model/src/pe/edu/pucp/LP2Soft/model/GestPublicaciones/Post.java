@@ -83,6 +83,10 @@ public class Post {
     public void setBloqueado(boolean bloqueado) {
         this.bloqueado = bloqueado;
     }
+    
+    public boolean getBloqueado(){
+        return bloqueado;
+    }
 
     public boolean isActivo() {
         return activo;

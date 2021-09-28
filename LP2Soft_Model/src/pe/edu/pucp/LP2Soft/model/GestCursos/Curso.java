@@ -35,7 +35,8 @@ public class Curso{
             this.posts = new ArrayList<Post>();
             this.cursosRequeridos = new ArrayList<Curso>();
     }
-
+    
+    public Curso(){}
   
     // Getters
     public ArrayList<Profesor> getProfesores() {
