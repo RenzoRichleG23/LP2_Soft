@@ -49,5 +49,9 @@ public class Principal {
             System.out.println(ex.getMessage());
         }
         System.out.println("Programa Finalizado con exito!");
+        
+        double i=23489;
+        double ac= 99.9;
+        ac = i+56;
     }
 }
