@@ -27,12 +27,11 @@ public class UsuarioMySQL implements UsuarioDAO{
     public int insertar(Usuario u) {
         int resultado=0;
         try {
-            // Verificar si nombre, correo y codigo ya están: procedure
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
             cs = con.prepareCall("{call usuarioSignIn(?,?,?,?,?,?,?,?,?)}");
             cs.registerOutParameter("_resultado", java.sql.Types.INTEGER);
-            cs.setInt("_idUsuario", u.getCodigoPUCP()); // seteamos los valores a enviar
+            cs.setInt("_idUsuario", u.getCodigoPUCP());
             cs.setString("_nombre", u.getNombre());
             cs.setString("_correo", u.getCorreo());
             cs.setString("_especialidad", u.getEspecialidad());
@@ -64,21 +63,20 @@ public class UsuarioMySQL implements UsuarioDAO{
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
-            String instruccion = "UPDATE usuario SET nombre = ?, correo = ?,"
-                    + "contrasenia = ?, fechaNacimiento=?, descripcion=?, foto=? WHERE idUsuario=?";
-            ps = con.prepareStatement(instruccion);
-            ps.setString(1, u.getNombre());
-            ps.setString(2, u.getCorreo());
-            ps.setString(3, u.getContrasenia());
-            ps.setDate(4, new java.sql.Date(u.getFechaNacimiento().getTime()));
-            ps.setString(5, u.getDescripcion());
-            ps.setBytes(6, u.getFoto());
-            ps.setInt(7, u.getCodigoPUCP());
-            resultado = ps.executeUpdate();
+            cs = con.prepareCall("{call actualizarDatosUsuario(?,?,?,?,?,?,?)}");
+            cs.setInt("_idUsuario", u.getCodigoPUCP());
+            cs.setString("_nombre", u.getNombre());
+            cs.setString("_correo", u.getCorreo());
+            cs.setString("_contrasenia", u.getContrasenia());
+            cs.setString("_descripcion", u.getDescripcion());
+            cs.setDate("_fechaNacimiento", new java.sql.Date(u.getFechaNacimiento().getTime())); 
+            cs.setBytes("_foto", u.getFoto());
+            
+            resultado = cs.executeUpdate();
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
-            try {ps.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
             try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
         }
         return resultado;
@@ -90,14 +88,13 @@ public class UsuarioMySQL implements UsuarioDAO{
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
-            String instruccion = "UPDATE usuario SET activo=0 WHERE idUsuario=?";
-            ps = con.prepareStatement(instruccion);
-            ps.setInt(1, codigoPUCP);
-            resultado = ps.executeUpdate();
+            cs = con.prepareCall("{call eliminadoLogicoUsuario(?)}");
+            cs.setInt("_idUsuario", codigoPUCP);
+            resultado = cs.executeUpdate();
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
-            try {ps.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
             try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
         }
         return resultado;    
@@ -106,12 +103,12 @@ public class UsuarioMySQL implements UsuarioDAO{
     @Override
     public ArrayList<Usuario> listarTodos() {
         ArrayList<Usuario> usuarios = new ArrayList<>();
+        boolean resultados=false;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
-            st = con.createStatement();
-            String instruccion = "SELECT * FROM usuario WHERE activo=1";
-            rs = st.executeQuery(instruccion);
+            cs = con.prepareCall("{call listarTodos()}");
+            rs = cs.executeQuery();
             while(rs.next()) {
                 int codigoPUCP = rs.getInt("idUsuario");
                 String nombre = rs.getString("nombre");
@@ -131,7 +128,7 @@ public class UsuarioMySQL implements UsuarioDAO{
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
-            try {rs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
             try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
         }
         return usuarios;
@@ -143,30 +140,32 @@ public class UsuarioMySQL implements UsuarioDAO{
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
-            st = con.createStatement();
-            String instruccion = "SELECT * FROM usuario WHERE idUsuario = " + codigoPUCP + " AND activo=1";
-            rs = st.executeQuery(instruccion);
-            rs.next();
+            cs = con.prepareCall("{call mostarUsuario(?)}");
+            cs.setInt("_idUsuario", codigoPUCP);
+            rs = cs.executeQuery();
+            if(rs.next()) {
+                String contrasenia = rs.getString("contrasenia");
+                if(contrasenia.equals(password)) {
+                    String nombre = rs.getString("nombre");
+                    String correo = rs.getString("correo");
+                    String especialidad = rs.getString("especialidad");
+                    Date fechaNacimiento = rs.getDate("fechaNacimiento");
+                    String descripcion = rs.getString("descripcion");
+                    byte[] foto = rs.getBytes("foto");
+                    usuario = new Usuario(codigoPUCP, nombre, correo, especialidad, 
+                            contrasenia, fechaNacimiento, descripcion);
+                    usuario.setFoto(foto);
+                    usuario.setActivo(true);
+                    if(rs.getInt("esAdmin")==1) usuario.setEsAdmin(true);
+                    if(rs.getInt("esAsesor")==1) usuario.setEsAsesor(true);
+                    
+                } else System.out.println("Usuario y contrasenia no coinciden!");
+            }else System.out.println("Usuario no encontrado!");
             
-            String contrasenia = rs.getString("contrasenia");
-            if(contrasenia.equals(password)) {
-                String nombre = rs.getString("nombre");
-                String correo = rs.getString("correo");
-                String especialidad = rs.getString("especialidad");
-                Date fechaNacimiento = rs.getDate("fechaNacimiento");
-                String descripcion = rs.getString("descripcion");
-                byte[] foto = rs.getBytes("foto");
-                usuario = new Usuario(codigoPUCP, nombre, correo, especialidad, 
-                        contrasenia, fechaNacimiento, descripcion);
-                usuario.setActivo(true);
-                if(rs.getInt("esAdmin")==1) usuario.setEsAdmin(true);
-                if(rs.getInt("esAsesor")==1) usuario.setEsAsesor(true);
-                
-            }
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
-            try {st.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
             try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
         }
         return usuario;
