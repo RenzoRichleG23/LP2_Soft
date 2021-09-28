@@ -29,21 +29,20 @@ public class Principal {
             UsuarioDAO usuarioDao = new UsuarioMySQL();
 //            usuarioDao.insertar(u);
             // Modificar
-//            Date nuevaFecha = formato.parse("27-02-1999");
+//            Date nuevaFecha = formato.parse("25-11-1999");
 //            u.setFechaNacimiento(nuevaFecha);
 //            usuarioDao.modificar(u);
             // Eliminar
 //            usuarioDao.eliminar(20216008);
             // Listar todos
-            ArrayList<Usuario> usuarios = usuarioDao.listarTodos();
-            for(Usuario us : usuarios) {
-                System.out.println(us.getCodigoPUCP()+ "  " + us.getNombre()+ " - " + formato.format(us.getFechaNacimiento()));
-            }
+//            ArrayList<Usuario> usuarios = usuarioDao.listarTodos();
+//            for(Usuario us : usuarios) {
+//                System.out.println(us.getCodigoPUCP()+ "  " + us.getNombre()+ " - " + formato.format(us.getFechaNacimiento()));
+//            }
             // Mostrar
-            Usuario us = usuarioDao.mostrar(20186008, "oscar20186008");
+            Usuario us = usuarioDao.mostrar(20186008, "oscaar20186008");
             if(us!=null)
                 System.out.println(us.getCodigoPUCP()+ "  " + us.getNombre()+ " - " + formato.format(us.getFechaNacimiento()));
-            else System.out.println("Usuario no encontrado");
             
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
