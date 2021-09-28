@@ -16,7 +16,7 @@ import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
  *
  * @author Admin
  */
-public class Principal_Evento_Material {
+public class Principal_Evento {
     public static void main(String[] args) {
         /*SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
         Evento e1=null;
