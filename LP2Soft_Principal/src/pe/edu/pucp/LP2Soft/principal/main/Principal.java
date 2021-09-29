@@ -15,12 +15,6 @@ import pe.edu.pucp.LP2Soft.controller.dao.GestUsuarios.UsuarioDAO;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestUsuarios.UsuarioMySQL;
 public class Principal {
     public static void main(String[] args) {
-
-        Curso c1 = new Curso("INF239","Sistemas Operativos",4.0f,
-        "Informática",7,"Curso Complejo",0.0f,0);
-        CursoDAO daoCurso = new CursoMySQL();
-        daoCurso.insertar(c1);
-        System.out.println("Salida con exito");
         SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
         try {
             // Insertar
