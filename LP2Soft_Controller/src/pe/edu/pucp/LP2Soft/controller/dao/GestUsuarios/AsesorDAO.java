@@ -11,5 +11,4 @@ public interface AsesorDAO {
     int modificar(Asesor a);
     int eliminar(int idAsesor);
     ArrayList<Asesor> listarTodos();
-    Asesor mostrar(int idAsesor, String password);
 }
