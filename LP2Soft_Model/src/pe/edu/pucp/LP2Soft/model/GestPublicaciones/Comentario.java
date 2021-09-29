@@ -12,7 +12,9 @@ public class Comentario {
     private boolean activo;
     
     private Usuario usuario;
+    private Post post;
     // Constructor
+    public Comentario() {}
     public Comentario(Usuario usuario, String comentario) {
         this.comentario = comentario;
         this.fechaRegistro = new Date();
@@ -32,11 +34,17 @@ public class Comentario {
     public Usuario getUsuario() {
         return usuario;
     }
+    public Post getPost() {
+        return post;
+    }
     //Setters
     public void setIdComentario(int idComentario) {
         this.idComentario = idComentario;
     }
     public void setComentario(String comentario) {
         this.comentario = comentario;
+    }
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 }
