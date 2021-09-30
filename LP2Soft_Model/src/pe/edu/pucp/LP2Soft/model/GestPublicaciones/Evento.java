@@ -6,13 +6,14 @@ import java.util.Date;
 
 public class Evento extends Post{
     //private int idEvento; 
-    //private String descripcion;
+    private String nombreDelEvento;
     private Date fechaDelEvento;
     private String nombreArchivo;
     private byte[] archivo;
     // Constructor
-    public Evento(Date fechaDelEvento,String nombreArchivo,String comentarioPost,int prioridad) {
+    public Evento(String nombreDelEvento,Date fechaDelEvento,String nombreArchivo,String comentarioPost,int prioridad) {
         super(comentarioPost,prioridad);
+        this.nombreDelEvento=nombreDelEvento;
         this.fechaDelEvento = fechaDelEvento;
         this.nombreArchivo = nombreArchivo;
         //this.descripcion = descripcion;
@@ -28,9 +29,6 @@ public class Evento extends Post{
         return archivo;
     }
 
-    /*public String getDescripcion() {
-        return descripcion;
-    }*/
     // Setters
     public void setFechaDelEvento(Date fechaDelEvento) {
         this.fechaDelEvento = fechaDelEvento;
@@ -38,9 +36,14 @@ public class Evento extends Post{
     public void setArchivo(byte[] archivo) {
         this.archivo = archivo;
     }
-    /*public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }*/
+
+    public String getNombreDelEvento() {
+        return nombreDelEvento;
+    }
+
+    public void setNombreDelEvento(String nombreDelEvento) {
+        this.nombreDelEvento = nombreDelEvento;
+    }
 
     /*public int getIdEvento() {
         return idEvento;
