@@ -3,6 +3,7 @@
  */
 package pe.edu.pucp.LP2Soft.controller.mysql.GestCursos;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ public class ProfesorMySQL implements ProfesorDAO{
     Statement st;
     PreparedStatement ps;
     ResultSet rs;
-
+    CallableStatement cs;
     @Override
     public int insertar(Profesor profesor) {
         int resultado = 0;
@@ -28,20 +29,13 @@ public class ProfesorMySQL implements ProfesorDAO{
             //Conexion
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
             //Instruccion SQL
-            st = con.createStatement();
-            String instruccion = "INSERT INTO profesor(idProfesor,nombre,correo,descripcion,"
-                    + "activo) "
-                    + "VALUES(?,?,?,?,1)";
-            ps = con.prepareStatement(instruccion);        
-            //////////////////////////////////////
-            ps = con.prepareStatement(instruccion);
-            ps.setInt(1, profesor.getIdProfesor());
-            ps.setString(2, profesor.getNombre());
-            ps.setString(3, profesor.getCorreo());
-            ps.setString(4, profesor.getDescripcion());
-            resultado = ps.executeUpdate();
-            
-                    
+            cs = con.prepareCall("{call INSERTAR_PROFESOR(?,?,?,?)}");
+            cs.registerOutParameter("_idProfesor",java.sql.Types.INTEGER);
+            cs.setString("_nombre",profesor.getNombre());
+            cs.setString("_correo",profesor.getCorreo());
+            cs.setString("_descripcion",profesor.getDescripcion());
+            cs.executeUpdate();
+            profesor.setidProfesor(cs.getInt("_idProfesor"));
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }finally{
@@ -51,7 +45,7 @@ public class ProfesorMySQL implements ProfesorDAO{
                 System.out.println(ex.getMessage());
             }
             try{
-                st.close();
+                cs.close();
             }catch(Exception ex){
                 System.out.println(ex.getMessage());
             }
@@ -66,13 +60,13 @@ public class ProfesorMySQL implements ProfesorDAO{
             Class.forName("com.mysql.cj.jdbc.Driver");
             //Conexion
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
-            String instruccion = "UPDATE curso SET nombre = ?, correo = ?,"
-                    + "descripcion=? WHERE codigo=?";
-            ps = con.prepareStatement(instruccion);
-            ps.setString(1, profesor.getNombre());
-            ps.setString(2, profesor.getCorreo());
-            ps.setString(3, profesor.getDescripcion());
-            resultado = ps.executeUpdate();
+            cs = con.prepareCall("{call MODIFICAR_PROFE(?,?,?,?,?)}");
+            cs.setInt("_idProfesor",profesor.getIdProfesor());
+            cs.setString("_nombre",profesor.getNombre());
+            cs.setString("_correo",profesor.getCorreo());
+            cs.setString("_descripcion",profesor.getDescripcion());
+            cs.setDouble("_calificacion",profesor.getCalificacion());
+            resultado = cs.executeUpdate();
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }finally{
@@ -82,7 +76,7 @@ public class ProfesorMySQL implements ProfesorDAO{
                 System.out.println(ex.getMessage());
             }
             try{
-                st.close();
+                cs.close();
             }catch(Exception ex){
                 System.out.println(ex.getMessage());
             }
@@ -91,15 +85,14 @@ public class ProfesorMySQL implements ProfesorDAO{
     }
 
     @Override
-    public int eliminar(int profesor) {
+    public int eliminar(int codigoProfesor) {
         int resultado=0;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
-            String instruccion = "UPDATE activo=0 WHERE idProfesor=?";
-            ps = con.prepareStatement(instruccion);
-            ps.setInt(1,profesor);
-            resultado = ps.executeUpdate();
+            cs = con.prepareCall("{call ELIMINAR_PROFESOR(?)}");
+            cs.setInt("_idProfesor", codigoProfesor);
+            resultado = cs.executeUpdate();
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
@@ -115,23 +108,23 @@ public class ProfesorMySQL implements ProfesorDAO{
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
-            st = con.createStatement();
-            String instruccion = "SELECT * FROM profesor WHERE activo=1";
-            rs = st.executeQuery(instruccion);
+            cs = con.prepareCall("{call LISTAR_PROFESORES()}");
+            rs = cs.executeQuery();
             while(rs.next()) {
-                int codigo = rs.getInt("idProfesor");
+                int idProfesor = rs.getInt("idProfesor");
                 String nombre = rs.getString("nombre");
                 String  correo = rs.getString("correo");
                 String descripcion = rs.getString("descripcion");
-                Profesor profesor = new Profesor(codigo, nombre, correo, descripcion); 
-                        
+                float calificacion = rs.getFloat("calificacion");
+                Profesor profesor = new Profesor(idProfesor, nombre, correo, descripcion); 
                 profesor.setActivo(true);
+                profesor.setCalificacion(calificacion);
                 profesores.add(profesor);
             }
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
-            try {st.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
             try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
         }
         return profesores;
