@@ -28,6 +28,7 @@ public class Profesor{
         this.descripcion = descripcion;
         this.activo = true;
     }
+    public Profesor(){}
     // Getters
     public int getIdProfesor() {
         return idProfesor;
@@ -62,4 +63,11 @@ public class Profesor{
         this.activo = activo;
     }
     
+    public void setidProfesor(int idProfesor){
+        this.idProfesor = idProfesor;
+    }
+    
+    public void setCalificacion(float calificacion){
+        this.calificacion = calificacion;
+    }
 }
