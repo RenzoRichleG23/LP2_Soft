@@ -32,6 +32,6 @@ public class Principal_Curso {
         //System.out.println(curso.getCodigo());
         //curso.setDescripcion("CURSO DE SEPTIMO CICLO DICTADO POR FREDDY PAZ");
        /// daoCurso.modificar(curso);
-       Profesor p1 = new Profesor();
+       //Profesor p1 = new Profesor();
    }
 }

@@ -38,8 +38,7 @@ public class MaterialMySQL implements MaterialDAO{
             
             cs.registerOutParameter("_idPost",java.sql.Types.INTEGER);
             cs.setInt("_fidUsuario",material.getUsuario().getCodigoPUCP());
-            //cs.setInt("_fidCurso",material.getCurso().getIdCurso());
-            cs.setInt("_fidCurso", 1);
+            cs.setString("_fidCurso",material.getCurso().getCodigo());
             cs.setString("_comentarioPost",material.getComentarioPost());
             cs.setInt("_bloqueado", 0);
             cs.setInt("_likes", 0);
@@ -74,7 +73,7 @@ public class MaterialMySQL implements MaterialDAO{
             cs = con.prepareCall("{call MODIFICAR_MATERIAL(?,?,?,?,?)}");
       
             cs.setInt("_idPost",material.getIdPost());
-            cs.setInt("_fidCurso", 1);
+            cs.setString("_fidCurso",material.getCurso().getCodigo());
             cs.setString("_comentarioPost",material.getComentarioPost());
             if(material.getBloqueado()==false)
                 cs.setInt("_bloqueado", 0);
@@ -145,8 +144,8 @@ public class MaterialMySQL implements MaterialDAO{
                 material.setFechaRegistro(rs.getDate("fechaRegistro"));
                 material.setActivo(true);
                 Curso curso=new Curso();
-                //necesito en idCurso
-                //...
+                curso.setCodigo(rs.getString("fidCurso"));
+                material.setCurso(curso);
                 material.setNombreArchivo(rs.getString("nombreArchivo"));
                 File file = new File(material.getNombreArchivo());
                 FileOutputStream output = new FileOutputStream(file);

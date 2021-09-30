@@ -21,7 +21,7 @@ public class Principal_Evento {
         /*SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
         Evento e1=null;
         try{
-            e1=new Evento(formato.parse("20-10-2021"),"tallerBD.jpg","Taller de Base de Datos",1);
+            e1=new Evento("Taller de Base de Datos",formato.parse("20-10-2021"),"tallerBD.jpg","Ponente: Rony Cueva",1);
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }
@@ -40,10 +40,10 @@ public class Principal_Evento {
         Evento evento;
         evento=eventos.get(0);
         
-        //evento.setComentarioPost("Fiesta de bienvenida a los cachimbos 2022");
+        //evento.setComentarioPost("Ponente Cesar Aguilera");
       
         //daoEvento.modificar(eventos.get(0));
-        daoEvento.eliminar(evento.getIdPost());
+        //daoEvento.eliminar(evento.getIdPost());*/
         
         System.out.println("Fin");
     }

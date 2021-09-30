@@ -8,6 +8,7 @@ package pe.edu.pucp.LP2Soft.principal.main;
 import java.util.ArrayList;
 import pe.edu.pucp.LP2Soft.controller.dao.GestPublicaciones.MaterialDAO;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestPublicaciones.MaterialMySQL;
+import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
 import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Material;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
@@ -23,6 +24,11 @@ public class Principal_Material {
        
         Usuario usuario = new Usuario();
         usuario.setCodigoPUCP(20216008);
+        
+        Curso curso = new Curso();
+        curso.setCodigo("INF282");
+        
+        m1.setCurso(curso);
          
         m1.setUsuario(usuario);
         
@@ -36,11 +42,11 @@ public class Principal_Material {
         Material material;
         material=materiales.get(0);
         
-        //material.setComentarioPost("PC1-20212-P1");
+        material.setComentarioPost("PC1-20212-P1");
       
-        //daoMaterial.modificar(materiales.get(0));
+        daoMaterial.modificar(materiales.get(0));
         
-        daoMaterial.eliminar(material.getIdPost());
+        //daoMaterial.eliminar(material.getIdPost());
         
         System.out.println("Fin");
     }
