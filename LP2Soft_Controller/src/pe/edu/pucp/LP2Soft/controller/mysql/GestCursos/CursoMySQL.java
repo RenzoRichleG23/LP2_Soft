@@ -33,10 +33,10 @@ public class CursoMySQL implements CursoDAO{
             cs = con.prepareCall("{call INSERTAR_CURSO(?,?,?,?,?,?,?,?)}");
             cs.setString("_idCurso",curso.getCodigo());
             cs.setString("_nombre",curso.getNombre());
-            cs.setString("_descripcion",curso.getDescripcion());
-            cs.setString("_especialidad",curso.getEspecialidad());
             cs.setFloat("_creditos", curso.getCreditos());
+            cs.setString("_especialidad",curso.getEspecialidad());
             cs.setInt("_nivel", curso.getNivel());
+            cs.setString("_descripcion",curso.getDescripcion());
             cs.setFloat("_creditosRequeridos", curso.getCreditosRequeridos());
             cs.setInt("_estado",curso.getEstado());
             cs.executeUpdate();
@@ -102,11 +102,11 @@ public class CursoMySQL implements CursoDAO{
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
             cs = con.prepareCall("{call ELIMINAR_CURSO(?)}");
             cs.setString("_idCurso",codigoCurso);
-            resultado = ps.executeUpdate();
+            resultado = cs.executeUpdate();
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
-            try {ps.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
             try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
         }
         return resultado;    
@@ -121,7 +121,7 @@ public class CursoMySQL implements CursoDAO{
             cs = con.prepareCall("{call LISTAR_CURSOS()}");
             rs = cs.executeQuery();
             while(rs.next()) {
-                String codigo = rs.getString("codigo");
+                String codigo = rs.getString("idCurso");
                 String nombre = rs.getString("nombre");
                 float  creditos = rs.getFloat("creditos");
                 String especialidad = rs.getString("especialidad");
