@@ -18,16 +18,16 @@ public class Principal {
         SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
         try {
             // Insertar
-            Date fechaN = formato.parse("01-01-2000");
-            Usuario u = new Usuario(20216008,"Julanito Gonzales","julanito.g@pucp.edu.pe","Ing. Informática", "julanitoxd", fechaN, "Hola, soy un usuario de pruebas. Soy tu amigo Julanito :D");
+//            Date fechaN = formato.parse("01-01-2000");
+//            Usuario u = new Usuario(20216008,"Julanito Gonzales","julanito.g@pucp.edu.pe","Ing. Informática", "julanitoxd", fechaN, "Hola, soy un usuario de pruebas. Soy tu amigo Julanito :D");
             UsuarioDAO usuarioDao = new UsuarioMySQL();
-            usuarioDao.insertar(u);
+//            usuarioDao.insertar(u);
             // Modificar
-            Date nuevaFecha = formato.parse("25-11-1999");
-            u.setFechaNacimiento(nuevaFecha);
-            usuarioDao.modificar(u);
+//            Date nuevaFecha = formato.parse("25-11-1999");
+//            u.setFechaNacimiento(nuevaFecha);
+//            usuarioDao.modificar(u);
             // Eliminar
-            usuarioDao.eliminar(20216008);
+//            usuarioDao.eliminar(20216008);
             // Listar todos
             ArrayList<Usuario> usuarios = usuarioDao.listarTodos();
             for(Usuario us : usuarios) {

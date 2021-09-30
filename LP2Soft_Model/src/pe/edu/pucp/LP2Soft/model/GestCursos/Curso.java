@@ -81,4 +81,7 @@ public class Curso{
         this.activo = activo;
     }
     
+    public void setCodigo(String codigo){
+        this.codigo = codigo;
+    }
 }

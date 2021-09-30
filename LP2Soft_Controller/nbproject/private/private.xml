@@ -3,9 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/Documents/PUCP/7%20CICLO/LP2/PROYECTO%20INFUNABLES/LP2_Soft/LP2Soft_Controller/src/pe/edu/pucp/LP2Soft/controller/dao/GestPublicaciones/ComentarioDAO.java</file>
             <file>file:/D:/Documents/PUCP/7%20CICLO/LP2/PROYECTO%20INFUNABLES/LP2_Soft/LP2Soft_Controller/src/pe/edu/pucp/LP2Soft/controller/mysql/GestUsuarios/AsesorMySQL.java</file>
             <file>file:/D:/Documents/PUCP/7%20CICLO/LP2/PROYECTO%20INFUNABLES/LP2_Soft/LP2Soft_Controller/src/pe/edu/pucp/LP2Soft/controller/dao/GestUsuarios/AsesorDAO.java</file>
+=======
+            <file>file:/D:/CODE_JAVA/LP2_Soft/LP2Soft_Controller/src/pe/edu/pucp/LP2Soft/controller/dao/GestPublicaciones/ReseniaDAO.java</file>
+            <file>file:/D:/CODE_JAVA/LP2_Soft/LP2Soft_Controller/src/pe/edu/pucp/LP2Soft/controller/mysql/GestPublicaciones/PostMySQL.java</file>
+            <file>file:/D:/CODE_JAVA/LP2_Soft/LP2Soft_Controller/src/pe/edu/pucp/LP2Soft/controller/dao/GestPublicaciones/PostDAO.java</file>
+            <file>file:/D:/CODE_JAVA/LP2_Soft/LP2Soft_Controller/src/pe/edu/pucp/LP2Soft/controller/mysql/GestPublicaciones/ReseniaMySQL.java</file>
+>>>>>>> 401daff8141fccb00658dc0704d9e011e47e0011
         </group>
     </open-files>
 </project-private>
