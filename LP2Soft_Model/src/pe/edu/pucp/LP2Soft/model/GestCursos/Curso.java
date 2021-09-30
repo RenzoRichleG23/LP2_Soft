@@ -84,4 +84,8 @@ public class Curso{
     public void setCodigo(String codigo){
         this.codigo = codigo;
     }
+    
+    public void setDescripcion(String descripcion){
+        this.descripcion = descripcion;
+    }
 }

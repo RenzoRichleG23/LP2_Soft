@@ -28,7 +28,7 @@ public class ReseniaMySQL implements ReseniaDAO{
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
             
-            cs = con.prepareCall("{call INSERTAR_POST(?,?,?,?,?,?,?)}");
+            cs = con.prepareCall("{call INSERTAR_RESENIA(?,?,?,?,?,?,?)}");
             
             cs.registerOutParameter("_id_post", java.sql.Types.INTEGER);
             
@@ -37,7 +37,7 @@ public class ReseniaMySQL implements ReseniaDAO{
             cs.setDate("_fechaRegistro", new java.sql.Date(resenia.getFechaRegistro().getTime()));
             cs.setInt("_fidProfesor", resenia.getProfesor().getIdProfesor());
             cs.setInt("_fidUsuarioReseniado", resenia.getUsuarioReseniado().getCodigoPUCP());
-            cs.setString("_calificacion", resenia.getComentarioPost());
+            cs.setInt("_calificacion", resenia.getCalificacion());
             
             cs.executeUpdate();
             resenia.setIdPost(cs.getInt("_id_post"));
@@ -58,7 +58,7 @@ public class ReseniaMySQL implements ReseniaDAO{
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DBManager.url,DBManager.user,DBManager.password);
             
-            cs = con.prepareCall("{call MODIFICAR_RESENIA(?,?,?,?,?)}");
+            cs = con.prepareCall("{call MODIFICAR_RESENIA(?,?,?,?,?,?)}");
       
             cs.setInt("_idPost", resenia.getIdPost());
             cs.setString("_comentarioPost", resenia.getComentarioPost());
@@ -116,7 +116,7 @@ public class ReseniaMySQL implements ReseniaDAO{
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DBManager.url,DBManager.user,DBManager.password);
-            cs = con.prepareCall("{call LISTAR_POST()}");
+            cs = con.prepareCall("{call LISTAR_RESENIA()}");
             rs = cs.executeQuery();
             while(rs.next()){
                 

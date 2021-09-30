@@ -27,7 +27,15 @@ public class Post {
         this.activo = true;
         this.bloqueado = false;
     }
-    
+    public Post(String comentarioPost, Usuario usuario){
+        this.comentarioPost = comentarioPost;
+        this.likes = 0;
+        this.comentarios = new ArrayList<>();
+        this.fechaRegistro = new Date();
+        this.activo = true;
+        this.bloqueado = false;
+        this.usuario=usuario;
+    }
     public Post(String comentarioPost,int prioridad){
         this.comentarioPost = comentarioPost;
         this.likes = 0;

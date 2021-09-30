@@ -33,7 +33,7 @@ public class EventoMySQL implements EventoDAO{
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DBManager.url,DBManager.user,DBManager.password);
             
-            cs = con.prepareCall("{call INSERTAR_EVENTO(?,?,?,?,?,?,?,?,?,?,?)}");
+            cs = con.prepareCall("{call INSERTAR_EVENTO(?,?,?,?,?,?,?,?,?,?,?,?)}");
             cs.registerOutParameter("_idPost",java.sql.Types.INTEGER);
             cs.setInt("_fidUsuario",evento.getUsuario().getCodigoPUCP());
             cs.setString("_comentarioPost",evento.getComentarioPost());
@@ -42,6 +42,7 @@ public class EventoMySQL implements EventoDAO{
             cs.setInt("_prioridad",evento.getPrioridad());
             cs.setDate("_fechaRegistro",new java.sql.Date(evento.getFechaRegistro().getTime()));
             cs.setInt("_activo", 1);
+            cs.setString("_nombreDelEvento", evento.getNombreDelEvento());
             cs.setDate("_fechaDelEvento",new java.sql.Date(evento.getFechaDelEvento().getTime()));
             cs.setString("_nombreArchivo",evento.getNombreArchivo());
             File file=new File(evento.getNombreArchivo());
@@ -68,7 +69,7 @@ public class EventoMySQL implements EventoDAO{
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DBManager.url,DBManager.user,DBManager.password);
             
-            cs = con.prepareCall("{call MODIFICAR_EVENTO(?,?,?,?,?)}");
+            cs = con.prepareCall("{call MODIFICAR_EVENTO(?,?,?,?,?,?)}");
       
             cs.setInt("_idPost",evento.getIdPost());
             cs.setString("_comentarioPost",evento.getComentarioPost());
@@ -77,6 +78,7 @@ public class EventoMySQL implements EventoDAO{
             else
                 cs.setInt("_bloqueado", 1);
             cs.setInt("_likes", evento.getLikes());
+            cs.setString("_nombreDelEvento", evento.getNombreDelEvento());
             cs.setDate("_fechaDelEvento",new java.sql.Date(evento.getFechaDelEvento().getTime()));
             /*File file=new File(evento.getNombreArchivo());
             FileInputStream input = new FileInputStream(file);
@@ -140,6 +142,7 @@ public class EventoMySQL implements EventoDAO{
                 evento.setPrioridad(rs.getInt("prioridad"));
                 evento.setFechaRegistro(rs.getDate("fechaRegistro"));
                 evento.setActivo(true);
+                evento.setNombreDelEvento(rs.getString("nombreDelEvento"));
                 evento.setFechaDelEvento(rs.getDate("fechaDelEvento"));
                 evento.setNombreArchivo(rs.getString("nombreArchivo"));
                 File file = new File(evento.getNombreArchivo());

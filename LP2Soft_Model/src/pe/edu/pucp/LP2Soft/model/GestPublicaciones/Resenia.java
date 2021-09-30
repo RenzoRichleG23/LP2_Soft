@@ -11,13 +11,15 @@ public class Resenia extends Post{
     private int calificacion;
     private Usuario usuarioReseniado;
     private Profesor profesor;
+    private String comentarioPost;
     // Constructor
     public Resenia(){}
-    public Resenia(int calificacion, Usuario usuarioReseniado, String comentarioPost, Profesor profesor) {
-        super(comentarioPost);
+    public Resenia(Usuario usuario,int calificacion, Usuario usuarioReseniado, String comentarioPost, Profesor profesor) {
+        super(comentarioPost, usuario);
         this.usuarioReseniado = usuarioReseniado;
         this.calificacion = calificacion;
         this.profesor = profesor;
+  
     }
     // Getters
     public int getCalificacion() {
