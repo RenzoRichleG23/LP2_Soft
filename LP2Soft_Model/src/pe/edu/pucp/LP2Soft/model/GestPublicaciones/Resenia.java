@@ -2,24 +2,22 @@
  * @author INFunables Group
  */
 package pe.edu.pucp.LP2Soft.model.GestPublicaciones;
+import pe.edu.pucp.LP2Soft.model.GestCursos.Profesor;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
 public class Resenia extends Post{
 
-    /**
-     * @param usuarioReseniado the usuarioReseniado to set
-     */
-    public void setUsuarioReseniado(Usuario usuarioReseniado) {
-        this.usuarioReseniado = usuarioReseniado;
-    }
+    
     private int calificacion;
     private Usuario usuarioReseniado;
+    private Profesor profesor;
     // Constructor
     public Resenia(){}
-    public Resenia(int calificacion, Usuario usuarioReseniado, String comentarioPost) {
+    public Resenia(int calificacion, Usuario usuarioReseniado, String comentarioPost, Profesor profesor) {
         super(comentarioPost);
         this.usuarioReseniado = usuarioReseniado;
         this.calificacion = calificacion;
+        this.profesor = profesor;
     }
     // Getters
     public int getCalificacion() {
@@ -32,5 +30,25 @@ public class Resenia extends Post{
     // Setters
     public void setCalificacion(int calificacion) {
         this.calificacion = calificacion;
+    }
+    /*  
+     * @param usuarioReseniado the usuarioReseniado to set
+     */
+    public void setUsuarioReseniado(Usuario usuarioReseniado) {
+        this.usuarioReseniado = usuarioReseniado;
+    }
+
+    /**
+     * @return the profesor
+     */
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    /**
+     * @param profesor the profesor to set
+     */
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
     }
 }
