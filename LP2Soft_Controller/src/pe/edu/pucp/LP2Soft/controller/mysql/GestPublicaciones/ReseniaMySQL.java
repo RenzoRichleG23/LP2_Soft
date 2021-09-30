@@ -140,7 +140,7 @@ public class ReseniaMySQL implements ReseniaDAO{
                 //ahora lo de resenia 
                 
                 Profesor profe = new Profesor();
-                profe.setIdProfesor(rs.getInt("fidProfesor"));
+                profe.setidProfesor(rs.getInt("fidProfesor"));
                 Usuario usuarioReseniado = new Usuario();
                 usuarioReseniado.setCodigoPUCP(rs.getInt("fidUsuarioReseniado"));
                 resenia.setProfesor(profe);

@@ -3,6 +3,7 @@
  */
 package pe.edu.pucp.LP2Soft.controller.mysql.GestCursos;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -20,6 +21,7 @@ public class CursoMySQL implements CursoDAO{
     Statement st;
     PreparedStatement ps;
     ResultSet rs;
+    CallableStatement cs;
     @Override
     public int insertar(Curso curso) {
         int resultado = 0;
@@ -28,22 +30,17 @@ public class CursoMySQL implements CursoDAO{
             //Conexion
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
             //Instruccion SQL
-            st = con.createStatement();
-            String instruccion = "INSERT INTO curso(codigo,nombre,creditos,especialidad,nivel,"
-                    + "descripcion,creditosRequeridos,estado,activo) "
-                    + "VALUES(?,?,?,?,?,?,?,?,1)";
-            ps = con.prepareStatement(instruccion);        
-            //////////////////////////////////////
-            ps = con.prepareStatement(instruccion);
-            ps.setString(1, curso.getCodigo());
-            ps.setString(2, curso.getNombre());
-            ps.setFloat(3, curso.getCreditos());
-            ps.setString(4, curso.getEspecialidad());
-            ps.setInt(5, curso.getNivel());
-            ps.setString(6, curso.getDescripcion());
-            ps.setFloat(7,curso.getCreditosRequeridos());
-            ps.setInt(8, curso.getEstado());
-            resultado = ps.executeUpdate();
+            cs = con.prepareCall("{call INSERTAR_CURSO(?,?,?,?,?,?,?,?)}");
+            cs.setString("_idCurso",curso.getCodigo());
+            cs.setString("_nombre",curso.getNombre());
+            cs.setString("_descripcion",curso.getDescripcion());
+            cs.setString("_especialidad",curso.getEspecialidad());
+            cs.setFloat("_creditos", curso.getCreditos());
+            cs.setInt("_nivel", curso.getNivel());
+            cs.setFloat("_creditosRequeridos", curso.getCreditosRequeridos());
+            cs.setInt("_estado",curso.getEstado());
+            cs.executeUpdate();
+            resultado = cs.executeUpdate();
             
                     
         }catch(Exception ex){
@@ -55,7 +52,7 @@ public class CursoMySQL implements CursoDAO{
                 System.out.println(ex.getMessage());
             }
             try{
-                st.close();
+                cs.close();
             }catch(Exception ex){
                 System.out.println(ex.getMessage());
             }
@@ -70,17 +67,16 @@ public class CursoMySQL implements CursoDAO{
             Class.forName("com.mysql.cj.jdbc.Driver");
             //Conexion
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
-            String instruccion = "UPDATE curso SET nombre = ?, creditos = ?,"
-                    + "especialidad = ?, nivel=?, descripcion=?, creditosRequeridos=?, estado=? WHERE codigo=?";
-            ps = con.prepareStatement(instruccion);
-            ps.setString(1, curso.getNombre());
-            ps.setFloat(2, curso.getCreditos());
-            ps.setString(3, curso.getEspecialidad());
-            ps.setInt(4, curso.getNivel());
-            ps.setString(5, curso.getDescripcion());
-            ps.setFloat(6,curso.getCreditosRequeridos());
-            ps.setInt(7, curso.getEstado());
-            resultado = ps.executeUpdate();
+            cs = con.prepareCall("{call MODIFICAR_CURSO(?,?,?,?,?,?,?,?)}");
+            cs.setString("_idCurso",curso.getCodigo());
+            cs.setString("_nombre",curso.getNombre());
+            cs.setString("_descripcion",curso.getDescripcion());
+            cs.setString("_especialidad",curso.getEspecialidad());
+            cs.setFloat("_creditos", curso.getCreditos());
+            cs.setInt("_nivel", curso.getNivel());
+            cs.setFloat("_creditosRequeridos", curso.getCreditosRequeridos());
+            cs.setInt("_estado",curso.getEstado());
+            resultado = cs.executeUpdate();
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }finally{
@@ -90,7 +86,7 @@ public class CursoMySQL implements CursoDAO{
                 System.out.println(ex.getMessage());
             }
             try{
-                st.close();
+                cs.close();
             }catch(Exception ex){
                 System.out.println(ex.getMessage());
             }
@@ -99,14 +95,13 @@ public class CursoMySQL implements CursoDAO{
     }
 
     @Override
-    public int eliminar(int codigo) {
+    public int eliminar(String codigoCurso) {
         int resultado=0;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
-            String instruccion = "UPDATE activo=0 WHERE codigo=?";
-            ps = con.prepareStatement(instruccion);
-            ps.setInt(1, codigo);
+            cs = con.prepareCall("{call ELIMINAR_CURSO(?)}");
+            cs.setString("_idCurso",codigoCurso);
             resultado = ps.executeUpdate();
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
@@ -123,9 +118,8 @@ public class CursoMySQL implements CursoDAO{
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
-            st = con.createStatement();
-            String instruccion = "SELECT * FROM curso WHERE activo=1";
-            rs = st.executeQuery(instruccion);
+            cs = con.prepareCall("{call LISTAR_CURSOS()}");
+            rs = cs.executeQuery();
             while(rs.next()) {
                 String codigo = rs.getString("codigo");
                 String nombre = rs.getString("nombre");
@@ -143,7 +137,7 @@ public class CursoMySQL implements CursoDAO{
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
-            try {st.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
             try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
         }
         return cursos;
