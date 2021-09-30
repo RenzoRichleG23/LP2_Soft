@@ -31,7 +31,7 @@ public class ComentarioMySQL implements ComentarioDAO{
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
-            cs = con.prepareCall("{call INSERTAR_COMENTARIO(?,?,?,?,?,?,?,?,?)}");
+            cs = con.prepareCall("{call INSERTAR_COMENTARIO(?,?,?,?,?)}");
             cs.registerOutParameter("_idComentario", java.sql.Types.INTEGER);
             cs.setInt("_fidPost", comment.getPost().getIdPost());  
             cs.setInt("_fidUsuario", comment.getUsuario().getCodigoPUCP());
@@ -92,7 +92,7 @@ public class ComentarioMySQL implements ComentarioDAO{
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
-            cs = con.prepareCall("{call LISTAR_USUARIOS(?)}");
+            cs = con.prepareCall("{call LISTAR_COMENTARIOS(?)}");
             cs.setInt("_idPost", idPost);
             rs = cs.executeQuery();
             while(rs.next()) {
@@ -101,6 +101,7 @@ public class ComentarioMySQL implements ComentarioDAO{
                 Date fechaRegistro = rs.getDate("fechaRegistro");
 
                 Comentario comment = new Comentario();
+                comment.setIdComentario(idComentario);
                 comment.setComentario(coment);
                 comment.setFechaRegistro(fechaRegistro);
                 comentarios.add(comment);

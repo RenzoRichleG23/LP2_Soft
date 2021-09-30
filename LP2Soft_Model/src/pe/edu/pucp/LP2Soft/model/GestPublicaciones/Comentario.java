@@ -47,4 +47,8 @@ public class Comentario {
     public void setFechaRegistro(Date fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
 }
