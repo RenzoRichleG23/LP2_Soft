@@ -27,3 +27,8 @@ hs_err_pid*
 /LP2Soft_Model/dist/
 /LP2Soft_Controller/dist/
 /LP2Soft_Principal/dist/
+/LP2Soft_Principal/nbproject/private
+/LP2Soft_Model/nbproject/private
+/LP2Soft_Controller/nbproject/private
+!/LP2Soft_Principal/src/pe/edu/pucp/LP2Soft/principal/lib/mysql-connector-java-8.0.26.jar
+!/LP2Soft_Controller/src/pe/edu/pucp/LP2Soft/controller/lib/mysql-connector-java-8.0.26.jar
