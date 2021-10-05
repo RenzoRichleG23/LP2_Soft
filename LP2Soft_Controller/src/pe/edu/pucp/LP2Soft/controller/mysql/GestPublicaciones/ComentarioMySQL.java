@@ -9,11 +9,11 @@ import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Comentario;
 import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Post;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
-import java.sql.Connection; // No confundir
-import java.sql.ResultSet; // No confundir
-import java.sql.PreparedStatement; // No confundir
-import java.sql.Statement; // No confundir
-import java.sql.DriverManager;  // No confundir
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.DriverManager;
 import java.sql.CallableStatement;
 import java.util.Date;
 import pe.edu.pucp.LP2Soft.controller.config.DBManager;

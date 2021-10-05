@@ -7,13 +7,14 @@ import java.util.ArrayList;
 import pe.edu.pucp.LP2Soft.controller.dao.GestUsuarios.AsesorDAO;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Asesor;
 
-import java.sql.Connection; // No confundir
-import java.sql.ResultSet; // No confundir
-import java.sql.PreparedStatement; // No confundir
-import java.sql.Statement; // No confundir
-import java.sql.DriverManager;  // No confundir
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.DriverManager;
 import java.sql.CallableStatement;
 import pe.edu.pucp.LP2Soft.controller.config.DBManager;
+import pe.edu.pucp.LP2Soft.model.GestUsuarios.Ubicacion;
 
 public class AsesorMySQL implements AsesorDAO{
     Connection con;
@@ -94,9 +95,8 @@ public class AsesorMySQL implements AsesorDAO{
             rs = cs.executeQuery();
             while(rs.next()) {
                 float precioPorHora = rs.getFloat("precioPorHora");
-                //String ubicacion = rs.getString("ubicacion");
-
                 Asesor asesor = new Asesor();
+                asesor.setUbicacion(Ubicacion.valueOf(rs.getString("ubicacion")));
                 asesor.setPrecioPorHora(precioPorHora);
                 asesores.add(asesor);
             }
