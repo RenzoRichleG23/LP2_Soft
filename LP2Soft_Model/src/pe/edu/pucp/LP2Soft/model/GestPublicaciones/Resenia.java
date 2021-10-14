@@ -11,7 +11,6 @@ public class Resenia extends Post{
     private int calificacion;
     private Usuario usuarioReseniado;
     private Profesor profesor;
-    private String comentarioPost;
     // Constructor
     public Resenia(){}
     public Resenia(Usuario usuario,int calificacion, Usuario usuarioReseniado, String comentarioPost, Profesor profesor) {

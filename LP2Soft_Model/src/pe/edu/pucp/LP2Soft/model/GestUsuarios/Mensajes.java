@@ -16,5 +16,5 @@ public class Mensajes {
     private Usuario usuarioMensajeado;
     private Usuario usuarioMensajeador;
     private String contenido;
-    private Date fecha;
+    private Date fechayHora;
 }
