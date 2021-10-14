@@ -11,7 +11,7 @@ public class Post {
     private int likes;
     private int prioridad;
     private Date fechaRegistro;
-    private String comentarioPost;
+    private String contenido;
     private boolean bloqueado;
     private boolean activo;
     
@@ -20,7 +20,7 @@ public class Post {
     // Constructor
     
     public Post(String comentarioPost){
-        this.comentarioPost = comentarioPost;
+        this.contenido = comentarioPost;
         this.likes = 0;
         this.comentarios = new ArrayList<>();
         this.fechaRegistro = new Date();
@@ -28,7 +28,7 @@ public class Post {
         this.bloqueado = false;
     }
     public Post(String comentarioPost, Usuario usuario){
-        this.comentarioPost = comentarioPost;
+        this.contenido = comentarioPost;
         this.likes = 0;
         this.comentarios = new ArrayList<>();
         this.fechaRegistro = new Date();
@@ -37,7 +37,7 @@ public class Post {
         this.usuario=usuario;
     }
     public Post(String comentarioPost,int prioridad){
-        this.comentarioPost = comentarioPost;
+        this.contenido = comentarioPost;
         this.likes = 0;
         this.prioridad = prioridad;
         this.comentarios = new ArrayList<>();
@@ -49,9 +49,7 @@ public class Post {
     public Post(){}
     
     // Getters
-    public String getComentarioPost() {
-        return comentarioPost;
-    }
+
     public int getLikes() {
         return likes;
     }
@@ -71,9 +69,6 @@ public class Post {
         return idPost;
     }
     // Setters
-    public void setComentarioPost(String comentarioPost) {
-        this.comentarioPost = comentarioPost;
-    }
     public void setLikes(int likes) {
         this.likes = likes;
     }
@@ -110,6 +105,14 @@ public class Post {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public String getContenido() {
+        return contenido;
+    }
+
+    public void setContenido(String contenido) {
+        this.contenido = contenido;
     }
     
 }

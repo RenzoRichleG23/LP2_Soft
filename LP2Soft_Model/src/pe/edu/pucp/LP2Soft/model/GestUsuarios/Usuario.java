@@ -12,24 +12,25 @@ import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Evento;
 public class Usuario {
     private int codigoPUCP;
     private String nombre;
+    private String apellido; //
     private String correo;
     private String especialidad;
     private String contrasenia;
     private String descripcion;
     private Date fechaNacimiento;
     private byte[] foto;
+    private byte[] portada; //
     private float creditosTotales;
     private boolean activo;
     private boolean esAsesor;
     private boolean esAdmin;
     
-    private Asesor asesor; // Agregación
+    private Asesor asesor;
     private ArrayList<Post> posts;
     private ArrayList<Curso> cursosAprobados;
     private ArrayList<Usuario> amigos;
     private ArrayList<Resenia> resenias;
-    private ArrayList<Evento> fechas;   // Cómo lo implementamos?
-    
+    private ArrayList<Evento> eventosAgendados; // eventos a los que dije que iré
     
     // Constructor
     public Usuario() {}
@@ -142,9 +143,9 @@ public class Usuario {
         this.esAdmin = esAdmin;
     }
     // métodos
-    public void seraAsesor(float precioxHora, Ubicacion ubicacion) {
+    public void seraAsesor(float precioxHora) {
         this.esAsesor = true;
-        this.asesor = new Asesor(precioxHora, ubicacion);
+        this.asesor = new Asesor(precioxHora);
         
     }
 }

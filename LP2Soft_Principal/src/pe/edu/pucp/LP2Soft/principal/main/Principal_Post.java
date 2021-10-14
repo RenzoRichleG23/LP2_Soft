@@ -34,7 +34,7 @@ public class Principal_Post {
         
         
         //modificar
-        ej1.setComentarioPost("Medio Evento");
+        ej1.setContenido("Medio Evento");
         ej1.setIdPost(11);
         //daoP.meodificar(ej1);
         
@@ -47,7 +47,7 @@ public class Principal_Post {
         ArrayList<Post> posts;
         posts = daoP.listarTodos();
         
-        System.out.println(posts.get(3).getComentarioPost());
+        System.out.println(posts.get(3).getContenido());
     }
     
 }

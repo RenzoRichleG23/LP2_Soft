@@ -14,7 +14,6 @@ import java.sql.Statement;
 import java.sql.DriverManager;
 import java.sql.CallableStatement;
 import pe.edu.pucp.LP2Soft.controller.config.DBManager;
-import pe.edu.pucp.LP2Soft.model.GestUsuarios.Ubicacion;
 
 public class AsesorMySQL implements AsesorDAO{
     Connection con;
@@ -29,11 +28,10 @@ public class AsesorMySQL implements AsesorDAO{
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
-            cs = con.prepareCall("{call INSERTAR_ASESOR(?,?,?,?)}");
+            cs = con.prepareCall("{call INSERTAR_ASESOR(?,?,?)}");
             cs.registerOutParameter("_idAsesor", java.sql.Types.INTEGER);
             cs.setFloat("_calificacion", a.getCalificacion());
             cs.setFloat("_precioPorHora", a.getPrecioPorHora());
-            cs.setString("_ubicacion", String.valueOf(a.getUbicacion()));
             cs.executeUpdate();
             resultado = cs.getInt("_idAsesor");
         } catch(Exception ex) {
@@ -51,11 +49,10 @@ public class AsesorMySQL implements AsesorDAO{
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
-            cs = con.prepareCall("{call MODIFICAR_ASESOR(?,?,?,?)}");
+            cs = con.prepareCall("{call MODIFICAR_ASESOR(?,?,?)}");
             cs.setInt("_idAsesor", a.getIdAsesor());
             cs.setFloat("_calificacion", a.getCalificacion());
             cs.setFloat("_precioPorHora",a.getPrecioPorHora());
-            cs.setString("_ubicacion", String.valueOf(a.getUbicacion()));
             resultado = cs.executeUpdate();
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
@@ -96,7 +93,6 @@ public class AsesorMySQL implements AsesorDAO{
             while(rs.next()) {
                 float precioPorHora = rs.getFloat("precioPorHora");
                 Asesor asesor = new Asesor();
-                asesor.setUbicacion(Ubicacion.valueOf(rs.getString("ubicacion")));
                 asesor.setPrecioPorHora(precioPorHora);
                 asesores.add(asesor);
             }

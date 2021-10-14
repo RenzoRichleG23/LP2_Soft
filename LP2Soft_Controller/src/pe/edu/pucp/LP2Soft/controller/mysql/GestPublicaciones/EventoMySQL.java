@@ -36,7 +36,7 @@ public class EventoMySQL implements EventoDAO{
             cs = con.prepareCall("{call INSERTAR_EVENTO(?,?,?,?,?,?,?,?,?,?,?,?)}");
             cs.registerOutParameter("_idPost",java.sql.Types.INTEGER);
             cs.setInt("_fidUsuario",evento.getUsuario().getCodigoPUCP());
-            cs.setString("_comentarioPost",evento.getComentarioPost());
+            cs.setString("_comentarioPost",evento.getContenido());
             cs.setInt("_bloqueado", 0);
             cs.setInt("_likes", 0);
             cs.setInt("_prioridad",evento.getPrioridad());
@@ -72,7 +72,7 @@ public class EventoMySQL implements EventoDAO{
             cs = con.prepareCall("{call MODIFICAR_EVENTO(?,?,?,?,?,?)}");
       
             cs.setInt("_idPost",evento.getIdPost());
-            cs.setString("_comentarioPost",evento.getComentarioPost());
+            cs.setString("_comentarioPost",evento.getContenido());
             if(evento.getBloqueado()==false)
                 cs.setInt("_bloqueado", 0);
             else
@@ -133,7 +133,7 @@ public class EventoMySQL implements EventoDAO{
                 Usuario usuario=new Usuario();
                 usuario.setCodigoPUCP(rs.getInt("fidUsuario"));
                 evento.setUsuario(usuario);
-                evento.setComentarioPost(rs.getString("comentarioPost"));
+                evento.setContenido(rs.getString("comentarioPost"));
                 if(rs.getInt("bloqueado")==1)
                     evento.setBloqueado(true);
                 else

@@ -4,11 +4,15 @@
 package pe.edu.pucp.LP2Soft.model.GestPublicaciones;
 
 import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
+import pe.edu.pucp.LP2Soft.model.GestCursos.Profesor;
 
 public class Material extends Post {
     private byte[] archivo;
     private String nombreArchivo;
     private Curso curso;
+    private int cantidadCalificaiones;
+    private int sumatoriaCalificaiones;
+    private Profesor profesor;
     // Constructor
     public Material(byte[] archivo, String comentarioPost) {
         super(comentarioPost);

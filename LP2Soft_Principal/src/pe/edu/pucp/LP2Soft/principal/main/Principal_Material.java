@@ -42,7 +42,7 @@ public class Principal_Material {
         Material material;
         material=materiales.get(0);
         
-        material.setComentarioPost("PC1-20212-P1");
+        material.setContenido("PC1-20212-P1");
       
         daoMaterial.modificar(materiales.get(0));
         

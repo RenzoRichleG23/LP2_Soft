@@ -39,7 +39,7 @@ public class MaterialMySQL implements MaterialDAO{
             cs.registerOutParameter("_idPost",java.sql.Types.INTEGER);
             cs.setInt("_fidUsuario",material.getUsuario().getCodigoPUCP());
             cs.setString("_fidCurso",material.getCurso().getCodigo());
-            cs.setString("_comentarioPost",material.getComentarioPost());
+            cs.setString("_comentarioPost",material.getContenido());
             cs.setInt("_bloqueado", 0);
             cs.setInt("_likes", 0);
             cs.setInt("_prioridad",material.getPrioridad());
@@ -74,7 +74,7 @@ public class MaterialMySQL implements MaterialDAO{
       
             cs.setInt("_idPost",material.getIdPost());
             cs.setString("_fidCurso",material.getCurso().getCodigo());
-            cs.setString("_comentarioPost",material.getComentarioPost());
+            cs.setString("_comentarioPost",material.getContenido());
             if(material.getBloqueado()==false)
                 cs.setInt("_bloqueado", 0);
             else
@@ -134,7 +134,7 @@ public class MaterialMySQL implements MaterialDAO{
                 Usuario usuario=new Usuario();
                 usuario.setCodigoPUCP(rs.getInt("fidUsuario"));
                 material.setUsuario(usuario);
-                material.setComentarioPost(rs.getString("comentarioPost"));
+                material.setContenido(rs.getString("comentarioPost"));
                 if(rs.getInt("bloqueado")==1)
                     material.setBloqueado(true);
                 else

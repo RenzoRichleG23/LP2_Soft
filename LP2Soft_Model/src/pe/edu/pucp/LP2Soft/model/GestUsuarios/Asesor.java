@@ -11,14 +11,12 @@ public class Asesor{
     private float precioPorHora;
     private boolean activo;
     
-    private Ubicacion ubicacion;
     private ArrayList<Curso>cursos;
     // Constructor
     public Asesor(){}
-    public Asesor(float precioPorHora, Ubicacion ubicacion){
+    public Asesor(float precioPorHora){
         this.cursos = new ArrayList<>();
         this.precioPorHora = precioPorHora;
-        this.ubicacion = ubicacion;
         this.calificacion = 0;
         this.activo = true;
     }
@@ -35,9 +33,6 @@ public class Asesor{
     public float getPrecioPorHora() {
         return precioPorHora;
     }
-    public Ubicacion getUbicacion() {
-        return ubicacion;
-    }
     public boolean isActivo() {
         return activo;
     }
@@ -51,9 +46,6 @@ public class Asesor{
     }
     public void setPrecioPorHora(float precioPorHora) {
         this.precioPorHora = precioPorHora;
-    }
-    public void setUbicacion(Ubicacion ubicacion) {
-        this.ubicacion = ubicacion;
     }
     public void setActivo(boolean activo) {
         this.activo = activo;

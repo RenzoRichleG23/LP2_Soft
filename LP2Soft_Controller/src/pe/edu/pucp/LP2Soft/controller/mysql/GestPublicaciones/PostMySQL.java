@@ -37,7 +37,7 @@ public class PostMySQL implements PostDAO{
             cs.registerOutParameter("_id_post", java.sql.Types.INTEGER);
             
             cs.setInt("_fidUsuario", post.getUsuario().getCodigoPUCP());
-            cs.setString("_comentarioPost", post.getComentarioPost());
+            cs.setString("_comentarioPost", post.getContenido());
             cs.setDate("_fechaRegistro", new java.sql.Date(post.getFechaRegistro().getTime()));
             
             cs.executeUpdate();
@@ -64,7 +64,7 @@ public class PostMySQL implements PostDAO{
             cs = con.prepareCall("{call MODIFICAR_POST(?,?,?,?,?)}");
       
             cs.setInt("_idPost", post.getIdPost());
-            cs.setString("_comentarioPost", post.getComentarioPost());
+            cs.setString("_comentarioPost", post.getContenido());
             
             if(post.isBloqueado() == true){
                 cs.setInt("_bloqueado", 1);
@@ -129,7 +129,7 @@ public class PostMySQL implements PostDAO{
                 Usuario usuario = new Usuario();
                 usuario.setCodigoPUCP(rs.getInt("fidUsuario"));
                 post.setUsuario(usuario);
-                post.setComentarioPost(rs.getString("comentarioPost"));
+                post.setContenido(rs.getString("comentarioPost"));
                 if(rs.getInt("bloqueado")==1)
                     post.setBloqueado(true);
                 else

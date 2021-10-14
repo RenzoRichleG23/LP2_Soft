@@ -33,7 +33,7 @@ public class ReseniaMySQL implements ReseniaDAO{
             cs.registerOutParameter("_id_post", java.sql.Types.INTEGER);
             
             cs.setInt("_fidUsuario", resenia.getUsuario().getCodigoPUCP());
-            cs.setString("_comentarioPost", resenia.getComentarioPost());
+            cs.setString("_comentarioPost", resenia.getContenido());
             cs.setDate("_fechaRegistro", new java.sql.Date(resenia.getFechaRegistro().getTime()));
             cs.setInt("_fidProfesor", resenia.getProfesor().getIdProfesor());
             cs.setInt("_fidUsuarioReseniado", resenia.getUsuarioReseniado().getCodigoPUCP());
@@ -61,7 +61,7 @@ public class ReseniaMySQL implements ReseniaDAO{
             cs = con.prepareCall("{call MODIFICAR_RESENIA(?,?,?,?,?,?)}");
       
             cs.setInt("_idPost", resenia.getIdPost());
-            cs.setString("_comentarioPost", resenia.getComentarioPost());
+            cs.setString("_comentarioPost", resenia.getContenido());
             
             if(resenia.isBloqueado() == true){
                 cs.setInt("_bloqueado", 1);
@@ -125,7 +125,7 @@ public class ReseniaMySQL implements ReseniaDAO{
                 Usuario usuario = new Usuario();
                 usuario.setCodigoPUCP(rs.getInt("fidUsuario"));
                 resenia.setUsuario(usuario);
-                resenia.setComentarioPost(rs.getString("comentarioPost"));
+                resenia.setContenido(rs.getString("comentarioPost"));
                 if(rs.getInt("bloqueado")==1)
                     resenia.setBloqueado(true);
                 else

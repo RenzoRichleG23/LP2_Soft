@@ -11,7 +11,8 @@ public class Profesor{
     private String correo;
     private String descripcion;
     private float calificacion;
-    private byte[] foto; // Cómo es esto?
+    private byte[] foto; //
+    private byte[] portada; //
     private boolean activo;
     
     private ArrayList<Curso>cursos;
