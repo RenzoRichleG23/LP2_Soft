@@ -5,15 +5,19 @@
 package pe.edu.pucp.LP2Soft.model.GestNotificaciones;
 
 import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Post;
+import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
 public class NotificacionPost extends Notificacion {
     /* Mostrar: Información de "publicacion" */
-    // "nombreUsuario" ha comentado tu publicación "publicación": 1
-    // a "nombreUsuario" le gusta tu publicación "publicación": 1
+    // "usuario2" ha comentado tu publicación "publicación": 1
+    // a "usuario2" le gusta tu publicación "publicación": 1
     private Post publicacion;
     private boolean estaComentado; // true: 1 / false: 0
-    private String nombreUsuario;
+    private Usuario usuario2;
 
+    NotificacionPost() {
+        super.setTipo(4);
+    }
     public Post getPublicacion() {
         return publicacion;
     }
@@ -28,15 +32,14 @@ public class NotificacionPost extends Notificacion {
 
     public void setEstaComentado(boolean estaComentado) {
         this.estaComentado = estaComentado;
+    }   
+
+    public Usuario getUsuario2() {
+        return usuario2;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public void setUsuario2(Usuario usuario2) {
+        this.usuario2 = usuario2;
     }
-
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
-    }
-    
     
 }

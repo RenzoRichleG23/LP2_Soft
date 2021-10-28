@@ -13,6 +13,9 @@ public class NotificacionAmistad extends Notificacion {
     private Usuario amigo;
     private boolean esAmigo; // true: 1 / false: 0
 
+    NotificacionAmistad() {
+        super.setTipo(1);
+    }
     public Usuario getAmigo() {
         return amigo;
     }

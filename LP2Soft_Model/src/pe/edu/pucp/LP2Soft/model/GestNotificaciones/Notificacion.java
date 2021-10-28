@@ -11,7 +11,8 @@ public class Notificacion {
     private Usuario usiarioNotificado;
     private Date fecha;
     private boolean leido;
-
+    private int tipo;
+    
     public Usuario getUsiarioNotificado() {
         return usiarioNotificado;
     }
@@ -34,6 +35,14 @@ public class Notificacion {
 
     public void setLeido(boolean leido) {
         this.leido = leido;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
     
     

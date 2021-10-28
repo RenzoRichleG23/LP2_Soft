@@ -11,6 +11,9 @@ public class NotificacionEvento extends Notificacion {
     // tienes un vento programacdo para hoy: "eventoAgendado"
     private Evento eventoAgendado;
 
+    NotificacionEvento() {
+        super.setTipo(3);
+    }
     public Evento getEventoAgendado() {
         return eventoAgendado;
     }
