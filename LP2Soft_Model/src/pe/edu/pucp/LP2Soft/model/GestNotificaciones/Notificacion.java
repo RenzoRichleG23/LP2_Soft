@@ -7,11 +7,11 @@ package pe.edu.pucp.LP2Soft.model.GestNotificaciones;
 import java.util.Date;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
-public class Notificacion {
+public abstract class Notificacion {
     private Usuario usiarioNotificado;
     private Date fecha;
     private boolean leido;
-    private int tipo;
+    private int tipo; // 1Amistad; 2Curso; 3Evento; 4Post
     
     public Usuario getUsiarioNotificado() {
         return usiarioNotificado;

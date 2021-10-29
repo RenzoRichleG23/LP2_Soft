@@ -15,6 +15,8 @@ public class Resenia extends Post{
     public Resenia(){}
     public Resenia(Usuario usuario,int calificacion, Usuario usuarioReseniado, String comentarioPost, Profesor profesor) {
         super(comentarioPost, usuario);
+        super.setTipo(4);
+        super.setBloqueado(true);
         this.usuarioReseniado = usuarioReseniado;
         this.calificacion = calificacion;
         this.profesor = profesor;

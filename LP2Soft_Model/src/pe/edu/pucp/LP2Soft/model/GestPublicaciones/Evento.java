@@ -13,10 +13,11 @@ public class Evento extends Post{
     // Constructor
     public Evento(String nombreDelEvento,Date fechaDelEvento,String nombreArchivo,String comentarioPost,int prioridad) {
         super(comentarioPost,prioridad);
+        super.setTipo(2);
+        super.setBloqueado(false);
         this.nombreDelEvento=nombreDelEvento;
         this.fechaDelEvento = fechaDelEvento;
         this.nombreArchivo = nombreArchivo;
-        //this.descripcion = descripcion;
     }
     
     public Evento(){}

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
-public class Post {
+public abstract class Post {
     private int idPost;
     private int likes;
     private int prioridad;
@@ -14,6 +14,7 @@ public class Post {
     private String contenido;
     private boolean bloqueado;
     private boolean activo;
+    private int tipo; // 1Generico; 2Evento; 3Material; 4Resenia
     
     private Usuario usuario;
     private ArrayList<Comentario> comentarios;
@@ -25,7 +26,6 @@ public class Post {
         this.comentarios = new ArrayList<>();
         this.fechaRegistro = new Date();
         this.activo = true;
-        this.bloqueado = false;
     }
     public Post(String comentarioPost, Usuario usuario){
         this.contenido = comentarioPost;
@@ -113,6 +113,14 @@ public class Post {
 
     public void setContenido(String contenido) {
         this.contenido = contenido;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
     
 }

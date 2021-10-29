@@ -16,6 +16,8 @@ public class Material extends Post {
     // Constructor
     public Material(byte[] archivo, String comentarioPost) {
         super(comentarioPost);
+        super.setTipo(3);
+        super.setBloqueado(false);
         this.archivo = archivo;
     }
     
