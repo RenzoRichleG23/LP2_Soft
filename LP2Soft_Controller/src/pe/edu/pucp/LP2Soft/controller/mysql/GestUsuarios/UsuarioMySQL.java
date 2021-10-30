@@ -99,28 +99,19 @@ public class UsuarioMySQL implements UsuarioDAO{
     }
 
     @Override
-    public ArrayList<Usuario> listarTodos() {
+    public ArrayList<Usuario> listarNombreCodigo(String nombreCodigo) {
         ArrayList<Usuario> usuarios = new ArrayList<>();
-        boolean resultados=false;
         try {
             con = con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call LISTAR_USUARIOS()}");
+            cs = con.prepareCall("{call LISTAR_USUARIOS_NOMBRECODIGO(?)}");
+            cs.setString("_nombreCodigo", nombreCodigo);
             rs = cs.executeQuery();
             while(rs.next()) {
                 Usuario usuario = new Usuario();
                 usuario.setIdUsuario(rs.getInt("idUsuario"));
                 usuario.setNombre(rs.getString("nombre"));
                 usuario.setApellido(rs.getString("apellido"));
-                usuario.setCodigoPUCP(rs.getString("codigo"));
-                usuario.setEspecialidad(rs.getString("especialidad"));
-                usuario.setContrasenia(rs.getString("contrasenia"));
-                usuario.setCorreo(rs.getString("correo"));
-                usuario.setFechaNacimiento(rs.getDate("fechaNacimiento"));
-                usuario.setDescripcion(rs.getString("descripcion"));
                 usuario.setFoto(rs.getBytes("foto"));
-                usuario.setFoto(rs.getBytes("portada"));
-                if(rs.getInt("esAdmin")==1) usuario.setEsAdmin(true);
-                if(rs.getInt("esAsesor")==1) usuario.setEsAsesor(true);
                 usuarios.add(usuario);
             }
         } catch(Exception ex) {

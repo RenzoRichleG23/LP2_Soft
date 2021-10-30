@@ -4,6 +4,7 @@
 
 package pe.edu.pucp.LP2Soft.services;
 
+import java.util.ArrayList;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -30,5 +31,12 @@ public class UsuariosWS {
     public int insertarUsuario(@WebParam(name = "usuario") Usuario usuario) {
         int resultado = daoUsuario.insertar(usuario);
         return resultado;
+    }
+    
+    @WebMethod(operationName = "listarUsuariosNombreCodigo")
+    public ArrayList<Usuario> listarUsuariosNombreCodigo(@WebParam(name = "nombreCodigo") String nombreCodigo) {
+        ArrayList<Usuario> usuarios = null;
+        usuarios = daoUsuario.listarNombreCodigo(nombreCodigo);
+        return usuarios;
     }
 }

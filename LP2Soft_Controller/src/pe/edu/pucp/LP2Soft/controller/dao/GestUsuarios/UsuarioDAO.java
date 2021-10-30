@@ -11,6 +11,6 @@ public interface UsuarioDAO {
     int insertar(Usuario u);
     int modificar(Usuario u);
     int eliminar(int idUsuario);
-    ArrayList<Usuario> listarTodos();
+    ArrayList<Usuario> listarNombreCodigo(String nombreCodigo);
     Usuario mostrar(String correoCodigo, int isCode);
 }
