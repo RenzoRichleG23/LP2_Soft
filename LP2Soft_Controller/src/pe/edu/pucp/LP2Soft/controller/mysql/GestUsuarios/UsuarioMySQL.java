@@ -109,6 +109,7 @@ public class UsuarioMySQL implements UsuarioDAO{
             while(rs.next()) {
                 Usuario usuario = new Usuario();
                 usuario.setIdUsuario(rs.getInt("idUsuario"));
+                usuario.setCodigoPUCP(rs.getString("codigo"));
                 usuario.setNombre(rs.getString("nombre"));
                 usuario.setApellido(rs.getString("apellido"));
                 usuario.setFoto(rs.getBytes("foto"));
