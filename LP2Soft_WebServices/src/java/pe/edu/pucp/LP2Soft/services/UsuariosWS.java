@@ -20,9 +20,10 @@ public class UsuariosWS {
     }
 
     @WebMethod(operationName = "mostrarUsuario")
-    public Usuario mostrarUsuario(@WebParam(name = "codigoPUCP") int codigoPUCP,
-            @WebParam(name = "password") String password) {
-        Usuario usuario = daoUsuario.mostrar(codigoPUCP, password);
+    public Usuario mostrarUsuario(@WebParam(name = "codigoPUCP") String correoCodigo,
+            @WebParam(name = "password") String password,
+            @WebParam(name = "isCode") int isCode) {
+        Usuario usuario = daoUsuario.mostrar(correoCodigo, password, isCode);
         return usuario;
     }
 }

@@ -30,7 +30,7 @@ public class UsuarioMySQL implements UsuarioDAO{
             con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call INSERTAR_USUARIO(?,?,?,?,?,?,?,?,?)}");
             cs.registerOutParameter("_resultado", java.sql.Types.INTEGER);
-            cs.setInt("_idUsuario", u.getCodigoPUCP());
+//            cs.setInt("_idUsuario", u.getCodigoPUCP());
             cs.setString("_nombre", u.getNombre());
             cs.setString("_correo", u.getCorreo());
             cs.setString("_especialidad", u.getEspecialidad());
@@ -62,7 +62,7 @@ public class UsuarioMySQL implements UsuarioDAO{
         try {
             con = con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call MODIFICAR_USUARIO(?,?,?,?,?,?,?)}");
-            cs.setInt("_idUsuario", u.getCodigoPUCP());
+//            cs.setInt("_idUsuario", u.getCodigoPUCP());
             cs.setString("_nombre", u.getNombre());
             cs.setString("_correo", u.getCorreo());
             cs.setString("_contrasenia", u.getContrasenia());
@@ -106,17 +106,18 @@ public class UsuarioMySQL implements UsuarioDAO{
             cs = con.prepareCall("{call LISTAR_USUARIOS()}");
             rs = cs.executeQuery();
             while(rs.next()) {
-                int codigoPUCP = rs.getInt("idUsuario");
-                String nombre = rs.getString("nombre");
-                String correo = rs.getString("correo");
-                String especialidad = rs.getString("especialidad");
-                String contrasenia = rs.getString("contrasenia");
-                Date fechaNacimiento = rs.getDate("fechaNacimiento");
-                String descripcion = rs.getString("descripcion");
-
-                Usuario usuario = new Usuario(codigoPUCP, nombre, correo, especialidad, 
-                        contrasenia, fechaNacimiento, descripcion);
-                usuario.setActivo(true);
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(rs.getInt("idUsuario"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setApellido(rs.getString("apellido"));
+                usuario.setCodigoPUCP(rs.getString("codigo"));
+                usuario.setEspecialidad(rs.getString("especialidad"));
+                usuario.setContrasenia(rs.getString("contrasenia"));
+                usuario.setCorreo(rs.getString("correo"));
+                usuario.setFechaNacimiento(rs.getDate("fechaNacimiento"));
+                usuario.setDescripcion(rs.getString("descripcion"));
+                usuario.setFoto(rs.getBytes("foto"));
+                usuario.setFoto(rs.getBytes("portada"));
                 if(rs.getInt("esAdmin")==1) usuario.setEsAdmin(true);
                 if(rs.getInt("esAsesor")==1) usuario.setEsAsesor(true);
                 usuarios.add(usuario);
@@ -131,27 +132,29 @@ public class UsuarioMySQL implements UsuarioDAO{
     }
 
     @Override
-    public Usuario mostrar(int codigoPUCP, String password) {
+    public Usuario mostrar(String correoCodigo, String password, int isCode) {
         Usuario usuario = null;
         try {
             con = con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call MOSTRAR_USUARIO(?)}");
-            cs.setInt("_idUsuario", codigoPUCP);
+            cs = con.prepareCall("{call MOSTRAR_USUARIO(?,?)}");
+            cs.setString("_correoCodigo", correoCodigo);
+            cs.setInt("_isCode", isCode);
             rs = cs.executeQuery();
             if(rs.next()) {
                 String contrasenia = rs.getString("contrasenia");
                 if(contrasenia.equals(password)) {
-                    String nombre = rs.getString("nombre");
-                    String correo = rs.getString("correo");
-                    String especialidad = rs.getString("especialidad");
-                    Date fechaNacimiento = rs.getDate("fechaNacimiento");
-                    String descripcion = rs.getString("descripcion");
-                    byte[] foto = rs.getBytes("foto");
-                    usuario = new Usuario(codigoPUCP, nombre, correo, especialidad, 
-                            contrasenia, fechaNacimiento, descripcion);
+                    usuario = new Usuario();
+                    usuario.setIdUsuario(rs.getInt("idUsuario"));
+                    usuario.setNombre(rs.getString("nombre"));
                     usuario.setApellido(rs.getString("apellido"));
-                    usuario.setFoto(foto);
-                    usuario.setActivo(true);
+                    usuario.setCodigoPUCP(rs.getString("codigo"));
+                    usuario.setEspecialidad(rs.getString("especialidad"));
+                    usuario.setContrasenia(contrasenia);
+                    usuario.setCorreo(rs.getString("correo"));
+                    usuario.setFechaNacimiento(rs.getDate("fechaNacimiento"));
+                    usuario.setDescripcion(rs.getString("descripcion"));
+                    usuario.setFoto(rs.getBytes("foto"));
+                    usuario.setFoto(rs.getBytes("portada"));
                     if(rs.getInt("esAdmin")==1) usuario.setEsAdmin(true);
                     if(rs.getInt("esAsesor")==1) usuario.setEsAsesor(true);
                     

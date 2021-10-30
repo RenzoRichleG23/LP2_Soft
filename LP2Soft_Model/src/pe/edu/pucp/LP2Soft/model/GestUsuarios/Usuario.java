@@ -10,16 +10,17 @@ import java.util.Date;
 import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Evento;
 
 public class Usuario {
-    private int codigoPUCP;
+    private int idUsuario;
     private String nombre;
-    private String apellido; //
+    private String codigoPUCP;
+    private String apellido;
     private String correo;
     private String especialidad;
     private String contrasenia;
     private String descripcion;
     private Date fechaNacimiento;
     private byte[] foto;
-    private byte[] portada; //
+    private byte[] portada;
     private float creditosTotales;
     private boolean activo;
     private boolean esAsesor;
@@ -27,35 +28,24 @@ public class Usuario {
     
     private Asesor asesor;
     private ArrayList<Post> posts;
-    private ArrayList<Curso> cursosAprobados;
+    private ArrayList<Curso> cursos;
     private ArrayList<Usuario> amigos;
     private ArrayList<Evento> eventosAgendados; // eventos a los que dije que iré
     
     // Constructor
-    public Usuario() {}
-    public Usuario(int codigoPUCP, String nombre, String correo, String especialidad,
-            String contrasenia, Date fechaNacimiento, String descripcion) {
-        this.codigoPUCP = codigoPUCP;
-        this.nombre = nombre;
-        this.correo = correo;
-        this.especialidad = especialidad;
-        this.contrasenia = contrasenia;
-        this.fechaNacimiento = fechaNacimiento;
-        this.descripcion = descripcion;
+    public Usuario() {
+        this.especialidad = "Ing. Informática";
         this.activo = true;
         this.creditosTotales = 0;
         this.esAsesor = false;
         this.esAdmin = false;
         
-        this.cursosAprobados = new ArrayList<>();
+        this.cursos = new ArrayList<>();
         this.posts = new ArrayList<>();
         this.amigos = new ArrayList<>();
         this.asesor = null; // Agregación
     }
-    // Getters
-    
-    
-    public int getCodigoPUCP() {
+    public String getCodigoPUCP() {
         return codigoPUCP;
     }
     public String getNombre() {
@@ -91,18 +81,11 @@ public class Usuario {
     public ArrayList<Post> getPosts() {
         return posts;
     }
-    public ArrayList<Curso> getCursosAprobados() {
-        return cursosAprobados;
-    }
     public ArrayList<Usuario> getAmigos() {
         return amigos;
     }
     public Asesor getAsesor() {
         return asesor;
-    }
-    // Setters
-    public void setCodigoPUCP(int codigoPUCP) {
-        this.codigoPUCP = codigoPUCP;
     }
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -165,6 +148,42 @@ public class Usuario {
 
     public void setEventosAgendados(ArrayList<Evento> eventosAgendados) {
         this.eventosAgendados = eventosAgendados;
+    }
+
+    public ArrayList<Curso> getCursos() {
+        return cursos;
+    }
+
+    public void setCursos(ArrayList<Curso> cursos) {
+        this.cursos = cursos;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setCodigoPUCP(String codigoPUCP) {
+        this.codigoPUCP = codigoPUCP;
+    }
+
+    public void setAsesor(Asesor asesor) {
+        this.asesor = asesor;
+    }
+
+    public void setPosts(ArrayList<Post> posts) {
+        this.posts = posts;
+    }
+
+    public void setAmigos(ArrayList<Usuario> amigos) {
+        this.amigos = amigos;
     }
     
 }

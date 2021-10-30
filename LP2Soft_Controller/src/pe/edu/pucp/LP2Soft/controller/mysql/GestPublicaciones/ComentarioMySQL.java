@@ -33,7 +33,7 @@ public class ComentarioMySQL implements ComentarioDAO{
             cs = con.prepareCall("{call INSERTAR_COMENTARIO(?,?,?,?,?)}");
             cs.registerOutParameter("_idComentario", java.sql.Types.INTEGER);
             cs.setInt("_fidPost", comment.getPost().getIdPost());  
-            cs.setInt("_fidUsuario", comment.getUsuario().getCodigoPUCP());
+            cs.setInt("_fidUsuario", comment.getUsuario().getIdUsuario());
             cs.setString("_coment", comment.getComentario());
             cs.setDate("_fechaRegistro", new java.sql.Date(comment.getFechaRegistro().getTime()));
             cs.executeUpdate();
