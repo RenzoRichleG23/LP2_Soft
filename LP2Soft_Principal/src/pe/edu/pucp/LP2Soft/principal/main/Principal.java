@@ -19,10 +19,17 @@ public class Principal {
         try {
             // Insertar
             Date fechaN = formato.parse("01-01-2000");
-//            Usuario u = new Usuario(20216008,"Julanito Gonzales","julanito.g@pucp.edu.pe","Ing. Informática", "julanitoxd", fechaN, "Hola, soy un usuario de pruebas. Soy tu amigo Julanito :D");
-            Usuario u2 = new Usuario(20186008,"Oscar Daniel Navarro Cieza","oscar.navarro@pucp.edu.pe","Ing. Informática", "oscar20186008", fechaN, "Hola, soy Oscar! Me gusta el chocolate y la música trap. I love programar!");
+            Usuario u = new Usuario();
+            u.setApellido("Perez");
+            u.setNombre("Juan");
+            u.setContrasenia("juan123");
+            u.setCorreo("juan@pucp.edu.pe");
+            u.setEspecialidad("Ing. Informática");
+            u.setCodigoPUCP("23456789");
+            u.setFechaNacimiento(fechaN);
             UsuarioDAO usuarioDao = new UsuarioMySQL();
-            usuarioDao.insertar(u2);
+            int resultado = usuarioDao.insertar(u);
+            System.out.println("el resultado del insert es:" + resultado);
             // Modificar
 //            Date nuevaFecha = formato.parse("25-11-1999");
 //            u.setFechaNacimiento(nuevaFecha);
@@ -30,10 +37,10 @@ public class Principal {
             // Eliminar
 //            usuarioDao.eliminar(20216008);
             // Listar todos
-            ArrayList<Usuario> usuarios = usuarioDao.listarTodos();
-            for(Usuario us : usuarios) {
-                System.out.println(us.getCodigoPUCP()+ "  " + us.getNombre()+ " - " + formato.format(us.getFechaNacimiento()));
-            }
+//            ArrayList<Usuario> usuarios = usuarioDao.listarTodos();
+//            for(Usuario us : usuarios) {
+//                System.out.println(us.getCodigoPUCP()+ "  " + us.getNombre()+ " - " + formato.format(us.getFechaNacimiento()));
+//            }
             // Mostrar
 //            Usuario us = usuarioDao.mostrar(20186008, "oscaar20186008");
 //            if(us!=null)

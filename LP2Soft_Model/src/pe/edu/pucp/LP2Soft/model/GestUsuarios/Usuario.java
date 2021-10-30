@@ -30,7 +30,7 @@ public class Usuario {
     private ArrayList<Post> posts;
     private ArrayList<Curso> cursos;
     private ArrayList<Usuario> amigos;
-    private ArrayList<Evento> eventosAgendados; // eventos a los que dije que iré
+    private ArrayList<Evento> eventosAgendados;
     
     // Constructor
     public Usuario() {
@@ -43,6 +43,7 @@ public class Usuario {
         this.cursos = new ArrayList<>();
         this.posts = new ArrayList<>();
         this.amigos = new ArrayList<>();
+        this.eventosAgendados = new ArrayList<>();
         this.asesor = null; // Agregación
     }
     public String getCodigoPUCP() {
