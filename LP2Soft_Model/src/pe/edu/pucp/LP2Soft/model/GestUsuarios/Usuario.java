@@ -29,7 +29,6 @@ public class Usuario {
     private ArrayList<Post> posts;
     private ArrayList<Curso> cursosAprobados;
     private ArrayList<Usuario> amigos;
-    private ArrayList<Resenia> resenias;
     private ArrayList<Evento> eventosAgendados; // eventos a los que dije que iré
     
     // Constructor
@@ -51,7 +50,6 @@ public class Usuario {
         this.cursosAprobados = new ArrayList<>();
         this.posts = new ArrayList<>();
         this.amigos = new ArrayList<>();
-        this.resenias = new ArrayList<>();
         this.asesor = null; // Agregación
     }
     // Getters
@@ -99,9 +97,6 @@ public class Usuario {
     public ArrayList<Usuario> getAmigos() {
         return amigos;
     }
-    public ArrayList<Resenia> getResenias() {
-        return resenias;
-    }
     public Asesor getAsesor() {
         return asesor;
     }
@@ -146,6 +141,30 @@ public class Usuario {
     public void seraAsesor(float precioxHora) {
         this.esAsesor = true;
         this.asesor = new Asesor(precioxHora);
-        
     }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public byte[] getPortada() {
+        return portada;
+    }
+
+    public void setPortada(byte[] portada) {
+        this.portada = portada;
+    }
+
+    public ArrayList<Evento> getEventosAgendados() {
+        return eventosAgendados;
+    }
+
+    public void setEventosAgendados(ArrayList<Evento> eventosAgendados) {
+        this.eventosAgendados = eventosAgendados;
+    }
+    
 }

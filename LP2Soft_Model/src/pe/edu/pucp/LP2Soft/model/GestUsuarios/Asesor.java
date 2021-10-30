@@ -5,6 +5,7 @@ package pe.edu.pucp.LP2Soft.model.GestUsuarios;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
 
 import java.util.ArrayList;
+import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Resenia;
 public class Asesor{
     private int idAsesor;
     private float calificacion;
@@ -12,10 +13,13 @@ public class Asesor{
     private boolean activo;
     
     private ArrayList<Curso>cursos;
+    private ArrayList<Resenia> resenias;
+
     // Constructor
     public Asesor(){}
     public Asesor(float precioPorHora){
         this.cursos = new ArrayList<>();
+        this.resenias = new ArrayList<>();
         this.precioPorHora = precioPorHora;
         this.calificacion = 0;
         this.activo = true;

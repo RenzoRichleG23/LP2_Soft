@@ -25,9 +25,7 @@ public class ReseniaMySQL implements ReseniaDAO{
     public int insertar(Resenia resenia) {
     int resultado = 0;
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
-            
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call INSERTAR_RESENIA(?,?,?,?,?,?,?)}");
             
             cs.registerOutParameter("_id_post", java.sql.Types.INTEGER);
@@ -55,9 +53,7 @@ public class ReseniaMySQL implements ReseniaDAO{
     public int meodificar(Resenia resenia) {
         int resultado=0;
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url,DBManager.user,DBManager.password);
-            
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call MODIFICAR_RESENIA(?,?,?,?,?,?)}");
       
             cs.setInt("_idPost", resenia.getIdPost());
@@ -91,9 +87,7 @@ public class ReseniaMySQL implements ReseniaDAO{
     public int eliminar(Resenia resenia) {
         int resultado=0;
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url,DBManager.user,DBManager.password);
-            
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call ELIMINAR_RESENIA(?)}");
       
             cs.setInt("_idPost",resenia.getIdPost());
@@ -114,8 +108,7 @@ public class ReseniaMySQL implements ReseniaDAO{
     public ArrayList<Resenia> listarTodos() {
     ArrayList<Resenia> resenias = new ArrayList<>();
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url,DBManager.user,DBManager.password);
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call LISTAR_RESENIA()}");
             rs = cs.executeQuery();
             while(rs.next()){

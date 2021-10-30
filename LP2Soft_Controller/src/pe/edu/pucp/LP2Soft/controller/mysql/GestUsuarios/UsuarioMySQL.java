@@ -27,8 +27,7 @@ public class UsuarioMySQL implements UsuarioDAO{
     public int insertar(Usuario u) {
         int resultado=0;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call INSERTAR_USUARIO(?,?,?,?,?,?,?,?,?)}");
             cs.registerOutParameter("_resultado", java.sql.Types.INTEGER);
             cs.setInt("_idUsuario", u.getCodigoPUCP());
@@ -61,8 +60,7 @@ public class UsuarioMySQL implements UsuarioDAO{
     public int modificar(Usuario u) {
         int resultado=0;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
+            con = con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call MODIFICAR_USUARIO(?,?,?,?,?,?,?)}");
             cs.setInt("_idUsuario", u.getCodigoPUCP());
             cs.setString("_nombre", u.getNombre());
@@ -86,8 +84,7 @@ public class UsuarioMySQL implements UsuarioDAO{
     public int eliminar(int codigoPUCP) {
         int resultado=0;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
+            con = con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call ELIMINAR_USUARIO(?)}");
             cs.setInt("_idUsuario", codigoPUCP);
             resultado = cs.executeUpdate();
@@ -105,8 +102,7 @@ public class UsuarioMySQL implements UsuarioDAO{
         ArrayList<Usuario> usuarios = new ArrayList<>();
         boolean resultados=false;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
+            con = con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call LISTAR_USUARIOS()}");
             rs = cs.executeQuery();
             while(rs.next()) {
@@ -138,8 +134,7 @@ public class UsuarioMySQL implements UsuarioDAO{
     public Usuario mostrar(int codigoPUCP, String password) {
         Usuario usuario = null;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
+            con = con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call MOSTRAR_USUARIO(?)}");
             cs.setInt("_idUsuario", codigoPUCP);
             rs = cs.executeQuery();
@@ -154,6 +149,7 @@ public class UsuarioMySQL implements UsuarioDAO{
                     byte[] foto = rs.getBytes("foto");
                     usuario = new Usuario(codigoPUCP, nombre, correo, especialidad, 
                             contrasenia, fechaNacimiento, descripcion);
+                    usuario.setApellido(rs.getString("apellido"));
                     usuario.setFoto(foto);
                     usuario.setActivo(true);
                     if(rs.getInt("esAdmin")==1) usuario.setEsAdmin(true);

@@ -26,10 +26,7 @@ public class CursoMySQL implements CursoDAO{
     public int insertar(Curso curso) {
         int resultado = 0;
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            //Conexion
-            con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
-            //Instruccion SQL
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call INSERTAR_CURSO(?,?,?,?,?,?,?,?)}");
             cs.setString("_idCurso",curso.getCodigo());
             cs.setString("_nombre",curso.getNombre());
@@ -64,9 +61,7 @@ public class CursoMySQL implements CursoDAO{
     public int modificar(Curso curso) {
         int resultado = 0;
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            //Conexion
-            con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call MODIFICAR_CURSO(?,?,?,?,?,?,?,?)}");
             cs.setString("_idCurso",curso.getCodigo());
             cs.setString("_nombre",curso.getNombre());
@@ -98,8 +93,7 @@ public class CursoMySQL implements CursoDAO{
     public int eliminar(String codigoCurso) {
         int resultado=0;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call ELIMINAR_CURSO(?)}");
             cs.setString("_idCurso",codigoCurso);
             resultado = cs.executeUpdate();
@@ -116,8 +110,7 @@ public class CursoMySQL implements CursoDAO{
     public ArrayList<Curso> listarTodos() {
         ArrayList<Curso> cursos = new ArrayList<>();
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call LISTAR_CURSOS()}");
             rs = cs.executeQuery();
             while(rs.next()) {

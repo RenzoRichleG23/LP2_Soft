@@ -26,8 +26,7 @@ public class AsesorMySQL implements AsesorDAO{
     public int insertar(Asesor a) {
         int resultado=0;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call INSERTAR_ASESOR(?,?,?)}");
             cs.registerOutParameter("_idAsesor", java.sql.Types.INTEGER);
             cs.setFloat("_calificacion", a.getCalificacion());
@@ -47,8 +46,7 @@ public class AsesorMySQL implements AsesorDAO{
     public int modificar(Asesor a) {
         int resultado=0;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call MODIFICAR_ASESOR(?,?,?)}");
             cs.setInt("_idAsesor", a.getIdAsesor());
             cs.setFloat("_calificacion", a.getCalificacion());
@@ -67,8 +65,7 @@ public class AsesorMySQL implements AsesorDAO{
     public int eliminar(int idAsesor) {
         int resultado=0;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call ELIMINAR_ASESOR(?)}");
             cs.setInt("_idAsesor", idAsesor);
             resultado = cs.executeUpdate();
@@ -86,8 +83,7 @@ public class AsesorMySQL implements AsesorDAO{
         ArrayList<Asesor> asesores = new ArrayList<>();
         boolean resultados=false;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call LISTAR_ASESORES()}");
             rs = cs.executeQuery();
             while(rs.next()) {

@@ -31,9 +31,7 @@ public class MaterialMySQL implements MaterialDAO{
     public int insertar(Material material) {
         int resultado=0;
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url,DBManager.user,DBManager.password);
-            
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call INSERTAR_MATERIAL(?,?,?,?,?,?,?,?,?,?,?)}");
             
             cs.registerOutParameter("_idPost",java.sql.Types.INTEGER);
@@ -67,9 +65,7 @@ public class MaterialMySQL implements MaterialDAO{
     public int modificar(Material material) {
         int resultado=0;
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url,DBManager.user,DBManager.password);
-            
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call MODIFICAR_MATERIAL(?,?,?,?,?)}");
       
             cs.setInt("_idPost",material.getIdPost());
@@ -101,9 +97,7 @@ public class MaterialMySQL implements MaterialDAO{
     public int eliminar(int idMaterial) {
         int resultado=0;
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url,DBManager.user,DBManager.password);
-            
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call ELIMINAR_MATERIAL(?)}");
       
             cs.setInt("_idPost",idMaterial);
@@ -124,8 +118,7 @@ public class MaterialMySQL implements MaterialDAO{
     public ArrayList<Material> listarTodos() {
         ArrayList<Material> materiales = new ArrayList<>();
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url,DBManager.user,DBManager.password);
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call LISTAR_MATERIALES()}");
             rs = cs.executeQuery();
             while(rs.next()){

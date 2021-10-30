@@ -30,9 +30,7 @@ public class EventoMySQL implements EventoDAO{
     public int insertar(Evento evento) {
         int resultado=0;
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url,DBManager.user,DBManager.password);
-            
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call INSERTAR_EVENTO(?,?,?,?,?,?,?,?,?,?,?,?)}");
             cs.registerOutParameter("_idPost",java.sql.Types.INTEGER);
             cs.setInt("_fidUsuario",evento.getUsuario().getCodigoPUCP());
@@ -66,9 +64,7 @@ public class EventoMySQL implements EventoDAO{
     public int modificar(Evento evento) {
         int resultado=0;
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url,DBManager.user,DBManager.password);
-            
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call MODIFICAR_EVENTO(?,?,?,?,?,?)}");
       
             cs.setInt("_idPost",evento.getIdPost());
@@ -100,9 +96,7 @@ public class EventoMySQL implements EventoDAO{
     public int eliminar(int idEvento) {
         int resultado=0;
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url,DBManager.user,DBManager.password);
-            
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call ELIMINAR_EVENTO(?)}");
       
             cs.setInt("_idPost",idEvento);
@@ -123,8 +117,7 @@ public class EventoMySQL implements EventoDAO{
     public ArrayList<Evento> listarTodos() {
         ArrayList<Evento> eventos = new ArrayList<>();
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url,DBManager.user,DBManager.password);
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call LISTAR_EVENTOS()}");
             rs = cs.executeQuery();
             while(rs.next()){

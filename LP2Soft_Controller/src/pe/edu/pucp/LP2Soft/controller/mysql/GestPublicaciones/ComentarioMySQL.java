@@ -29,8 +29,7 @@ public class ComentarioMySQL implements ComentarioDAO{
     public int insertar(Comentario comment) {
         int resultado=0;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call INSERTAR_COMENTARIO(?,?,?,?,?)}");
             cs.registerOutParameter("_idComentario", java.sql.Types.INTEGER);
             cs.setInt("_fidPost", comment.getPost().getIdPost());  
@@ -52,8 +51,7 @@ public class ComentarioMySQL implements ComentarioDAO{
     public int modificar(Comentario comment) {
         int resultado=0;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call MODIFICAR_COMENTARIO(?,?)}");
             cs.setInt("_idComentario", comment.getIdComentario());
             cs.setString("_coment", comment.getComentario());            
@@ -71,8 +69,7 @@ public class ComentarioMySQL implements ComentarioDAO{
     public int eliminar(int idComentario) {
         int resultado=0;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call ELIMINAR_COMENTARIO(?)}");
             cs.setInt("_idComentario", idComentario);
             resultado = cs.executeUpdate();
@@ -90,8 +87,7 @@ public class ComentarioMySQL implements ComentarioDAO{
         ArrayList<Comentario> comentarios = new ArrayList<>();
         boolean resultados=false;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call LISTAR_COMENTARIOS(?)}");
             cs.setInt("_idPost", idPost);
             rs = cs.executeQuery();
