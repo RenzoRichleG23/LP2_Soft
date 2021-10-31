@@ -10,4 +10,6 @@ public class PostGenerico extends Post {
         super.setBloqueado(false);
         super.setTipo(1);
     }
+    
+    public PostGenerico(){}
 }

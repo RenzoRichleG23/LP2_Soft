@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
-public abstract class Post {
+public class Post {
+    //ok
     private int idPost;
     private int likes;
     private int prioridad;
@@ -14,6 +15,8 @@ public abstract class Post {
     private String contenido;
     private boolean bloqueado;
     private boolean activo;
+
+    private int numeroComent;
     private int tipo; // 1Generico; 2Evento; 3Material; 4Resenia
     
     private Usuario usuario;
@@ -123,4 +126,11 @@ public abstract class Post {
         this.tipo = tipo;
     }
     
+    public int getNumeroComent() {
+        return numeroComent;
+    }
+
+    public void setNumeroComent(int numeroComent) {
+        this.numeroComent = numeroComent;
+    }
 }

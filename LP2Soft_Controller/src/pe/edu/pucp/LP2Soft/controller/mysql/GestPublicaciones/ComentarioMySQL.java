@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.DriverManager;
 import java.sql.CallableStatement;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import pe.edu.pucp.LP2Soft.controller.config.DBManager;
 
@@ -35,9 +36,15 @@ public class ComentarioMySQL implements ComentarioDAO{
             cs.setInt("_fidPost", comment.getPost().getIdPost());  
             cs.setInt("_fidUsuario", comment.getUsuario().getIdUsuario());
             cs.setString("_coment", comment.getComentario());
+            
+            SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            Date dt = new Date();
+            comment.setFechaRegistro(formato.parse(formato.format(dt)));
+            
             cs.setDate("_fechaRegistro", new java.sql.Date(comment.getFechaRegistro().getTime()));
             cs.executeUpdate();
-            resultado = cs.getInt("_idComentario");
+            comment.setIdComentario(cs.getInt("_idComentario"));
+            resultado = comment.getIdComentario();
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
