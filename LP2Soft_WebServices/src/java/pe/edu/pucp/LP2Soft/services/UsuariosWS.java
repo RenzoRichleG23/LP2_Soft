@@ -39,4 +39,10 @@ public class UsuariosWS {
         usuarios = daoUsuario.listarNombreCodigo(nombreCodigo);
         return usuarios;
     }
+    
+    @WebMethod(operationName = "modificarUsuario")
+    public int modificarUsuario(@WebParam(name = "usuario") Usuario usuario) {
+        int resultado = daoUsuario.modificar(usuario);
+        return resultado;
+    }
 }
