@@ -39,15 +39,8 @@ public class UsuarioMySQL implements UsuarioDAO{
             cs.setString("_correo", u.getCorreo());
             cs.setString("_especialidad", u.getEspecialidad());
             cs.setString("_contrasenia", u.getContrasenia());
-//            cs.setDate("_fechaNacimiento", new java.sql.Date(u.getFechaNacimiento().getTime())); 
             cs.executeUpdate();
             resultado = cs.getInt("_resultado");
-            // sino sale -10 o -20, fue un registro exitoso y el resultado contiene el id
-//            switch (resultado) {
-//                case -10: System.out.println("Este código ya se encuentra registrado!"); break;
-//                case -20: System.out.println("Este correo ya se encuentra registrado!"); break;
-//                default: break;
-//            }
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
@@ -61,15 +54,16 @@ public class UsuarioMySQL implements UsuarioDAO{
     public int modificar(Usuario u) {
         int resultado=0;
         try {
-            con = con = DBManager.getInstance().getConnection();
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call MODIFICAR_USUARIO(?,?,?,?,?,?,?)}");
-//            cs.setInt("_idUsuario", u.getCodigoPUCP());
+            cs.setInt("_idUsuario", u.getIdUsuario());
             cs.setString("_nombre", u.getNombre());
-            cs.setString("_correo", u.getCorreo());
+            cs.setString("_apellido", u.getApellido());
             cs.setString("_contrasenia", u.getContrasenia());
             cs.setString("_descripcion", u.getDescripcion());
-            cs.setDate("_fechaNacimiento", new java.sql.Date(u.getFechaNacimiento().getTime())); 
+//            cs.setDate("_fechaNacimiento", null); 
             cs.setBytes("_foto", u.getFoto());
+            cs.setBytes("_portada", u.getPortada());
             
             resultado = cs.executeUpdate();
         } catch(Exception ex) {

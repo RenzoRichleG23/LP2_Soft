@@ -20,15 +20,17 @@ public class Principal {
             // Insertar
             Date fechaN = formato.parse("01-01-2000");
             Usuario u = new Usuario();
-            u.setApellido("Perez");
-            u.setNombre("Juan");
-            u.setContrasenia("juan123");
+            u.setIdUsuario(20186098);
+            u.setApellido("Oswald");
+            u.setNombre("Alfonso");
+            u.setContrasenia("alfonso123");
             u.setCorreo("juan@pucp.edu.pe");
             u.setEspecialidad("Ing. Informática");
+            u.setDescripcion("Gaaaaa! Alguien a vista a mi amix Juliana... nahh mejor hago el trabajo o me va a pegar :(");
             u.setCodigoPUCP("23456789");
             u.setFechaNacimiento(fechaN);
             UsuarioDAO usuarioDao = new UsuarioMySQL();
-            int resultado = usuarioDao.insertar(u);
+            int resultado = usuarioDao.modificar(u);
             System.out.println("el resultado del insert es:" + resultado);
             // Modificar
 //            Date nuevaFecha = formato.parse("25-11-1999");
