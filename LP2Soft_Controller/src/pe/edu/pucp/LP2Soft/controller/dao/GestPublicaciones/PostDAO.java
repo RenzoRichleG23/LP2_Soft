@@ -8,7 +8,7 @@ import pe.edu.pucp.LP2Soft.model.GestPublicaciones.PostGenerico;
 
 public interface PostDAO {
     int insertar(PostGenerico post);
-    // int meodificar(Post post);
-    // int eliminar(Post post);
+    int modificar(PostGenerico post);
+    int eliminar(PostGenerico post);
     ArrayList<PostGenerico> listarTodos();
 }
