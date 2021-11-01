@@ -60,63 +60,68 @@ public class PostMySQL implements PostDAO{
         }
         return resultado;
     }
-//
-//    @Override
-//    public int meodificar(Post post) {
-//        int resultado=0;
-//        try{
-//            con = DBManager.getInstance().getConnection();
-//            cs = con.prepareCall("{call MODIFICAR_POST(?,?,?,?,?)}");
-//      
-//            cs.setInt("_idPost", post.getIdPost());
-//            cs.setString("_comentarioPost", post.getContenido());
-//            
+
+    @Override
+    public int modificar(PostGenerico post) {
+        int resultado=0;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call MODIFICAR_POST(?,?,?)}");
+      
+            cs.setInt("_idPost", post.getIdPost());
+            cs.setString("_contenido", post.getContenido());
+            SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            Date dt = new Date();
+            post.setFechaRegistro(formato.parse(formato.format(dt)));
+            
+            cs.setDate("_fechaRegistro", new java.sql.Date(post.getFechaRegistro().getTime()));
 //            if(post.isBloqueado() == true){
 //                cs.setInt("_bloqueado", 1);
 //            }else{
 //                cs.setInt("_bloqueado", 0);
 //            }
-//            
+            
 //            cs.setInt("_prioridad", post.getPrioridad());
 //            if(post.isActivo()== true){
 //                cs.setInt("_activo", 1);
 //            }else{
 //                cs.setInt("_activo", 0);
 //            }
-//            
-//            cs.executeUpdate();
-//            
-//            resultado=1;
-//        }catch(Exception ex){
-//            System.out.println(ex.getMessage());
-//        }finally{
-//            try{ cs.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
-//            try{ con.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
-//        }
-//        return resultado;
-//    }
-//
-//    @Override
-//    public int eliminar(Post post) {
-//        int resultado=0;
-//        try{
-//            con = DBManager.getInstance().getConnection();
-//            cs = con.prepareCall("{call ELIMINAR_POST(?)}");
-//      
-//            cs.setInt("_idPost",post.getIdPost());
-//            
-//            cs.executeUpdate();
-//            
-//            resultado=1;
-//        }catch(Exception ex){
-//            System.out.println(ex.getMessage());
-//        }finally{
-//            try{ cs.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
-//            try{ con.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
-//        }
-//        return resultado;
-//    }
-//
+            
+            
+            cs.executeUpdate();
+            
+            resultado=1;
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{ cs.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+            try{ con.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+        }
+        return resultado;
+    }
+
+    @Override
+    public int eliminar(PostGenerico post) {
+        int resultado=0;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ELIMINAR_POST(?)}");
+      
+            cs.setInt("_idPost",post.getIdPost());
+            
+            cs.executeUpdate();
+            
+            resultado=1;
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{ cs.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+            try{ con.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+        }
+        return resultado;
+    }
+
     @Override
     public ArrayList<PostGenerico> listarTodos() {
         ArrayList<PostGenerico> posts = new ArrayList<>();
@@ -155,6 +160,4 @@ public class PostMySQL implements PostDAO{
         }
         return posts;
     }
-//    
-
 }

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
-public class Post {
+public abstract class Post {
     //ok
     private int idPost;
     private int likes;
