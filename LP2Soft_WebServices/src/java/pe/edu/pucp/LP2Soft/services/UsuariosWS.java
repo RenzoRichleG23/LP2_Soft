@@ -45,4 +45,12 @@ public class UsuariosWS {
         int resultado = daoUsuario.modificar(usuario);
         return resultado;
     }
+    
+    @WebMethod(operationName = "listarAmigosNombreCodigo")
+    public ArrayList<Usuario> listarAmigosNombreCodigo(@WebParam(name = "idUsuario") int idUsuario,
+            @WebParam(name = "nombreCodigo") String nombreCodigo) {
+        ArrayList<Usuario> usuarios = null;
+        usuarios = daoUsuario.listarAmigosNombreCodigo(idUsuario, nombreCodigo);
+        return usuarios;
+    }
 }

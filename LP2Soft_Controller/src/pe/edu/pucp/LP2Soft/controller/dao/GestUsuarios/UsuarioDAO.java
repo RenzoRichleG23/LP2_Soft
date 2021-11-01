@@ -13,4 +13,5 @@ public interface UsuarioDAO {
     int eliminar(int idUsuario);
     ArrayList<Usuario> listarNombreCodigo(String nombreCodigo);
     Usuario mostrar(String correoCodigo, int isCode);
+    ArrayList<Usuario> listarAmigosNombreCodigo(int idUsuario, String nombreCodigo);
 }

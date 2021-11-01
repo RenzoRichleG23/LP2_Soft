@@ -7,10 +7,6 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
-/**
- *
- * @author OSCAR DANIEL
- */
 @WebService(serviceName = "CursosWS")
 public class CursosWS {
 
