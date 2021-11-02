@@ -139,7 +139,7 @@ public class UsuarioMySQL implements UsuarioDAO{
                 usuario.setFechaNacimiento(rs.getDate("fechaNacimiento"));
                 usuario.setDescripcion(rs.getString("descripcion"));
                 usuario.setFoto(rs.getBytes("foto"));
-                usuario.setFoto(rs.getBytes("portada"));
+                usuario.setPortada(rs.getBytes("portada"));
                 if(rs.getInt("esAdmin")==1) usuario.setEsAdmin(true);
                 if(rs.getInt("esAsesor")==1) usuario.setEsAsesor(true);
             }else System.out.println("Usuario no encontrado!");
