@@ -18,13 +18,13 @@ public class Principal_Asesor {
         try {
             // INSERTAR
             Asesor asesor = new Asesor();
-            asesor.setIdAsesor(1);
+            asesor.setIdAsesor(4);
             asesor.setActivo(true);
-            asesor.setCalificacion(4);        
-            asesor.setPrecioPorHora(20);
+            asesor.setCalificacion(5);        
+            asesor.setPrecioPorHora(34);
             
             AsesorDAO daoAsesor = new AsesorMySQL();
-            daoAsesor.insertar(asesor, 20186022, 40);          
+            daoAsesor.insertar(asesor, 20186018, 35);          
             
         } catch (Exception ex){
             System.out.println(ex.getMessage());
