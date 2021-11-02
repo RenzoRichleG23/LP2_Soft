@@ -27,16 +27,15 @@ public class UsuarioMySQL implements UsuarioDAO{
     @Override
     public int insertar(Usuario u) {
         int resultado=-1;
-//        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
         try {
-//            Date fecha = formato.parse("");
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call INSERTAR_USUARIO(?,?,?,?,?,?,?)}");
+            cs = con.prepareCall("{call INSERTAR_USUARIO(?,?,?,?,?,?,?,?)}");
             cs.registerOutParameter("_resultado", java.sql.Types.INTEGER);
             cs.setString("_codigo", u.getCodigoPUCP());
             cs.setString("_nombre", u.getNombre());
             cs.setString("_apellido", u.getApellido());
             cs.setString("_correo", u.getCorreo());
+            cs.setDate("_fechaNacimiento", new java.sql.Date(u.getFechaNacimiento().getTime()));
             cs.setString("_especialidad", u.getEspecialidad());
             cs.setString("_contrasenia", u.getContrasenia());
             cs.executeUpdate();
@@ -55,13 +54,13 @@ public class UsuarioMySQL implements UsuarioDAO{
         int resultado=0;
         try {
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call MODIFICAR_USUARIO(?,?,?,?,?,?,?)}");
+            cs = con.prepareCall("{call MODIFICAR_USUARIO(?,?,?,?,?,?,?,?)}");
             cs.setInt("_idUsuario", u.getIdUsuario());
             cs.setString("_nombre", u.getNombre());
             cs.setString("_apellido", u.getApellido());
             cs.setString("_contrasenia", u.getContrasenia());
             cs.setString("_descripcion", u.getDescripcion());
-//            cs.setDate("_fechaNacimiento", null); 
+            cs.setDate("_fechaNacimiento", new java.sql.Date(u.getFechaNacimiento().getTime())); 
             cs.setBytes("_foto", u.getFoto());
             cs.setBytes("_portada", u.getPortada());
             
@@ -122,7 +121,7 @@ public class UsuarioMySQL implements UsuarioDAO{
     public Usuario mostrar(String correoCodigo, int isCode) {
         Usuario usuario = null;
         try {
-            con = con = DBManager.getInstance().getConnection();
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call MOSTRAR_USUARIO(?,?)}");
             cs.setString("_correoCodigo", correoCodigo);
             cs.setInt("_isCode", isCode);
@@ -141,7 +140,23 @@ public class UsuarioMySQL implements UsuarioDAO{
                 usuario.setFoto(rs.getBytes("foto"));
                 usuario.setPortada(rs.getBytes("portada"));
                 if(rs.getInt("esAdmin")==1) usuario.setEsAdmin(true);
-                if(rs.getInt("esAsesor")==1) usuario.setEsAsesor(true);
+                if(rs.getInt("esAsesor")==1) {
+                    cs.close();
+                    rs.close();
+                    usuario.setEsAsesor(true);
+                    // buscar los datos del asesor
+                    //con = DBManager.getInstance().getConnection();
+                    cs = con.prepareCall("{call MOSTRAR_ASESOR(?)}");
+                    cs.setInt("_idUsuario", usuario.getIdUsuario());
+                    rs = cs.executeQuery();
+                    if(rs.next()) {
+                        usuario.setAsesor(new Asesor());
+                        usuario.getAsesor().setIdAsesor(rs.getInt("idAsesor"));
+                        usuario.getAsesor().setActivo(true);
+                        usuario.getAsesor().setCalificacion(rs.getFloat("calificacion"));
+                        usuario.getAsesor().setPrecioPorHora(rs.getFloat("precioPorHora"));
+                    }
+                }
             }else System.out.println("Usuario no encontrado!");
             
         } catch(Exception ex) {

@@ -118,16 +118,17 @@ public class CursoMySQL implements CursoDAO{
             rs = cs.executeQuery();
             while(rs.next()) {
                 Curso curso = new Curso();
+                
                 curso.setCodigo(rs.getString("CodigoCurso"));
-                System.out.println(curso.getCodigo());
+                //System.out.println(curso.getCodigo());
                 curso.setNombre(rs.getString("nombre"));
                 curso.setNivel(rs.getInt("nivel"));
                 curso.setCreditos(rs.getFloat("creditos"));
                 curso.setEstado(rs.getInt("estado"));
-                if(rs.getInt("favorito") == 0)
-                    curso.setFavorito(false);
-                else curso.setFavorito(true);
-                
+//                if(rs.getInt("favorito") == 0)
+//                    curso.setFavorito(false);
+//                else curso.setFavorito(true);
+//                
                 cursos.add(curso);
             }
         } catch(Exception ex) {
@@ -154,7 +155,7 @@ public class CursoMySQL implements CursoDAO{
                 curso.setCodigo(rs.getString("CodigoCurso"));
                 curso.setNombre(rs.getString("nombre"));
                 curso.setNivel(rs.getInt("nivel"));
-                System.out.println(curso.getCodigo());
+                //System.out.println(curso.getCodigo());
                 curso.setCreditos(rs.getFloat("creditos"));
                 curso.setEspecialidad(rs.getString("especialidad"));
                 curso.setDescripcion(rs.getString("descripcion"));
@@ -170,7 +171,7 @@ public class CursoMySQL implements CursoDAO{
                 
                 curso2.setIdCurso(rs.getInt("fidCurso2"));
                 curso2.setNombre(rs.getString("nombre"));
-                System.out.println(curso2.getNombre());
+                //System.out.println(curso2.getNombre());
                 cursos.add(curso2);
             } 
             curso.setCursosRequeridos(cursos);

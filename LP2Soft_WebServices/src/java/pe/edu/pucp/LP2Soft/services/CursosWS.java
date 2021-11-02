@@ -13,19 +13,11 @@ import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
 
 @WebService(serviceName = "CursosWS")
 public class CursosWS {
-
-    /**
-     * Aquí van a crearse todos los métodos de acceso para el paquete de Cursos
-     */
     private CursoDAO daoCurso;
     public CursosWS(){
         daoCurso  = new CursoMySQL();
     }
-    @WebMethod(operationName = "hello")
-    public String hello(@WebParam(name = "name") String txt) {
-        return "Hello " + txt + " !";
-    }
-    
+
     @WebMethod(operationName = "listarCursos")
     public ArrayList<Curso> listarCursos(@WebParam(name = "idUsuario") int idUsuario){
         ArrayList<Curso> cursos = null;
@@ -35,8 +27,9 @@ public class CursosWS {
     
     @WebMethod(operationName = "MostrarCurso")
     public Curso MostrarCurso(@WebParam(name = "idCurso") int idCurso){
-        Curso curso;
+        Curso curso=null;
         curso = daoCurso.MostrarCurso(idCurso);
         return curso;
     }
+
 }

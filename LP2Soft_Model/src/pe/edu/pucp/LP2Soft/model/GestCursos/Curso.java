@@ -41,40 +41,77 @@ public class Curso{
     }
     
     public Curso(){}
-  
-    // Getters
-    public ArrayList<Profesor> getProfesores() {
-        return profesores;
+
+    public int getIdCurso() {
+        return idCurso;
     }
-    public ArrayList<Curso> getCursosRequeridos() {
-        return cursosRequeridos;
+
+    public void setIdCurso(int idCurso) {
+        this.idCurso = idCurso;
     }
-    public ArrayList<Post> getPosts() {
-        return posts;
-    }
+
     public String getCodigo() {
         return codigo;
     }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
     public String getNombre() {
         return nombre;
     }
-    public float getCreditos() {
-        return creditos;
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
-    public String getEspecialidad() {
-        return especialidad;
-    }
-    public int getNivel() {
-        return nivel;
-    }
+
     public String getDescripcion() {
         return descripcion;
     }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
+    }
+
+    public float getCreditos() {
+        return creditos;
+    }
+
+    public void setCreditos(float creditos) {
+        this.creditos = creditos;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
     public float getCreditosRequeridos() {
         return creditosRequeridos;
     }
+
+    public void setCreditosRequeridos(float creditosRequeridos) {
+        this.creditosRequeridos = creditosRequeridos;
+    }
+
     public int getEstado() {
         return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 
     public boolean isActivo() {
@@ -84,102 +121,39 @@ public class Curso{
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-    
-    public void setCodigo(String codigo){
-        this.codigo = codigo;
-    }
-    
-    public void setDescripcion(String descripcion){
-        this.descripcion = descripcion;
-    }
-    /**
-     * @return the idCurso
-     */
-    public int getIdCurso() {
-        return idCurso;
-    }
 
-    /**
-     * @param idCurso the idCurso to set
-     */
-    public void setIdCurso(int idCurso) {
-        this.idCurso = idCurso;
-    }
-
-    /**
-     * @param nombre the nombre to set
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    /**
-     * @param especialidad the especialidad to set
-     */
-    public void setEspecialidad(String especialidad) {
-        this.especialidad = especialidad;
-    }
-
-    /**
-     * @param creditos the creditos to set
-     */
-    public void setCreditos(float creditos) {
-        this.creditos = creditos;
-    }
-
-    /**
-     * @param nivel the nivel to set
-     */
-    public void setNivel(int nivel) {
-        this.nivel = nivel;
-    }
-
-    /**
-     * @param creditosRequeridos the creditosRequeridos to set
-     */
-    public void setCreditosRequeridos(float creditosRequeridos) {
-        this.creditosRequeridos = creditosRequeridos;
-    }
-
-    /**
-     * @param estado the estado to set
-     */
-    public void setEstado(int estado) {
-        this.estado = estado;
-    }
-
-    /**
-     * @return the favorito
-     */
     public boolean isFavorito() {
         return favorito;
     }
 
-    /**
-     * @param favorito the favorito to set
-     */
     public void setFavorito(boolean favorito) {
         this.favorito = favorito;
     }
 
-    /**
-     * @param profesores the profesores to set
-     */
+    public ArrayList<Profesor> getProfesores() {
+        return profesores;
+    }
+
     public void setProfesores(ArrayList<Profesor> profesores) {
         this.profesores = profesores;
     }
 
-    /**
-     * @param posts the posts to set
-     */
+    public ArrayList<Post> getPosts() {
+        return posts;
+    }
+
     public void setPosts(ArrayList<Post> posts) {
         this.posts = posts;
     }
 
-    /**
-     * @param cursosRequeridos the cursosRequeridos to set
-     */
+    public ArrayList<Curso> getCursosRequeridos() {
+        return cursosRequeridos;
+    }
+
     public void setCursosRequeridos(ArrayList<Curso> cursosRequeridos) {
         this.cursosRequeridos = cursosRequeridos;
     }
+  
+
+    
 }
