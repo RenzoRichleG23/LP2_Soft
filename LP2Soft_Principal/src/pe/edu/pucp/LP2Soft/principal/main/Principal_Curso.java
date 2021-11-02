@@ -34,9 +34,13 @@ public class Principal_Curso {
         //System.out.println(curso.getCodigo());
         //curso.setDescripcion("CURSO DE SEPTIMO CICLO DICTADO POR FREDDY PAZ");
        /// daoCurso.modificar(curso);
-       Profesor p1 = new Profesor(1,"PAZ ESPINIOZA, FREDDY ALBERTO","fpaz@pucp.edu.pe","BUEN PROFESOR DEL CURSO DE LP2");
-       ProfesorDAO pDao = new ProfesorMySQL();
-       //pDao.insertar(p1);
-       pDao.eliminar(1);
+//       Profesor p1 = new Profesor(1,"PAZ ESPINIOZA, FREDDY ALBERTO","fpaz@pucp.edu.pe","BUEN PROFESOR DEL CURSO DE LP2");
+//       ProfesorDAO pDao = new ProfesorMySQL();
+//       //pDao.insertar(p1);
+//       pDao.eliminar(1);
+       CursoDAO cDao =new  CursoMySQL();
+       Curso cursos;
+       cursos = cDao.MostrarCurso(28);
+       
    }
 }
