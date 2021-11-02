@@ -23,16 +23,18 @@ public class AsesorMySQL implements AsesorDAO{
     CallableStatement cs;
     
     @Override
-    public int insertar(Asesor a) {
-        int resultado=0;
+    public int insertar(Asesor a, int fidUsuario, int fidCurso) {
+        int resultado=-1;
         try {
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call INSERTAR_ASESOR(?,?,?)}");
-            cs.registerOutParameter("_idAsesor", java.sql.Types.INTEGER);
-            cs.setFloat("_calificacion", a.getCalificacion());
-            cs.setFloat("_precioPorHora", a.getPrecioPorHora());
+            cs = con.prepareCall("{call INSERTAR_ASESOR(?,?,?,?,?)}");
+            cs.registerOutParameter("_resultado", java.sql.Types.INTEGER);
+            cs.setInt("_idUsuario", fidUsuario);
+            cs.setDouble("_calificacion", a.getCalificacion());
+            cs.setDouble("_precioXhora", a.getPrecioPorHora());
+            cs.setInt("_fidCurso", fidCurso);
             cs.executeUpdate();
-            resultado = cs.getInt("_idAsesor");
+            resultado = cs.getInt("_resultado");
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
