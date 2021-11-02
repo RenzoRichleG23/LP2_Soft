@@ -11,10 +11,6 @@ import pe.edu.pucp.LP2Soft.controller.dao.GestCursos.CursoDAO;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestCursos.CursoMySQL;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
 
-/**
- *
- * @author OSCAR DANIEL
- */
 @WebService(serviceName = "CursosWS")
 public class CursosWS {
 
