@@ -121,7 +121,7 @@ public class UsuarioMySQL implements UsuarioDAO{
     public Usuario mostrar(String correoCodigo, int isCode) {
         Usuario usuario = null;
         try {
-            con = con = DBManager.getInstance().getConnection();
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call MOSTRAR_USUARIO(?,?)}");
             cs.setString("_correoCodigo", correoCodigo);
             cs.setInt("_isCode", isCode);
@@ -140,7 +140,23 @@ public class UsuarioMySQL implements UsuarioDAO{
                 usuario.setFoto(rs.getBytes("foto"));
                 usuario.setPortada(rs.getBytes("portada"));
                 if(rs.getInt("esAdmin")==1) usuario.setEsAdmin(true);
-                if(rs.getInt("esAsesor")==1) usuario.setEsAsesor(true);
+                if(rs.getInt("esAsesor")==1) {
+                    cs.close();
+                    rs.close();
+                    usuario.setEsAsesor(true);
+                    // buscar los datos del asesor
+                    //con = DBManager.getInstance().getConnection();
+                    cs = con.prepareCall("{call MOSTRAR_ASESOR(?)}");
+                    cs.setInt("_idUsuario", usuario.getIdUsuario());
+                    rs = cs.executeQuery();
+                    if(rs.next()) {
+                        usuario.setAsesor(new Asesor());
+                        usuario.getAsesor().setIdAsesor(rs.getInt("idAsesor"));
+                        usuario.getAsesor().setActivo(true);
+                        usuario.getAsesor().setCalificacion(rs.getFloat("calificacion"));
+                        usuario.getAsesor().setPrecioPorHora(rs.getFloat("precioPorHora"));
+                    }
+                }
             }else System.out.println("Usuario no encontrado!");
             
         } catch(Exception ex) {
