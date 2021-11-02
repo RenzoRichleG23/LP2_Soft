@@ -6,6 +6,8 @@ import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Post;
 import java.util.ArrayList;
 
 public class Curso{
+
+    
     private int idCurso;
     private String codigo;
     private String nombre;
