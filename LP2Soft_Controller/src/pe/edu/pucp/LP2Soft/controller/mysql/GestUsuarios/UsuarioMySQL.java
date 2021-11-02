@@ -79,7 +79,7 @@ public class UsuarioMySQL implements UsuarioDAO{
     public int eliminar(int codigoPUCP) {
         int resultado=0;
         try {
-            con = con = DBManager.getInstance().getConnection();
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call ELIMINAR_USUARIO(?)}");
             cs.setInt("_idUsuario", codigoPUCP);
             resultado = cs.executeUpdate();
@@ -96,7 +96,7 @@ public class UsuarioMySQL implements UsuarioDAO{
     public ArrayList<Usuario> listarNombreCodigo(String nombreCodigo) {
         ArrayList<Usuario> usuarios = new ArrayList<>();
         try {
-            con = con = DBManager.getInstance().getConnection();
+            con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call LISTAR_USUARIOS_NOMBRECODIGO(?)}");
             cs.setString("_nombreCodigo", nombreCodigo);
             rs = cs.executeQuery();
@@ -139,7 +139,7 @@ public class UsuarioMySQL implements UsuarioDAO{
                 usuario.setFechaNacimiento(rs.getDate("fechaNacimiento"));
                 usuario.setDescripcion(rs.getString("descripcion"));
                 usuario.setFoto(rs.getBytes("foto"));
-                usuario.setFoto(rs.getBytes("portada"));
+                usuario.setPortada(rs.getBytes("portada"));
                 if(rs.getInt("esAdmin")==1) usuario.setEsAdmin(true);
                 if(rs.getInt("esAsesor")==1) usuario.setEsAsesor(true);
             }else System.out.println("Usuario no encontrado!");
@@ -151,6 +151,33 @@ public class UsuarioMySQL implements UsuarioDAO{
             try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
         }
         return usuario;
+    }
+
+    @Override
+    public ArrayList<Usuario> listarAmigosNombreCodigo(int idUsuario, String nombreCodigo) {
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call LISTAR_AMIGOS_NOMBRECODIGO(?,?)}");
+            cs.setInt("_idUsuario", idUsuario);
+            cs.setString("_nombreCodigo", nombreCodigo);
+            rs = cs.executeQuery();
+            while(rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(rs.getInt("idUsuario"));
+                usuario.setCodigoPUCP(rs.getString("codigo"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setApellido(rs.getString("apellido"));
+                usuario.setFoto(rs.getBytes("foto"));
+                usuarios.add(usuario);
+            }
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return usuarios;
     }
 
 }

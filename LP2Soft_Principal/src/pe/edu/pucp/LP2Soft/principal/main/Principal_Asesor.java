@@ -5,9 +5,11 @@
  */
 package pe.edu.pucp.LP2Soft.principal.main;
 
+import java.util.ArrayList;
 import pe.edu.pucp.LP2Soft.controller.dao.GestUsuarios.AsesorDAO;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestUsuarios.AsesorMySQL;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Asesor;
+import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
 /**
  *
@@ -17,14 +19,19 @@ public class Principal_Asesor {
     public static void main(String[] args) {
         try {
             // INSERTAR
-            Asesor asesor = new Asesor();
-            asesor.setIdAsesor(4);
-            asesor.setActivo(true);
-            asesor.setCalificacion(5);        
-            asesor.setPrecioPorHora(34);
-            
+//            Asesor asesor = new Asesor();
+//            asesor.setIdAsesor(1);
+//            asesor.setActivo(true);
+//            asesor.setCalificacion(4);        
+//            asesor.setPrecioPorHora(30);
+//            
             AsesorDAO daoAsesor = new AsesorMySQL();
-            daoAsesor.insertar(asesor, 20186018, 35);          
+//            daoAsesor.insertar(asesor, 20186022, 20);    
+            
+            //Listar asesores
+            ArrayList<Usuario> usuariosAsesor = daoAsesor.listarXnombreYcurso("renzo");
+            Usuario user = usuariosAsesor.get(0);
+            System.out.println(user.getNombre());
             
         } catch (Exception ex){
             System.out.println(ex.getMessage());

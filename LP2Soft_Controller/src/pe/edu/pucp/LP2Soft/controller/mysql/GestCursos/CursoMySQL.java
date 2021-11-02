@@ -106,25 +106,28 @@ public class CursoMySQL implements CursoDAO{
         return resultado;    
     }
 
+   
+    
     @Override
-    public ArrayList<Curso> listarTodos() {
+    public ArrayList<Curso> listarCursos(int idUsuario) {
         ArrayList<Curso> cursos = new ArrayList<>();
         try {
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call LISTAR_CURSOS()}");
+            cs = con.prepareCall("{call LISTAR_CURSOS(?)}");
+            cs.setInt("_idUsuario",idUsuario);
             rs = cs.executeQuery();
             while(rs.next()) {
-                String codigo = rs.getString("idCurso");
-                String nombre = rs.getString("nombre");
-                float  creditos = rs.getFloat("creditos");
-                String especialidad = rs.getString("especialidad");
-                int nivel = rs.getInt("nivel");
-                String descripcion = rs.getString("descripcion");
-                float creditosRequeridos = rs.getFloat("creditosRequeridos");
-                int estado = rs.getInt("estado");
-                Curso curso = new Curso(codigo, nombre, creditos, especialidad, 
-                        nivel, descripcion, creditosRequeridos,estado);
-                curso.setActivo(true);
+                Curso curso = new Curso();
+                curso.setCodigo(rs.getString("CodigoCurso"));
+                System.out.println(curso.getCodigo());
+                curso.setNombre(rs.getString("nombre"));
+                curso.setNivel(rs.getInt("nivel"));
+                curso.setCreditos(rs.getFloat("creditos"));
+                curso.setEstado(rs.getInt("estado"));
+                if(rs.getInt("favorito") == 0)
+                    curso.setFavorito(false);
+                else curso.setFavorito(true);
+                
                 cursos.add(curso);
             }
         } catch(Exception ex) {
@@ -135,6 +138,49 @@ public class CursoMySQL implements CursoDAO{
         }
         return cursos;
     }
-    
+
+    @Override
+    public Curso MostrarCurso(int idCurso) {
+        Curso curso = new Curso();
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call MOSTRAR_CURSOS(?)}");
+            cs.setInt("_idCurso",idCurso);
+            rs = cs.executeQuery();
+            while(rs.next()) {
+                
+                
+                curso.setIdCurso(idCurso);
+                curso.setCodigo(rs.getString("CodigoCurso"));
+                curso.setNombre(rs.getString("nombre"));
+                curso.setNivel(rs.getInt("nivel"));
+                System.out.println(curso.getCodigo());
+                curso.setCreditos(rs.getFloat("creditos"));
+                curso.setEspecialidad(rs.getString("especialidad"));
+                curso.setDescripcion(rs.getString("descripcion"));
+                curso.setCreditosRequeridos(rs.getFloat("creditosRequeridos"));
+                
+               } 
+            cs = con.prepareCall("{call MOSTRAR_REQUISITOSCURSOSXCURSOS(?)}");
+            cs.setInt("_idCurso",idCurso);
+            rs = cs.executeQuery();
+            ArrayList<Curso> cursos = new ArrayList<>();
+            while(rs.next()) {
+                Curso curso2 = new Curso();
+                
+                curso2.setIdCurso(rs.getInt("fidCurso2"));
+                curso2.setNombre(rs.getString("nombre"));
+                System.out.println(curso2.getNombre());
+                cursos.add(curso2);
+            } 
+            curso.setCursosRequeridos(cursos);
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return curso;
+    }
 
 }

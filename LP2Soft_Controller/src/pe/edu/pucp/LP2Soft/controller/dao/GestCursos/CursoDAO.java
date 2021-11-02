@@ -10,5 +10,6 @@ public interface CursoDAO {
     int insertar(Curso curso);
     int modificar(Curso curso);
     int eliminar(String curso);
-    ArrayList<Curso> listarTodos();
+    ArrayList<Curso> listarCursos(int idUsuario);
+    Curso MostrarCurso(int idCurso);
 }
