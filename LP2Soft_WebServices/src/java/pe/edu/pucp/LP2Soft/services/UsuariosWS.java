@@ -58,4 +58,12 @@ public class UsuariosWS {
         int resultado = daoAsesor.insertar(asesor, fidUsuario, fidCurso);
         return resultado;
     }
+    
+    @WebMethod(operationName = "listarXnombreYcurso")
+    public ArrayList<Usuario> listarXnombreYcurso(@WebParam(name = "nombre") String nombre) {
+        daoAsesor = new AsesorMySQL();
+        ArrayList<Usuario> usuarios = null;
+        usuarios = daoAsesor.listarXnombreYcurso(nombre);
+        return usuarios;
+    }
 }
