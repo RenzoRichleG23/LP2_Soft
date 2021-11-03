@@ -50,6 +50,13 @@ public class UsuariosWS {
         return resultado;
     }
     
+    @WebMethod(operationName = "listarAmigosNombreCodigo")
+    public ArrayList<Usuario> listarAmigosNombreCodigo(@WebParam(name = "nombreCodigo") String nombreCodigo) {
+        ArrayList<Usuario> usuarios = null;
+        usuarios = daoUsuario.listarNombreCodigo(nombreCodigo);
+        return usuarios;
+    }
+    
     @WebMethod(operationName = "insertarAsesor")
     public int insertarAsesor(@WebParam(name = "asesor") Asesor asesor, 
             @WebParam(name = "fidUsuario") int fidUsuario,
