@@ -19,19 +19,19 @@ public class Principal_Asesor {
     public static void main(String[] args) {
         try {
             // INSERTAR
-//            Asesor asesor = new Asesor();
-//            asesor.setIdAsesor(1);
-//            asesor.setActivo(true);
-//            asesor.setCalificacion(4);        
-//            asesor.setPrecioPorHora(30);
-//            
-            AsesorDAO daoAsesor = new AsesorMySQL();
-//            daoAsesor.insertar(asesor, 20186022, 20);    
+            Asesor asesor = new Asesor();
+            asesor.setIdAsesor(22);
+            asesor.setActivo(true);
+            asesor.setCalificacion(4);        
+            asesor.setPrecioPorHora(30);
             
-            //Listar asesores
-            ArrayList<Usuario> usuariosAsesor = daoAsesor.listarXnombreYcurso("renzo");
-            Usuario user = usuariosAsesor.get(0);
-            System.out.println(user.getNombre());
+            AsesorDAO daoAsesor = new AsesorMySQL();
+            daoAsesor.insertar(asesor, 20186016, 35);    
+//            
+//            //Listar asesores
+//            ArrayList<Usuario> usuariosAsesor = daoAsesor.listarXnombreYcurso("renzo");
+//            Usuario user = usuariosAsesor.get(0);
+//            System.out.println(user.getNombre());
             
         } catch (Exception ex){
             System.out.println(ex.getMessage());
