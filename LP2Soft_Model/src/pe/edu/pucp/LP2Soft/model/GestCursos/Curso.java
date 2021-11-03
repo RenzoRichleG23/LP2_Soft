@@ -6,6 +6,8 @@ import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Post;
 import java.util.ArrayList;
 
 public class Curso{
+
+    
     private int idCurso;
     private String codigo;
     private String nombre;
@@ -39,40 +41,77 @@ public class Curso{
     }
     
     public Curso(){}
-  
-    // Getters
-    public ArrayList<Profesor> getProfesores() {
-        return profesores;
+
+    public int getIdCurso() {
+        return idCurso;
     }
-    public ArrayList<Curso> getCursosRequeridos() {
-        return cursosRequeridos;
+
+    public void setIdCurso(int idCurso) {
+        this.idCurso = idCurso;
     }
-    public ArrayList<Post> getPosts() {
-        return posts;
-    }
+
     public String getCodigo() {
         return codigo;
     }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
     public String getNombre() {
         return nombre;
     }
-    public float getCreditos() {
-        return creditos;
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
-    public String getEspecialidad() {
-        return especialidad;
-    }
-    public int getNivel() {
-        return nivel;
-    }
+
     public String getDescripcion() {
         return descripcion;
     }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
+    }
+
+    public float getCreditos() {
+        return creditos;
+    }
+
+    public void setCreditos(float creditos) {
+        this.creditos = creditos;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
     public float getCreditosRequeridos() {
         return creditosRequeridos;
     }
+
+    public void setCreditosRequeridos(float creditosRequeridos) {
+        this.creditosRequeridos = creditosRequeridos;
+    }
+
     public int getEstado() {
         return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 
     public boolean isActivo() {
@@ -82,12 +121,39 @@ public class Curso{
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-    
-    public void setCodigo(String codigo){
-        this.codigo = codigo;
+
+    public boolean isFavorito() {
+        return favorito;
     }
-    
-    public void setDescripcion(String descripcion){
-        this.descripcion = descripcion;
+
+    public void setFavorito(boolean favorito) {
+        this.favorito = favorito;
     }
+
+    public ArrayList<Profesor> getProfesores() {
+        return profesores;
+    }
+
+    public void setProfesores(ArrayList<Profesor> profesores) {
+        this.profesores = profesores;
+    }
+
+    public ArrayList<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(ArrayList<Post> posts) {
+        this.posts = posts;
+    }
+
+    public ArrayList<Curso> getCursosRequeridos() {
+        return cursosRequeridos;
+    }
+
+    public void setCursosRequeridos(ArrayList<Curso> cursosRequeridos) {
+        this.cursosRequeridos = cursosRequeridos;
+    }
+  
+
+    
 }
