@@ -51,9 +51,9 @@ public class UsuariosWS {
     }
     
     @WebMethod(operationName = "listarAmigosNombreCodigo")
-    public ArrayList<Usuario> listarAmigosNombreCodigo(@WebParam(name = "nombreCodigo") String nombreCodigo) {
+    public ArrayList<Usuario> listarAmigosNombreCodigo(@WebParam(name = "idUsuario") int idUsuario, @WebParam(name = "nombreCodigo") String nombreCodigo) {
         ArrayList<Usuario> usuarios = null;
-        usuarios = daoUsuario.listarNombreCodigo(nombreCodigo);
+        usuarios = daoUsuario.listarAmigosNombreCodigo(idUsuario,nombreCodigo);
         return usuarios;
     }
     
