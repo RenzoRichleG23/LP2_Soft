@@ -25,7 +25,7 @@ public class Principal_Comentario {
             Usuario user = new Usuario();
             user.setIdUsuario(20186019);
             PostGenerico post = new PostGenerico();
-            post.setIdPost(11);
+            post.setIdPost(18);
             
             Comentario comment = new Comentario();
             comment.setPost(post);
