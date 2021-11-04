@@ -133,7 +133,7 @@ public class ReseniaMySQL implements ReseniaDAO{
                 //ahora lo de resenia 
                 
                 Profesor profe = new Profesor();
-                profe.setidProfesor(rs.getInt("fidProfesor"));
+                profe.setIdProfesor(rs.getInt("fidProfesor"));
                 Usuario usuarioReseniado = new Usuario();
                 usuarioReseniado.setIdUsuario(rs.getInt("fidUsuarioReseniado"));
                 resenia.setProfesor(profe);

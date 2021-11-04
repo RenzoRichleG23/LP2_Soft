@@ -38,9 +38,17 @@ public class Principal_Curso {
 //       ProfesorDAO pDao = new ProfesorMySQL();
 //       //pDao.insertar(p1);
 //       pDao.eliminar(1);
-       CursoDAO cDao =new  CursoMySQL();
+       /*CursoDAO cDao =new  CursoMySQL();
        Curso cursos;
-       cursos = cDao.MostrarCurso(28);
+       cursos = cDao.MostrarCurso(28);*/
+       
+       ArrayList<Profesor> profesores;
+       ProfesorDAO daoProfesor = new ProfesorMySQL();
+       Profesor profesor;
+       profesores = daoProfesor.listarProfesorNombre("llo");
+       profesor = daoProfesor.mostrarProfesor(3);
+       System.out.println(profesor.getNombre());
+       
        
    }
 }

@@ -32,7 +32,7 @@ public class ProfesorMySQL implements ProfesorDAO{
             cs.setString("_correo",profesor.getCorreo());
             cs.setString("_descripcion",profesor.getDescripcion());
             cs.executeUpdate();
-            profesor.setidProfesor(cs.getInt("_idProfesor"));
+            profesor.setIdProfesor(cs.getInt("_idProfesor"));
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }finally{
@@ -97,21 +97,22 @@ public class ProfesorMySQL implements ProfesorDAO{
     }
 
     @Override
-    public ArrayList<Profesor> listarTodos() {
+    public ArrayList<Profesor> listarProfesorNombre(String nombre) {
        ArrayList<Profesor> profesores = new ArrayList<>();
         try {
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call LISTAR_PROFESORES()}");
+            cs = con.prepareCall("{call LISTAR_PROFESOR_NOMBRE(?)}");
+            cs.setString("_nombre", nombre);
             rs = cs.executeQuery();
             while(rs.next()) {
-                int idProfesor = rs.getInt("idProfesor");
-                String nombre = rs.getString("nombre");
-                String  correo = rs.getString("correo");
-                String descripcion = rs.getString("descripcion");
-                float calificacion = rs.getFloat("calificacion");
-                Profesor profesor = new Profesor(idProfesor, nombre, correo, descripcion); 
-                profesor.setActivo(true);
-                profesor.setCalificacion(calificacion);
+                Profesor profesor = new Profesor();
+                profesor.setIdProfesor(rs.getInt("idProfesor"));
+                profesor.setNombre(rs.getString("nombre"));
+                profesor.setCalificacion(rs.getFloat("calificacion"));
+                profesor.setCorreo(rs.getString("correo"));
+                profesor.setDescripcion(rs.getString("descripcion"));
+                profesor.setFoto(rs.getBytes("foto"));
+                System.out.println(profesor.getIdProfesor());
                 profesores.add(profesor);
             }
         } catch(Exception ex) {
@@ -123,4 +124,32 @@ public class ProfesorMySQL implements ProfesorDAO{
         return profesores;
     }
     
+    @Override
+    public Profesor mostrarProfesor(int idProfesor) {
+        Profesor profesor = new Profesor();
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call MOSTRAR_PROFESOR(?)}");
+            cs.setInt("_idProfesor",idProfesor);
+            rs = cs.executeQuery();
+            while(rs.next()) {
+                
+                profesor.setIdProfesor(idProfesor);
+                profesor.setNombre(rs.getString("nombre"));
+                profesor.setCalificacion(rs.getFloat("calificacion"));
+                profesor.setCorreo(rs.getString("correo"));
+                profesor.setDescripcion(rs.getString("descripcion"));
+                profesor.setFoto(rs.getBytes("foto"));
+                profesor.setActivo(rs.getBoolean("activo"));
+                
+            } 
+            
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return profesor;
+    }
 }

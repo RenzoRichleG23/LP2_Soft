@@ -153,6 +153,8 @@ public class Curso{
     public void setCursosRequeridos(ArrayList<Curso> cursosRequeridos) {
         this.cursosRequeridos = cursosRequeridos;
     }
+
+     
   
 
     
