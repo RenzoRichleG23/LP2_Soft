@@ -118,7 +118,7 @@ public class CursoMySQL implements CursoDAO{
             rs = cs.executeQuery();
             while(rs.next()) {
                 Curso curso = new Curso();
-                
+                curso.setIdCurso(rs.getInt("idCurso"));
                 curso.setCodigo(rs.getString("CodigoCurso"));
                 //System.out.println(curso.getCodigo());
                 curso.setNombre(rs.getString("nombre"));
@@ -148,9 +148,7 @@ public class CursoMySQL implements CursoDAO{
             cs = con.prepareCall("{call MOSTRAR_CURSOS(?)}");
             cs.setInt("_idCurso",idCurso);
             rs = cs.executeQuery();
-            while(rs.next()) {
-                
-                
+            while(rs.next()) {  
                 curso.setIdCurso(idCurso);
                 curso.setCodigo(rs.getString("CodigoCurso"));
                 curso.setNombre(rs.getString("nombre"));
