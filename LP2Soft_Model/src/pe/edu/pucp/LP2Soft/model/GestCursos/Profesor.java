@@ -20,8 +20,8 @@ public class Profesor{
 
     // Constructor
     public Profesor(int idProfesor, String nombre, String correo, String descripcion){
-        this.cursos = new ArrayList<>();
-        this.resenias = new ArrayList<>();
+        //this.cursos = new ArrayList<>();
+        //this.resenias = new ArrayList<>();
         this.idProfesor = idProfesor;
         this.nombre = nombre;
         this.calificacion = 0;
@@ -63,12 +63,46 @@ public class Profesor{
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-    
-    public void setidProfesor(int idProfesor){
+
+    public byte[] getPortada() {
+        return portada;
+    }
+
+    public void setPortada(byte[] portada) {
+        this.portada = portada;
+    }
+
+    public void setIdProfesor(int idProfesor) {
         this.idProfesor = idProfesor;
     }
+
+    public void setCursos(ArrayList<Curso> cursos) {
+        this.cursos = cursos;
+    }
+
+    public void setResenias(ArrayList<Resenia> resenias) {
+        this.resenias = resenias;
+    }
+    
+    
     
     public void setCalificacion(float calificacion){
         this.calificacion = calificacion;
+    }
+    
+    public void setNombre(String nombre){
+        this.nombre = nombre;
+    }
+    
+    public void setCorreo(String correo){
+        this.correo = correo;
+    }
+    
+    public void setDescripcion(String descripcion){
+        this.descripcion = descripcion;
+    }
+    
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
     }
 }

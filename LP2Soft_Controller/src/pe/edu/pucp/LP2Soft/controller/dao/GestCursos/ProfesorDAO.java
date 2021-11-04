@@ -10,5 +10,7 @@ public interface ProfesorDAO {
     int insertar(Profesor profesor);
     int modificar(Profesor profesor);
     int eliminar(int profesor);
-    ArrayList<Profesor> listarTodos();
+    ArrayList<Profesor>listarProfesorNombre(String nombre);
+    Profesor mostrarProfesor(int idProfesor);
+    
 }
