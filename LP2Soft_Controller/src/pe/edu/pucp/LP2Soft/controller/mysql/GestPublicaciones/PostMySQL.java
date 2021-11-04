@@ -137,6 +137,7 @@ public class PostMySQL implements PostDAO{
                 usuario.setIdUsuario(rs.getInt("fidUsuario"));
                 usuario.setNombre(rs.getString("nombre"));
                 usuario.setApellido(rs.getString("apellido"));
+                //usuario.setFoto(rs.getBytes("foto"));
                 post.setUsuario(usuario);
                 post.setContenido(rs.getString("contenido"));
                 if(rs.getInt("bloqueado")==1)

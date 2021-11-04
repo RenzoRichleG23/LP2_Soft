@@ -115,7 +115,9 @@ public class ComentarioMySQL implements ComentarioDAO{
             try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
             try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
         }
-        
-        return comentarios;
+        if(!comentarios.isEmpty())
+            return comentarios;
+        else
+            return null;
     }
 }
