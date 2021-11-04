@@ -22,6 +22,7 @@ public class UsuariosWS {
     
     public UsuariosWS() {
         daoUsuario = new UsuarioMySQL();
+        daoAsesor = new AsesorMySQL();
     }
 
     @WebMethod(operationName = "mostrarUsuario")
@@ -60,15 +61,13 @@ public class UsuariosWS {
     @WebMethod(operationName = "insertarAsesor")
     public int insertarAsesor(@WebParam(name = "asesor") Asesor asesor, 
             @WebParam(name = "fidUsuario") int fidUsuario,
-            @WebParam(name = "fidCurso") int fidCurso) {
-        daoAsesor = new AsesorMySQL();
+            @WebParam(name = "fidCurso") int fidCurso) {    
         int resultado = daoAsesor.insertar(asesor, fidUsuario, fidCurso);
         return resultado;
     }
     
     @WebMethod(operationName = "listarXnombreYcurso")
     public ArrayList<Usuario> listarXnombreYcurso(@WebParam(name = "nombre") String nombre) {
-        daoAsesor = new AsesorMySQL();
         ArrayList<Usuario> usuarios = null;
         usuarios = daoAsesor.listarXnombreYcurso(nombre);
         return usuarios;

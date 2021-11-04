@@ -16,7 +16,13 @@ public class Asesor{
     private ArrayList<Resenia> resenias;
 
     // Constructor
-    public Asesor(){}
+    public Asesor(){
+        this.cursos = new ArrayList<>();
+        this.resenias = new ArrayList<>();
+        this.precioPorHora = 0;
+        this.calificacion = 0;
+        this.activo = true;
+    }
     public Asesor(float precioPorHora){
         this.cursos = new ArrayList<>();
         this.resenias = new ArrayList<>();
