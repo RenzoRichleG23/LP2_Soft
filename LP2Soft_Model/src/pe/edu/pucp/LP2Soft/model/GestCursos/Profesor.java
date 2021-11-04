@@ -31,37 +31,53 @@ public class Profesor{
     }
     public Profesor(){}
     // Getters
+
     public int getIdProfesor() {
         return idProfesor;
     }
+
+    public void setIdProfesor(int idProfesor) {
+        this.idProfesor = idProfesor;
+    }
+
     public String getNombre() {
         return nombre;
     }
-    public float getCalificacion() {
-        return calificacion;
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
+
     public String getCorreo() {
         return correo;
     }
-    public byte[] getFoto() {
-        return foto;
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
+
     public String getDescripcion() {
         return descripcion;
     }
-    public ArrayList<Curso> getCursos() {
-        return cursos;
-    }
-    public ArrayList<Resenia> getResenias() {
-        return resenias;
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public boolean isActivo() {
-        return activo;
+    public float getCalificacion() {
+        return calificacion;
     }
 
-    public void setActivo(boolean activo) {
-        this.activo = activo;
+    public void setCalificacion(float calificacion) {
+        this.calificacion = calificacion;
+    }
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
     }
 
     public byte[] getPortada() {
@@ -72,37 +88,28 @@ public class Profesor{
         this.portada = portada;
     }
 
-    public void setIdProfesor(int idProfesor) {
-        this.idProfesor = idProfesor;
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    public ArrayList<Curso> getCursos() {
+        return cursos;
     }
 
     public void setCursos(ArrayList<Curso> cursos) {
         this.cursos = cursos;
     }
 
+    public ArrayList<Resenia> getResenias() {
+        return resenias;
+    }
+
     public void setResenias(ArrayList<Resenia> resenias) {
         this.resenias = resenias;
     }
-    
-    
-    
-    public void setCalificacion(float calificacion){
-        this.calificacion = calificacion;
-    }
-    
-    public void setNombre(String nombre){
-        this.nombre = nombre;
-    }
-    
-    public void setCorreo(String correo){
-        this.correo = correo;
-    }
-    
-    public void setDescripcion(String descripcion){
-        this.descripcion = descripcion;
-    }
-    
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
-    }
+   
 }
