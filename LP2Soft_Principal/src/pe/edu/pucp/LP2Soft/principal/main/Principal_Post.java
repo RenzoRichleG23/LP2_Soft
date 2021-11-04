@@ -26,22 +26,22 @@ public class Principal_Post {
     public static void main(String[] args) {
         // TODO code application logic here
         //SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        Date dt = new Date();
+//        Date dt = new Date();
         PostGenerico ej1 = new PostGenerico();
-//        Usuario usuario = new Usuario();
-//        usuario.setIdUsuario(20186019);
-//        ej1.setUsuario(usuario);
-//        ej1.setContenido("Hola");
+        Usuario usuario = new Usuario();
+        usuario.setIdUsuario(20186019);
+        ej1.setUsuario(usuario);
+        ej1.setContenido("Hola");
 //        try{
 //            ej1.setFechaRegistro(formato.parse(formato.format(dt)));
 //        }catch(Exception ex){
 //            System.out.println(ex.getMessage());
 //        }
-//        ej1.setPrioridad(2);
+        ej1.setPrioridad(2);
 //        
         PostDAO daoP = new PostMySQL();
 //        System.out.println(formato.format(dt));
-//        daoP.insertar(ej1);
+        daoP.insertar(ej1);
 //        
 //        
 //        //modificar
@@ -55,14 +55,14 @@ public class Principal_Post {
 //        //daoP.eliminar(ej1);
 //        
 //        //listar
-        ArrayList<PostGenerico> posts;
-        posts = daoP.listarTodos();
+//        ArrayList<PostGenerico> posts;
+//        posts = daoP.listarTodos();
         
 //        for(PostGenerico p : posts){
 //            
 //        }
 //        
-        System.out.println(posts.get(2).getIdPost());
+//        System.out.println(posts.get(2).getIdPost());
     }
     
 }

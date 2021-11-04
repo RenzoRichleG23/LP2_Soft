@@ -54,4 +54,11 @@ public class PublicacionesWS {
         int resultado = daoComentario.insertar(comentario);
         return resultado;
     }
+    
+    @WebMethod(operationName = "listarComentarios")
+    public ArrayList<Comentario> listarComentarios(@WebParam(name = "idPost") int idPost) {
+        ArrayList<Comentario> comentarios = null;
+        comentarios = daoComentario.listarTodos(idPost);
+        return comentarios;
+    }
 }

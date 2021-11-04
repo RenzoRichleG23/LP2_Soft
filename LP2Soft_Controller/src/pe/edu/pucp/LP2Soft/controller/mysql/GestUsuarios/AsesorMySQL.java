@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.sql.DriverManager;
 import java.sql.CallableStatement;
 import pe.edu.pucp.LP2Soft.controller.config.DBManager;
+import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
 public class AsesorMySQL implements AsesorDAO{
     Connection con;
@@ -23,16 +24,18 @@ public class AsesorMySQL implements AsesorDAO{
     CallableStatement cs;
     
     @Override
-    public int insertar(Asesor a) {
-        int resultado=0;
+    public int insertar(Asesor a, int fidUsuario, int fidCurso) {
+        int resultado=-1;
         try {
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call INSERTAR_ASESOR(?,?,?)}");
-            cs.registerOutParameter("_idAsesor", java.sql.Types.INTEGER);
-            cs.setFloat("_calificacion", a.getCalificacion());
-            cs.setFloat("_precioPorHora", a.getPrecioPorHora());
+            cs = con.prepareCall("{call INSERTAR_ASESOR(?,?,?,?,?)}");
+            cs.registerOutParameter("_resultado", java.sql.Types.INTEGER);
+            cs.setInt("_idUsuario", fidUsuario);
+            cs.setDouble("_calificacion", a.getCalificacion());
+            cs.setDouble("_precioXhora", a.getPrecioPorHora());
+            cs.setInt("_fidCurso", fidCurso);
             cs.executeUpdate();
-            resultado = cs.getInt("_idAsesor");
+            resultado = cs.getInt("_resultado");
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
@@ -100,5 +103,36 @@ public class AsesorMySQL implements AsesorDAO{
         }
         return asesores;
     }    
+
+    @Override
+    public ArrayList<Usuario> listarXnombreYcurso(String nombre) {
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call LISTAR_ASESORES(?)}");
+            cs.setString("_nombre", nombre);
+            rs = cs.executeQuery();
+            while(rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(rs.getInt("idUsuario"));
+                usuario.setCodigoPUCP(rs.getString("codigo"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setApellido(rs.getString("apellido"));
+                usuario.setFoto(rs.getBytes("foto"));
+                //Instancio y obtengo los datos del asesor y los seteo en el usuario
+                usuario.setAsesor(new Asesor());
+                usuario.getAsesor().setIdAsesor(rs.getInt("idAsesor"));
+                usuario.getAsesor().setActivo(true);
+                usuario.getAsesor().setCalificacion(rs.getFloat("calificacion"));
+                usuarios.add(usuario);
+            }
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return usuarios;
+    }
     
 }
