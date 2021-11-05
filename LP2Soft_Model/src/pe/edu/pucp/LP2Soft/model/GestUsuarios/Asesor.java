@@ -11,22 +11,24 @@ public class Asesor{
     private float calificacion;
     private float precioPorHora;
     private boolean activo;
+    private int cantidadResenias;
+    private int sumatoriaResenias;
     
     private ArrayList<Curso>cursos;
     private ArrayList<Resenia> resenias;
 
     // Constructor
     public Asesor(){
-        this.cursos = new ArrayList<>();
-        this.resenias = new ArrayList<>();
         this.precioPorHora = 0;
+        this.cantidadResenias = 0;
+        this.sumatoriaResenias = 0;
         this.calificacion = 0;
         this.activo = true;
     }
     public Asesor(float precioPorHora){
-        this.cursos = new ArrayList<>();
-        this.resenias = new ArrayList<>();
         this.precioPorHora = precioPorHora;
+        this.cantidadResenias = 0;
+        this.sumatoriaResenias = 0;
         this.calificacion = 0;
         this.activo = true;
     }
@@ -59,6 +61,30 @@ public class Asesor{
     }
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    public int getCantidadResenias() {
+        return cantidadResenias;
+    }
+
+    public void setCantidadResenias(int cantidadResenias) {
+        this.cantidadResenias = cantidadResenias;
+    }
+
+    public int getSumatoriaResenias() {
+        return sumatoriaResenias;
+    }
+
+    public void setSumatoriaResenias(int sumatoriaResenias) {
+        this.sumatoriaResenias = sumatoriaResenias;
+    }
+
+    public ArrayList<Resenia> getResenias() {
+        return resenias;
+    }
+
+    public void setResenias(ArrayList<Resenia> resenias) {
+        this.resenias = resenias;
     }
     
 }

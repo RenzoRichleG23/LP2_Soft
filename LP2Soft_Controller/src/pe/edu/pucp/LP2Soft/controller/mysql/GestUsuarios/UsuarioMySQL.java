@@ -155,6 +155,8 @@ public class UsuarioMySQL implements UsuarioDAO{
                         usuario.getAsesor().setActivo(true);
                         usuario.getAsesor().setCalificacion(rs.getFloat("calificacion"));
                         usuario.getAsesor().setPrecioPorHora(rs.getFloat("precioPorHora"));
+                        usuario.getAsesor().setCantidadResenias(rs.getInt("cantidadResenias"));
+                        usuario.getAsesor().setSumatoriaResenias(rs.getInt("sumatoriaResenias"));
                     }
                 }
             }else System.out.println("Usuario no encontrado!");

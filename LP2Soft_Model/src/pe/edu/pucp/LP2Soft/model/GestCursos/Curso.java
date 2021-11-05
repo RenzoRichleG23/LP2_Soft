@@ -22,7 +22,7 @@ public class Curso{
     
     private ArrayList<Profesor>profesores;
     private ArrayList<Post>posts;
-    private ArrayList<Curso>cursosRequeridos; // No queremos crear nuevas instancias, solamente apuntar a los que ya se habían creado
+    private ArrayList<Curso>cursosRequeridos;
     // Constructor
     public Curso(String codigo, String nombre, float creditos, 
             String especialidad, int nivel, String descripcion, float creditosRequeridos, int estado){
@@ -35,9 +35,6 @@ public class Curso{
             this.creditosRequeridos = creditosRequeridos;
             this.estado = estado;
             this.activo = true;
-            this.profesores = new ArrayList<Profesor>();
-            this.posts = new ArrayList<Post>();
-            this.cursosRequeridos = new ArrayList<Curso>();
     }
     
     public Curso(){}
@@ -153,9 +150,4 @@ public class Curso{
     public void setCursosRequeridos(ArrayList<Curso> cursosRequeridos) {
         this.cursosRequeridos = cursosRequeridos;
     }
-
-     
-  
-
-    
 }

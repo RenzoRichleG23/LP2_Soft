@@ -22,13 +22,6 @@ public class CursosWS {
         daoCurso  = new CursoMySQL();
         daoProfesor = new ProfesorMySQL();
     }
-
-    @WebMethod(operationName = "listarCursos")
-    public ArrayList<Curso> listarCursos(@WebParam(name = "idUsuario") int idUsuario){
-        ArrayList<Curso> cursos = null;
-        cursos = daoCurso.listarCursos(idUsuario);
-        return cursos;
-    }
     
     @WebMethod(operationName = "MostrarCurso")
     public Curso MostrarCurso(@WebParam(name = "idCurso") int idCurso){
