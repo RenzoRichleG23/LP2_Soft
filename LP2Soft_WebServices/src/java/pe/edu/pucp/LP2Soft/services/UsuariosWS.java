@@ -50,6 +50,26 @@ public class UsuariosWS {
         return usuarios;
     }
     
+    @WebMethod(operationName = "esAmigo")
+    public int esAmigo(@WebParam(name = "idUsuario1") int idUsuario1,
+            @WebParam(name = "idUsuario2") int idUsuario2) {
+        int resultado = daoUsuario.esAmigo(idUsuario1, idUsuario2);
+        return resultado;
+    }
+    
+    @WebMethod(operationName = "agregarAmigo")
+    public int agregarAmigo(@WebParam(name = "idUsuario1") int idUsuario1,
+            @WebParam(name = "idUsuario2") int idUsuario2) {
+        int resultado = daoUsuario.agregarAmigo(idUsuario1, idUsuario2);
+        return resultado;
+    }
+    
+    @WebMethod(operationName = "hacerAdmin")
+    public int hacerAdmin(@WebParam(name = "idUsuario") int idUsuario) {
+        int resultado = daoUsuario.hacerAdmin(idUsuario);
+        return resultado;
+    }
+    
     @WebMethod(operationName = "modificarUsuario")
     public int modificarUsuario(@WebParam(name = "usuario") Usuario usuario) {
         int resultado = daoUsuario.modificar(usuario);
