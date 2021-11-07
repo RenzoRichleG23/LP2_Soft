@@ -235,13 +235,12 @@ public class UsuarioMySQL implements UsuarioDAO{
 
     @Override
     public int agregarAmigo(int idUsuario1, int idUsuario2) {
-                int resultado=0;
+        int resultado=0;
         try {
             con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call AGREGAR_AMIGO(?,?)}");
             cs.setInt("_idUsuario1", idUsuario1);
             cs.setInt("_idUsuario2", idUsuario2);
-            rs = cs.executeQuery();
             resultado = cs.executeUpdate();
         } catch(Exception ex) {
             System.out.println(ex.getMessage());

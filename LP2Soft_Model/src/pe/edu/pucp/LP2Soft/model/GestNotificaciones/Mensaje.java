@@ -8,27 +8,41 @@ import java.util.Date;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
 public class Mensaje {
-    private Usuario remitente;
-    private Usuario destinatario;
+    private int idMensaje;
+    private int idRemitente;
+    private int idDestinatario;
     private String contenido;
     private Date fechayHora;
     private boolean leido;
 
-    public Usuario getRemitente() {
-        return remitente;
+    public Mensaje() {
+        this.leido = false;
     }
 
-    public void setRemitente(Usuario remitente) {
-        this.remitente = remitente;
+    public int getIdMensaje() {
+        return idMensaje;
     }
 
-    public Usuario getDestinatario() {
-        return destinatario;
+    public void setIdMensaje(int idMensaje) {
+        this.idMensaje = idMensaje;
     }
 
-    public void setDestinatario(Usuario destinatario) {
-        this.destinatario = destinatario;
+    public int getIdRemitente() {
+        return idRemitente;
     }
+
+    public void setIdRemitente(int idRemitente) {
+        this.idRemitente = idRemitente;
+    }
+
+    public int getIdDestinatario() {
+        return idDestinatario;
+    }
+
+    public void setIdDestinatario(int idDestinatario) {
+        this.idDestinatario = idDestinatario;
+    }
+
 
     public String getContenido() {
         return contenido;
