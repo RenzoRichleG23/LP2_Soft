@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import pe.edu.pucp.LP2Soft.controller.config.DBManager;
 import pe.edu.pucp.LP2Soft.controller.dao.GestNotificaciones.NotificacionDAO;
 import pe.edu.pucp.LP2Soft.model.GestNotificaciones.Notificacion;
+import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
 public class NotificacionMySQL implements NotificacionDAO {
     Connection con;
@@ -71,6 +72,40 @@ public class NotificacionMySQL implements NotificacionDAO {
             try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
         }
         return resultado; 
+    }
+
+    @Override
+    public ArrayList<Notificacion> listarNotificaciones(int idUsuario) {
+        ArrayList<Notificacion> notificaciones = new ArrayList<>();
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call LISTAR_NOTIFICACIONES(?)}");
+            cs.setInt("_idUsuario", idUsuario);
+            rs = cs.executeQuery();
+            while(rs.next()) {
+                Notificacion notificacion = new Notificacion();
+                notificacion.setIdNotificacion(rs.getInt("idNotificacion"));
+                notificacion.setIdUsiarioNotificado(rs.getInt("fidUsuarioNotificado"));
+                notificacion.setFecha(rs.getDate("fecha"));
+                if(rs.getInt("leido")==1) notificacion.setLeido(true);
+                notificacion.setTipo(rs.getInt("tipo"));
+                notificacion.setSubTipo(rs.getInt("subTipo"));
+                
+                if(notificacion.getTipo()==1) {
+                    notificacion.setUsuarioNotificador(new Usuario());
+                    notificacion.getUsuarioNotificador().setIdUsuario(rs.getInt("idUsuarioNotificador"));
+                    notificacion.getUsuarioNotificador().setNombre(rs.getString("nombreUsuarioNotificador"));
+                    notificacion.getUsuarioNotificador().setFoto(rs.getBytes("fotoUsuarioNotificador"));
+                }
+                notificaciones.add(notificacion);
+            }
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return notificaciones;
     }
 
 }

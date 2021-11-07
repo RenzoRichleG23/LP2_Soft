@@ -24,6 +24,9 @@ public class Notificacion {
     private Evento eventoAgendado;
     private Post post;
 
+    public Notificacion() {
+        this.leido = false;
+    }
     public int getIdUsiarioNotificado() {
         return idUsiarioNotificado;
     }

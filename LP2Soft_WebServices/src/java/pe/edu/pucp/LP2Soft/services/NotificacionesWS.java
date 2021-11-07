@@ -12,6 +12,7 @@ import pe.edu.pucp.LP2Soft.controller.dao.GestNotificaciones.NotificacionDAO;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestNotificaciones.MensajeMySQL;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestNotificaciones.NotificacionMySQL;
 import pe.edu.pucp.LP2Soft.model.GestNotificaciones.Mensaje;
+import pe.edu.pucp.LP2Soft.model.GestNotificaciones.Notificacion;
 
 @WebService(serviceName = "NotificacionesWS")
 public class NotificacionesWS {
@@ -49,5 +50,12 @@ public class NotificacionesWS {
         int resultado = daoNotificacion.insertarNotificacion(idUsuarioNotificado,
                 tipo, subTipo, idUsuarioNotificador, idCursoFavorito, idEventoAgendado, idPost);
         return resultado;
+    }
+
+    @WebMethod(operationName = "listarNotificaciones")
+    public ArrayList<Notificacion> listarNotificaciones(@WebParam(name = "idUsuario") int idUsuario) {
+        ArrayList<Notificacion> notificaciones = null;
+        notificaciones = daoNotificacion.listarNotificaciones(idUsuario);
+        return notificaciones;
     }
 }
