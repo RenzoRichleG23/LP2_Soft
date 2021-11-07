@@ -38,9 +38,16 @@ public class NotificacionesWS {
         return mensajes;
     }
     
-    @WebMethod(operationName = "insertarNotificacionAdmin")
-    public int insertarNotificacionAdmin(@WebParam(name = "idUsuario1") int idUsuario) {
-        int resultado = daoNotificacion.insertarNotificacionAdmin(idUsuario);
+    @WebMethod(operationName = "insertarNotificacion")
+    public int insertarNotificacion(@WebParam(name = "idUsuarioNotificado") int idUsuarioNotificado,
+            @WebParam(name = "tipo") int tipo,
+            @WebParam(name = "subTipo") int subTipo,
+            @WebParam(name = "idUsuarioNotificador") int idUsuarioNotificador,
+            @WebParam(name = "idCursoFavorito") int idCursoFavorito,
+            @WebParam(name = "idEventoAgendado") int idEventoAgendado,
+            @WebParam(name = "idPost") int idPost) {
+        int resultado = daoNotificacion.insertarNotificacion(idUsuarioNotificado,
+                tipo, subTipo, idUsuarioNotificador, idCursoFavorito, idEventoAgendado, idPost);
         return resultado;
     }
 }
