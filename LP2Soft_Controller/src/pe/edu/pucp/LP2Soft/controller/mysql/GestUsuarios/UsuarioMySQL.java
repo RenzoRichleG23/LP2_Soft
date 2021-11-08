@@ -155,6 +155,8 @@ public class UsuarioMySQL implements UsuarioDAO{
                         usuario.getAsesor().setActivo(true);
                         usuario.getAsesor().setCalificacion(rs.getFloat("calificacion"));
                         usuario.getAsesor().setPrecioPorHora(rs.getFloat("precioPorHora"));
+                        usuario.getAsesor().setCantidadResenias(rs.getInt("cantidadResenias"));
+                        usuario.getAsesor().setSumatoriaResenias(rs.getInt("sumatoriaResenias"));
                     }
                 }
             }else System.out.println("Usuario no encontrado!");
@@ -193,6 +195,60 @@ public class UsuarioMySQL implements UsuarioDAO{
             try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
         }
         return usuarios;
+    }
+
+    @Override
+    public int hacerAdmin(int idUsuario) {
+        int resultado=0;
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call HACER_ADMIN(?)}");
+            cs.setInt("_idUsuario", idUsuario);
+            resultado = cs.executeUpdate();
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return resultado;  
+    }
+
+    @Override
+    public int esAmigo(int idUsuario1, int idUsuario2) {
+        int resultado=0;
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ES_AMIGO(?,?)}");
+            cs.setInt("_idUsuario1", idUsuario1);
+            cs.setInt("_idUsuario2", idUsuario2);
+            rs = cs.executeQuery();
+            if(rs.next()) resultado=1; // si encuantra resultado entonces delvolvemos TRUE-1
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return resultado; 
+    }
+
+    @Override
+    public int agregarAmigo(int idUsuario1, int idUsuario2) {
+        int resultado=0;
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call AGREGAR_AMIGO(?,?)}");
+            cs.setInt("_idUsuario1", idUsuario1);
+            cs.setInt("_idUsuario2", idUsuario2);
+            resultado = cs.executeUpdate();
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return resultado; 
     }
 
 }

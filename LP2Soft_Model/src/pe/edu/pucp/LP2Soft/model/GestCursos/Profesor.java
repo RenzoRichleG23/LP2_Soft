@@ -14,14 +14,16 @@ public class Profesor{
     private byte[] foto; //
     private byte[] portada; //
     private boolean activo;
+    private int cantidadResenias;
+    private int sumatoriaResenias;
     
     private ArrayList<Curso>cursos;
     private ArrayList<Resenia>resenias;
 
     // Constructor
     public Profesor(int idProfesor, String nombre, String correo, String descripcion){
-        //this.cursos = new ArrayList<>();
-        //this.resenias = new ArrayList<>();
+        this.cantidadResenias =0;
+        this.sumatoriaResenias=0;
         this.idProfesor = idProfesor;
         this.nombre = nombre;
         this.calificacion = 0;
@@ -110,6 +112,22 @@ public class Profesor{
 
     public void setResenias(ArrayList<Resenia> resenias) {
         this.resenias = resenias;
+    }
+
+    public int getCantidadResenias() {
+        return cantidadResenias;
+    }
+
+    public void setCantidadResenias(int cantidadResenias) {
+        this.cantidadResenias = cantidadResenias;
+    }
+
+    public int getSumatoriaResenias() {
+        return sumatoriaResenias;
+    }
+
+    public void setSumatoriaResenias(int sumatoriaResenias) {
+        this.sumatoriaResenias = sumatoriaResenias;
     }
    
 }

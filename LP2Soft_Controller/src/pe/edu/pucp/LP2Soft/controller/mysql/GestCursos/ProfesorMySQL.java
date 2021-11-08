@@ -112,6 +112,8 @@ public class ProfesorMySQL implements ProfesorDAO{
                 profesor.setCorreo(rs.getString("correo"));
                 profesor.setDescripcion(rs.getString("descripcion"));
                 profesor.setFoto(rs.getBytes("foto"));
+                profesor.setSumatoriaResenias(rs.getInt("sumatoriaResenias"));
+                profesor.setCantidadResenias(rs.getInt("cantidadResenias"));
                 System.out.println(profesor.getIdProfesor());
                 profesores.add(profesor);
             }
@@ -140,6 +142,8 @@ public class ProfesorMySQL implements ProfesorDAO{
                 profesor.setCorreo(rs.getString("correo"));
                 profesor.setDescripcion(rs.getString("descripcion"));
                 profesor.setFoto(rs.getBytes("foto"));
+                profesor.setSumatoriaResenias(rs.getInt("sumatoriaResenias"));
+                profesor.setCantidadResenias(rs.getInt("cantidadResenias"));
                 profesor.setActivo(rs.getBoolean("activo"));
                 
             } 

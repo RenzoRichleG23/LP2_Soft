@@ -13,9 +13,6 @@
     <service name="CursosWS">
       <implementation-class>pe.edu.pucp.LP2Soft.services.CursosWS</implementation-class>
     </service>
-    <service name="ComentarioWS">
-      <implementation-class>pe.edu.pucp.LP2Soft.services.ComentarioWS</implementation-class>
-    </service>
   </services>
   <clients/>
 </jax-ws>

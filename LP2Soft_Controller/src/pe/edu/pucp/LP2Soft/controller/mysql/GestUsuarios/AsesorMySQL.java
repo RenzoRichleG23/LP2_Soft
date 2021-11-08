@@ -124,6 +124,8 @@ public class AsesorMySQL implements AsesorDAO{
                 usuario.getAsesor().setIdAsesor(rs.getInt("idAsesor"));
                 usuario.getAsesor().setActivo(true);
                 usuario.getAsesor().setCalificacion(rs.getFloat("calificacion"));
+                usuario.getAsesor().setCantidadResenias(rs.getInt("cantidadResenias"));
+                usuario.getAsesor().setSumatoriaResenias(rs.getInt("sumatoriaResenias"));
                 usuarios.add(usuario);
             }
         } catch(Exception ex) {
