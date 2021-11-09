@@ -95,6 +95,7 @@ public class NotificacionMySQL implements NotificacionDAO {
                     notificacion.setUsuarioNotificador(new Usuario());
                     notificacion.getUsuarioNotificador().setIdUsuario(rs.getInt("idUsuarioNotificador"));
                     notificacion.getUsuarioNotificador().setNombre(rs.getString("nombreUsuarioNotificador"));
+                    notificacion.getUsuarioNotificador().setCodigoPUCP(rs.getString("codigoUsuarioNotificador"));
                     notificacion.getUsuarioNotificador().setFoto(rs.getBytes("fotoUsuarioNotificador"));
                 }
                 notificaciones.add(notificacion);

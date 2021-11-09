@@ -13,6 +13,7 @@ import pe.edu.pucp.LP2Soft.controller.mysql.GestNotificaciones.MensajeMySQL;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestNotificaciones.NotificacionMySQL;
 import pe.edu.pucp.LP2Soft.model.GestNotificaciones.Mensaje;
 import pe.edu.pucp.LP2Soft.model.GestNotificaciones.Notificacion;
+import pe.edu.pucp.LP2Soft.model.GestNotificaciones.UltimoMensaje;
 
 @WebService(serviceName = "NotificacionesWS")
 public class NotificacionesWS {
@@ -57,5 +58,13 @@ public class NotificacionesWS {
         ArrayList<Notificacion> notificaciones = null;
         notificaciones = daoNotificacion.listarNotificaciones(idUsuario);
         return notificaciones;
+    }
+
+
+    @WebMethod(operationName = "listarMensajesUltimos")
+    public ArrayList<UltimoMensaje> listarMensajesUltimos(@WebParam(name = "idUsuario") int idUsuario) {
+        ArrayList<UltimoMensaje> mensajes = null;
+        mensajes = daoMensaje.listarUltimosMensajes(idUsuario);
+        return mensajes;
     }
 }
