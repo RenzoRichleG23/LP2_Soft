@@ -25,12 +25,12 @@ public class Principal_Comentario {
             Usuario user = new Usuario();
             user.setIdUsuario(20186019);
             PostGenerico post = new PostGenerico();
-            post.setIdPost(18);
+            post.setIdPost(20);
             
             Comentario comment = new Comentario();
             comment.setPost(post);
             comment.setUsuario(user);
-            comment.setComentario("Genial Gracias!!!");
+            comment.setComentario("Gracias por la info!!!");
             
             
             ComentarioDAO daoComentario = new ComentarioMySQL();

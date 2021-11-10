@@ -8,16 +8,17 @@ public class Evento extends Post{
     //private int idEvento; 
     private String nombreDelEvento;
     private Date fechaDelEvento;
-    private String nombreArchivo;
+    private int horaInicio;
+    private int horaFin;
+    private String enlaceZoom;
     private byte[] archivo;
     // Constructor
-    public Evento(String nombreDelEvento,Date fechaDelEvento,String nombreArchivo,String comentarioPost,int prioridad) {
+    public Evento(String nombreDelEvento,Date fechaDelEvento,String comentarioPost,int prioridad) {
         super(comentarioPost,prioridad);
         super.setTipo(2);
         super.setBloqueado(false);
         this.nombreDelEvento=nombreDelEvento;
         this.fechaDelEvento = fechaDelEvento;
-        this.nombreArchivo = nombreArchivo;
     }
     
     public Evento(){}
@@ -45,6 +46,8 @@ public class Evento extends Post{
     public void setNombreDelEvento(String nombreDelEvento) {
         this.nombreDelEvento = nombreDelEvento;
     }
+    
+    
 
     /*public int getIdEvento() {
         return idEvento;
@@ -54,11 +57,27 @@ public class Evento extends Post{
         this.idEvento = idEvento;
     }*/
 
-    public String getNombreArchivo() {
-        return nombreArchivo;
+    public int getHoraInicio() {
+        return horaInicio;
     }
 
-    public void setNombreArchivo(String nombreArchivo) {
-        this.nombreArchivo = nombreArchivo;
+    public void setHoraInicio(int horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public int getHoraFin() {
+        return horaFin;
+    }
+
+    public void setHoraFin(int horaFin) {
+        this.horaFin = horaFin;
+    }
+
+    public String getEnlaceZoom() {
+        return enlaceZoom;
+    }
+
+    public void setEnlaceZoom(String enlaceZoom) {
+        this.enlaceZoom = enlaceZoom;
     }
 }

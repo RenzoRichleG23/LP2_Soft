@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import pe.edu.pucp.LP2Soft.controller.config.DBManager;
 import pe.edu.pucp.LP2Soft.controller.dao.GestNotificaciones.NotificacionDAO;
@@ -52,10 +53,11 @@ public class NotificacionMySQL implements NotificacionDAO {
             cs.setInt("_idUsuario", idUsuario);
             rs = cs.executeQuery();
             while(rs.next()) {
+                Timestamp ts1 = rs.getTimestamp("fecha");
                 Notificacion notificacion = new Notificacion();
                 notificacion.setIdNotificacion(rs.getInt("idNotificacion"));
                 notificacion.setIdUsiarioNotificado(rs.getInt("fidUsuarioNotificado"));
-                notificacion.setFecha(rs.getDate("fecha"));
+                notificacion.setFecha(ts1);
                 if(rs.getInt("leido")==1) notificacion.setLeido(true);
                 notificacion.setTipo(rs.getInt("tipo"));
                 notificacion.setSubTipo(rs.getInt("subTipo"));

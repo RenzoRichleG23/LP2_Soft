@@ -48,6 +48,26 @@ public class CursosWS {
         return profesor;
     }
     
+    @WebMethod(operationName = "listaXciclo")
+    public ArrayList<Curso> listaXciclo(@WebParam(name = "nivel") int nivel){
+        ArrayList<Curso> curso = null;        
+        curso = daoCurso.listaXciclo(nivel);
+        return curso;
+    }
+    @WebMethod(operationName = "listarCursoProfesor")
+    public ArrayList<Curso> listarCursoProfesor(@WebParam(name = "idProfesor") int idProfesor) {
+        ArrayList<Curso> cursos = null;
+        cursos = daoProfesor.listarCursoProfesor(idProfesor);
+        return cursos;
+    }
+    
+    @WebMethod(operationName = "listarProfesorXCurso")
+    public ArrayList<Profesor> listarProfesorXCurso(@WebParam(name = "idCurso") int idCurso){
+        ArrayList<Profesor> profesores = null;
+        profesores = daoProfesor.listarProfesorXCurso(idCurso);
+        return profesores;
+    }
+    
     @WebMethod(operationName = "listarCursosAsesorados")
     public ArrayList<Curso> listarCursosAsesorados(@WebParam(name = "idAsesor") int idAsesor){
         ArrayList<Curso> cursos = null;

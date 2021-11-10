@@ -4,6 +4,7 @@
 package pe.edu.pucp.LP2Soft.model.GestCursos;
 import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Post;
 import java.util.ArrayList;
+import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Material;
 
 public class Curso{
 
@@ -19,10 +20,15 @@ public class Curso{
     private int estado;
     private boolean activo;
     private boolean favorito;
+    private int cantPc;
+    private int cantEx;
+    private int cantTA;
+    private int cantLab;
     
     private ArrayList<Profesor>profesores;
     private ArrayList<Post>posts;
     private ArrayList<Curso>cursosRequeridos;
+    private ArrayList<Material>TotalMateriales;
     // Constructor
     public Curso(String codigo, String nombre, float creditos, 
             String especialidad, int nivel, String descripcion, float creditosRequeridos, int estado){
@@ -150,4 +156,45 @@ public class Curso{
     public void setCursosRequeridos(ArrayList<Curso> cursosRequeridos) {
         this.cursosRequeridos = cursosRequeridos;
     }
+
+    public ArrayList<Material> getTotalMateriales() {
+        return TotalMateriales;
+    }
+
+    public void setTotalMateriales(ArrayList<Material> TotalMateriales) {
+        this.TotalMateriales = TotalMateriales;
+    }
+
+    public int getCantPc() {
+        return cantPc;
+    }
+
+    public void setCantPc(int cantPc) {
+        this.cantPc = cantPc;
+    }
+
+    public int getCantEx() {
+        return cantEx;
+    }
+
+    public void setCantEx(int cantEx) {
+        this.cantEx = cantEx;
+    }
+
+    public int getCantTA() {
+        return cantTA;
+    }
+
+    public void setCantTA(int cantTA) {
+        this.cantTA = cantTA;
+    }
+
+    public int getCantLab() {
+        return cantLab;
+    }
+
+    public void setCantLab(int cantLab) {
+        this.cantLab = cantLab;
+    }
+    
 }
