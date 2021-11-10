@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import pe.edu.pucp.LP2Soft.controller.config.DBManager;
 import pe.edu.pucp.LP2Soft.controller.dao.GestNotificaciones.MensajeDAO;
@@ -51,12 +52,13 @@ public class MensajeMySQL implements MensajeDAO {
             cs.setInt("_idUsuario2", idUsuario2);
             rs = cs.executeQuery();
             while(rs.next()) {
+                Timestamp ts1 = rs.getTimestamp("fecha");
                 Mensaje mensaje = new Mensaje();
                 mensaje.setIdMensaje(rs.getInt("idMensaje"));
                 mensaje.setIdRemitente(rs.getInt("fidUsuario1"));
                 mensaje.setIdDestinatario(rs.getInt("fidUsuario2"));
                 mensaje.setContenido(rs.getString("contenido"));
-                mensaje.setFechayHora(rs.getDate("fecha"));
+                mensaje.setFechayHora(ts1);
                 if(rs.getInt("leido")==1) mensaje.setLeido(true);
                 mensajes.add(mensaje);
             }
@@ -94,12 +96,13 @@ public class MensajeMySQL implements MensajeDAO {
                     }
                 }
                 if(ok) {
+                    Timestamp ts1 = rs.getTimestamp("fecha");
                     mensaje.setMensaje(new Mensaje());
                     mensaje.getMensaje().setIdMensaje(rs.getInt("idMensaje"));
                     mensaje.getMensaje().setIdRemitente(rs.getInt("fidUsuario1"));
                     mensaje.getMensaje().setIdDestinatario(rs.getInt("fidUsuario2"));
                     mensaje.getMensaje().setContenido(rs.getString("contenido"));
-                    mensaje.getMensaje().setFechayHora(rs.getDate("fecha"));
+                    mensaje.getMensaje().setFechayHora(ts1);
                     if(rs.getInt("leido")==1) mensaje.getMensaje().setLeido(true);
                     //traer los datos del amigo
                     int idAmigo = (id1==idUsuario)? id2: id1;
