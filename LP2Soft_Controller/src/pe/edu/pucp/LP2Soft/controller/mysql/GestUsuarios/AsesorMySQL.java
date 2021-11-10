@@ -152,7 +152,7 @@ public class AsesorMySQL implements AsesorDAO{
                 curso.setCodigo(rs.getString("CodigoCurso"));
                 curso.setNombre(rs.getString("nombre"));
                 curso.setNivel(rs.getInt("nivel"));
-                curso.setCreditos(rs.getInt("creditos"));
+                curso.setCreditos(rs.getFloat("creditos"));
                 cursos.add(curso);
             }
         } catch(Exception ex) {

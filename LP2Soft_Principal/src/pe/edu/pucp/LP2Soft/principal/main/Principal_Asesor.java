@@ -37,7 +37,7 @@ public class Principal_Asesor {
               Curso curso;
               for(int i=0;i<3;i++){
                   curso = cursos.get(i);
-                  System.out.println(curso.getNombre());
+                  System.out.println(curso.getCreditos());
               }
             
         } catch (Exception ex){
