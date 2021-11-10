@@ -9,8 +9,10 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import pe.edu.pucp.LP2Soft.controller.dao.GestCursos.CursoDAO;
 import pe.edu.pucp.LP2Soft.controller.dao.GestCursos.ProfesorDAO;
+import pe.edu.pucp.LP2Soft.controller.dao.GestUsuarios.AsesorDAO;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestCursos.CursoMySQL;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestCursos.ProfesorMySQL;
+import pe.edu.pucp.LP2Soft.controller.mysql.GestUsuarios.AsesorMySQL;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Profesor;
 
@@ -18,9 +20,11 @@ import pe.edu.pucp.LP2Soft.model.GestCursos.Profesor;
 public class CursosWS {
     private CursoDAO daoCurso;
     private ProfesorDAO daoProfesor;
+    private AsesorDAO daoAsesor;
     public CursosWS(){
         daoCurso  = new CursoMySQL();
         daoProfesor = new ProfesorMySQL();
+        daoAsesor = new AsesorMySQL();
     }
     
     @WebMethod(operationName = "MostrarCurso")
@@ -44,7 +48,12 @@ public class CursosWS {
         return profesor;
     }
     
-    
+    @WebMethod(operationName = "listarCursosAsesorados")
+    public ArrayList<Curso> listarCursosAsesorados(@WebParam(name = "idAsesor") int idAsesor){
+        ArrayList<Curso> cursos = null;
+        cursos = daoAsesor.listarCursosAsesorados(idAsesor);
+        return cursos;
+    }
     
 
 }
