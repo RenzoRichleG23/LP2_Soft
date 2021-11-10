@@ -216,14 +216,16 @@ public class UsuarioMySQL implements UsuarioDAO{
 
     @Override
     public int esAmigo(int idUsuario1, int idUsuario2) {
+        // 0Noamigo, ni quiere ser; 1 es amigo; 2 No amigo, envió solicitud; 3 No amigo, yo envié solicitud
         int resultado=0;
         try {
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call ES_AMIGO(?,?)}");
+            cs = con.prepareCall("{call ES_AMIGO(?,?,?)}");
+            cs.registerOutParameter("_resultado", java.sql.Types.INTEGER);
             cs.setInt("_idUsuario1", idUsuario1);
             cs.setInt("_idUsuario2", idUsuario2);
-            rs = cs.executeQuery();
-            if(rs.next()) resultado=1; // si encuantra resultado entonces delvolvemos TRUE-1
+            cs.executeUpdate();
+            resultado = cs.getInt("_resultado");
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
