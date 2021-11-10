@@ -159,9 +159,9 @@ public class CursoMySQL implements CursoDAO{
                 curso.setDescripcion(rs.getString("descripcion"));
                 curso.setCreditosRequeridos(rs.getFloat("creditosRequeridos"));
                 curso.setCantPc(rs.getInt("cantPc"));
-                curso.setCantLab(rs.getInt("cantEx"));
+                curso.setCantEx(rs.getInt("cantEx"));
                 curso.setCantTA(rs.getInt("cantTA"));
-                curso.setCantEx(rs.getInt("cantLab"));
+                curso.setCantLab(rs.getInt("cantLab"));
                } 
             cs = con.prepareCall("{call MOSTRAR_REQUISITOSCURSOSXCURSOS(?)}");
             cs.setInt("_idCurso",idCurso);
