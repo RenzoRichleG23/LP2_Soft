@@ -8,20 +8,27 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import pe.edu.pucp.LP2Soft.controller.dao.GestPublicaciones.ComentarioDAO;
+import pe.edu.pucp.LP2Soft.controller.dao.GestPublicaciones.EventoDAO;
+import pe.edu.pucp.LP2Soft.controller.dao.GestPublicaciones.MaterialDAO;
 import pe.edu.pucp.LP2Soft.controller.dao.GestPublicaciones.PostDAO;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestPublicaciones.ComentarioMySQL;
+import pe.edu.pucp.LP2Soft.controller.mysql.GestPublicaciones.EventoMySQL;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestPublicaciones.PostMySQL;
 import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Comentario;
+import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Evento;
+import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Material;
 import pe.edu.pucp.LP2Soft.model.GestPublicaciones.PostGenerico;
 
 @WebService(serviceName = "PublicacionesWS")
 public class PublicacionesWS {
     private PostDAO daoPost;
     private ComentarioDAO daoComentario;
-    
+    private EventoDAO daoEvento;
+    private MaterialDAO daoMaterial;
     public PublicacionesWS(){
         daoPost = new PostMySQL();
         daoComentario = new ComentarioMySQL();
+        daoEvento  =new EventoMySQL();
     }
     
     @WebMethod(operationName = "insertarPost")
@@ -60,5 +67,42 @@ public class PublicacionesWS {
         ArrayList<Comentario> comentarios = null;
         comentarios = daoComentario.listarTodos(idPost);
         return comentarios;
+    }
+    
+    @WebMethod(operationName = "aumentarLikes")
+    public int aumentarLikes(@WebParam(name = "idPost") int idPost) {
+        int resultado = daoPost.aumentarLike(idPost);
+        return resultado;
+    }
+    
+    @WebMethod(operationName = "disminuirLikes")
+    public int disminuirLikes(@WebParam(name = "idPost") int idPost) {
+        int resultado = daoPost.disminuirLike(idPost);
+        return resultado;
+    }
+    
+    @WebMethod(operationName = "eliminarComentario")
+    public int eliminarComentario(@WebParam(name = "comentario") Comentario comentario) {
+        int resultado = daoComentario.eliminar(comentario);
+        return resultado;
+    }
+    
+    @WebMethod(operationName = "insertarEvento")
+    public int insertarEvento(@WebParam(name = "evento") Evento evento) {
+        int resultado = daoEvento.insertar(evento);
+        return resultado;
+    }
+    
+    @WebMethod(operationName = "listarMisEventos")
+    public ArrayList<Evento> listarMisEventos(@WebParam(name = "idUsuario") int idUsuario) {
+        ArrayList<Evento> eventos = null;
+        eventos = daoEvento.listarMisEventos(idUsuario);
+        return eventos;
+    }
+    
+    @WebMethod(operationName = "insertar_Material")
+    public int insertar_Material(@WebParam(name = "material") Material material) {
+        int resultado = daoMaterial.insertar_Material(material);
+        return resultado;
     }
 }

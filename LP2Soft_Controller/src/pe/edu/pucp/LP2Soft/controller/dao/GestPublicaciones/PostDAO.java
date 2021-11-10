@@ -11,4 +11,6 @@ public interface PostDAO {
     int modificar(PostGenerico post);
     int eliminar(PostGenerico post);
     ArrayList<PostGenerico> listarTodos();
+    int aumentarLike(int idPost);
+    int disminuirLike(int idPost);
 }

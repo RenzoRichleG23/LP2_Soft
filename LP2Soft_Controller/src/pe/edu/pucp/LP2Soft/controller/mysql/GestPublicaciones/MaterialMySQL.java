@@ -28,7 +28,7 @@ public class MaterialMySQL implements MaterialDAO{
     CallableStatement cs;
     
     @Override
-    public int insertar(Material material) {
+    public int insertar_Material(Material material) {
         int resultado=0;
         try{
             con = DBManager.getInstance().getConnection();
