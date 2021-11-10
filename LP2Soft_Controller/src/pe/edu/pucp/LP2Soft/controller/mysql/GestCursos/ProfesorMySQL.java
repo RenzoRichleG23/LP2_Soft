@@ -168,7 +168,7 @@ public class ProfesorMySQL implements ProfesorDAO{
             while(rs.next()) {
                 Profesor profesor = new Profesor();
                 profesor.setIdProfesor(rs.getInt("idProfesor"));
-                profesor.setNombre(rs.getString("nombre"));
+                profesor.setNombre(rs.getString("p.nombre"));
                 profesor.setCalificacion(rs.getFloat("calificacion"));
                 profesor.setCorreo(rs.getString("correo"));
                 profesor.setDescripcion(rs.getString("descripcion"));
