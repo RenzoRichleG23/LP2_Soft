@@ -114,7 +114,7 @@ public class ProfesorMySQL implements ProfesorDAO{
                 profesor.setFoto(rs.getBytes("foto"));
                 profesor.setSumatoriaResenias(rs.getInt("sumatoriaResenias"));
                 profesor.setCantidadResenias(rs.getInt("cantidadResenias"));
-                System.out.println(profesor.getIdProfesor());
+                //System.out.println(profesor.getIdProfesor());
                 profesores.add(profesor);
             }
         } catch(Exception ex) {
@@ -155,6 +155,32 @@ public class ProfesorMySQL implements ProfesorDAO{
             try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
         }
         return profesor;
+    }
+    
+    @Override
+    public ArrayList<Curso> listarCursoProfesor(int idProfesor) {
+       ArrayList<Curso> cursos = new ArrayList<>();
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call LISTAR_CURSO_PROFESOR(?)}");
+            cs.setInt("_idProfesor", idProfesor);
+            rs = cs.executeQuery();
+            while(rs.next()) {
+                Curso curso = new Curso();
+                curso.setIdCurso(rs.getInt("idCurso"));
+                curso.setCodigo(rs.getString("CodigoCurso"));
+                curso.setNombre(rs.getString("nombre"));
+                curso.setNivel(rs.getInt("nivel"));
+                curso.setCreditos(rs.getFloat("creditos"));
+                cursos.add(curso);
+            }
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return cursos;
     }
 
     @Override
