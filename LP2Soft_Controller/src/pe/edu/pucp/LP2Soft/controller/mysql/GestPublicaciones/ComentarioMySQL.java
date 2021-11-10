@@ -18,6 +18,7 @@ import java.sql.CallableStatement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import pe.edu.pucp.LP2Soft.controller.config.DBManager;
+import pe.edu.pucp.LP2Soft.model.GestPublicaciones.PostGenerico;
 
 public class ComentarioMySQL implements ComentarioDAO{
     Connection con;
@@ -73,13 +74,15 @@ public class ComentarioMySQL implements ComentarioDAO{
     }
 
     @Override
-    public int eliminar(int idComentario) {
+    public int eliminar(Comentario comentario) {
         int resultado=0;
         try {
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call ELIMINAR_COMENTARIO(?)}");
-            cs.setInt("_idComentario", idComentario);
-            resultado = cs.executeUpdate();
+            cs = con.prepareCall("{call ELIMINAR_COMENTARIO(?,?)}");
+            cs.setInt("_idComentario", comentario.getIdComentario());
+            cs.setInt("_idPost", comentario.getPost().getIdPost());
+            cs.executeUpdate();
+            resultado=1;
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
@@ -92,30 +95,36 @@ public class ComentarioMySQL implements ComentarioDAO{
     @Override
     public ArrayList<Comentario> listarTodos(int idPost) {
         ArrayList<Comentario> comentarios = new ArrayList<>();
-        boolean resultados=false;
+        int resultado=0;
         try {
             con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call LISTAR_COMENTARIOS(?)}");
             cs.setInt("_idPost", idPost);
             rs = cs.executeQuery();
             while(rs.next()) {
-                int idComentario = rs.getInt("idComentario");
-                String coment = rs.getString("coment");
-                Date fechaRegistro = rs.getDate("fechaRegistro");
-
-                Comentario comment = new Comentario();
-                comment.setIdComentario(idComentario);
-                comment.setComentario(coment);
-                comment.setFechaRegistro(fechaRegistro);
-                comentarios.add(comment);
+                Comentario comentario = new Comentario();
+                comentario.setIdComentario(rs.getInt("idComentario"));
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(rs.getInt("fidUsuario"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setApellido(rs.getString("apellido"));
+                //usuario.setFoto(rs.getBytes("foto"));
+                Post post=new PostGenerico();
+                post.setIdPost(rs.getInt("fidPost"));
+                comentario.setPost(post);
+                comentario.setUsuario(usuario);
+                comentario.setComentario(rs.getString("coment"));
+                
+                comentarios.add(comentario);
             }
+            resultado=1;
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
             try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
             try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
         }
-        if(!comentarios.isEmpty())
+        if(resultado==1)
             return comentarios;
         else
             return null;

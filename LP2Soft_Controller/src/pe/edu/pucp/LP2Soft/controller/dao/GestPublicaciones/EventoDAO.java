@@ -10,5 +10,6 @@ public interface EventoDAO {
     int insertar(Evento evento);
     int modificar(Evento evento);
     int eliminar(int idEvento);
+    ArrayList<Evento> listarMisEventos(int idUsuario);
     ArrayList<Evento> listarTodos();
 }
