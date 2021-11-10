@@ -44,7 +44,12 @@ public class CursosWS {
         return profesor;
     }
     
-    
+    @WebMethod(operationName = "listaXciclo")
+    public ArrayList<Curso> listaXciclo(@WebParam(name = "nivel") int nivel){
+        ArrayList<Curso> curso = null;        
+        curso = daoCurso.listaXciclo(nivel);
+        return curso;
+    }
     
 
 }

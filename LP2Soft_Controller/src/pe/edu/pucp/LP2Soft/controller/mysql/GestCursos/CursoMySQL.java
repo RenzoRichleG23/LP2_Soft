@@ -158,7 +158,10 @@ public class CursoMySQL implements CursoDAO{
                 curso.setEspecialidad(rs.getString("especialidad"));
                 curso.setDescripcion(rs.getString("descripcion"));
                 curso.setCreditosRequeridos(rs.getFloat("creditosRequeridos"));
-                
+                curso.setCantPc(rs.getInt("canPc"));
+                curso.setCantLab(rs.getInt("canEx"));
+                curso.setCantTA(rs.getInt("canTA"));
+                curso.setCantEx(rs.getInt("canLab"));
                } 
             cs = con.prepareCall("{call MOSTRAR_REQUISITOSCURSOSXCURSOS(?)}");
             cs.setInt("_idCurso",idCurso);
@@ -180,6 +183,38 @@ public class CursoMySQL implements CursoDAO{
             try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
         }
         return curso;
+    }
+
+    @Override
+    public ArrayList<Curso> listaXciclo(int nivel) {
+        ArrayList<Curso> cursos = new ArrayList<>();
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call MOSTRAR_CURSOS_NIVEL(?)}");
+            cs.setInt("_nivel",nivel);
+            rs = cs.executeQuery();
+            while(rs.next()) {
+                Curso curso = new Curso();
+                curso.setIdCurso(rs.getInt("idCurso"));
+                curso.setCodigo(rs.getString("CodigoCurso"));
+                System.out.println(curso.getCodigo());
+                curso.setNombre(rs.getString("nombre"));
+                curso.setNivel(rs.getInt("nivel"));
+                curso.setCreditos(rs.getFloat("creditos"));
+                //curso.setEstado(rs.getInt("estado"));
+//                if(rs.getInt("favorito") == 0)
+//                    curso.setFavorito(false);
+//                else curso.setFavorito(true);
+//                
+                cursos.add(curso);
+            }
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return cursos;
     }
 
 }
