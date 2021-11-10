@@ -13,6 +13,7 @@ public class Material extends Post {
     private int cantidadCalificaiones;
     private int sumatoriaCalificaiones;
     private Profesor profesor;
+    private int tipoMaterial;
     // Constructor
     public Material(byte[] archivo, String comentarioPost) {
         super(comentarioPost);
@@ -52,4 +53,37 @@ public class Material extends Post {
     public void setCurso(Curso curso) {
         this.curso = curso;
     }
+
+    public int getCantidadCalificaiones() {
+        return cantidadCalificaiones;
+    }
+
+    public void setCantidadCalificaiones(int cantidadCalificaiones) {
+        this.cantidadCalificaiones = cantidadCalificaiones;
+    }
+
+    public int getSumatoriaCalificaiones() {
+        return sumatoriaCalificaiones;
+    }
+
+    public void setSumatoriaCalificaiones(int sumatoriaCalificaiones) {
+        this.sumatoriaCalificaiones = sumatoriaCalificaiones;
+    }
+
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
+    }
+
+    public int getTipoMaterial() {
+        return tipoMaterial;
+    }
+
+    public void setTipoMaterial(int tipoMaterial) {
+        this.tipoMaterial = tipoMaterial;
+    }
+    
 }
