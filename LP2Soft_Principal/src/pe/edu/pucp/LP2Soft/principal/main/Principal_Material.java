@@ -6,7 +6,9 @@
 package pe.edu.pucp.LP2Soft.principal.main;
 
 import java.util.ArrayList;
+import pe.edu.pucp.LP2Soft.controller.dao.GestCursos.ProfesorDAO;
 import pe.edu.pucp.LP2Soft.controller.dao.GestPublicaciones.MaterialDAO;
+import pe.edu.pucp.LP2Soft.controller.mysql.GestCursos.ProfesorMySQL;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestPublicaciones.MaterialMySQL;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
 import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Material;
@@ -35,19 +37,19 @@ public class Principal_Material {
         MaterialDAO daoMaterial = new MaterialMySQL();
         daoMaterial.insertar(m1);*/
         
-        ArrayList<Material> materiales;
-        MaterialDAO daoMaterial = new MaterialMySQL();
-        materiales=daoMaterial.listarTodos();
-        
-        Material material;
-        material=materiales.get(0);
-        
-        material.setContenido("PC1-20212-P1");
-      
-        daoMaterial.modificar(materiales.get(0));
-        
+//        ArrayList<Material> materiales;
+//        MaterialDAO daoMaterial = new MaterialMySQL();
+//        materiales=daoMaterial.listarTodos();
+//        
+//        Material material;
+//        material=materiales.get(0);
+//        
+//        material.setContenido("PC1-20212-P1");
+//      
+//        daoMaterial.modificar(materiales.get(0));
+        ProfesorDAO daoProfesor = new ProfesorMySQL();
         //daoMaterial.eliminar(material.getIdPost());
-        
-        System.out.println("Fin");
+        daoProfesor.listarProfesorXCurso(30);
+//        System.out.println("Fin");
     }
 }
