@@ -64,6 +64,13 @@ public class UsuariosWS {
         return resultado;
     }
     
+    @WebMethod(operationName = "eliminarAmigo")
+    public int eliminarAmigo(@WebParam(name = "idUsuario1") int idUsuario1,
+            @WebParam(name = "idUsuario2") int idUsuario2) {
+        int resultado = daoUsuario.eliminarAmigo(idUsuario1, idUsuario2);
+        return resultado;
+    }
+    
     @WebMethod(operationName = "hacerAdmin")
     public int hacerAdmin(@WebParam(name = "idUsuario") int idUsuario) {
         int resultado = daoUsuario.hacerAdmin(idUsuario);
