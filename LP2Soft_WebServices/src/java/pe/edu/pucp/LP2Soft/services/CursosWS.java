@@ -44,6 +44,13 @@ public class CursosWS {
         return profesor;
     }
     
+    @WebMethod(operationName = "listarCursoProfesor")
+    public ArrayList<Curso> listarCursoProfesor(@WebParam(name = "idProfesor") int idProfesor) {
+        ArrayList<Curso> cursos = null;
+        cursos = daoProfesor.listarCursoProfesor(idProfesor);
+        return cursos;
+    }
+    
     
     
 
