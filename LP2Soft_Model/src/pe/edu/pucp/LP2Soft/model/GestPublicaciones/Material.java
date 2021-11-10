@@ -14,6 +14,8 @@ public class Material extends Post {
     private int sumatoriaCalificaiones;
     private Profesor profesor;
     private int tipoMaterial;
+    private int indice_tipoMaterial;
+    
     // Constructor
     public Material(byte[] archivo, String comentarioPost) {
         super(comentarioPost);
@@ -84,6 +86,14 @@ public class Material extends Post {
 
     public void setTipoMaterial(int tipoMaterial) {
         this.tipoMaterial = tipoMaterial;
+    }
+
+    public int getIndice_tipoMaterial() {
+        return indice_tipoMaterial;
+    }
+
+    public void setIndice_tipoMaterial(int indice_tipoMaterial) {
+        this.indice_tipoMaterial = indice_tipoMaterial;
     }
     
 }
