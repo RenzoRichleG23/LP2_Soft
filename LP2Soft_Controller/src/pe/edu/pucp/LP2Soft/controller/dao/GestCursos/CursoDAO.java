@@ -12,4 +12,5 @@ public interface CursoDAO {
     int eliminar(String curso);
     ArrayList<Curso> listarCursos(int idUsuario);
     Curso MostrarCurso(int idCurso);
+    ArrayList<Curso> listaXciclo(int nivel);
 }

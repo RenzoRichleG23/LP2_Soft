@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.sql.DriverManager;
 import java.sql.CallableStatement;
 import pe.edu.pucp.LP2Soft.controller.config.DBManager;
+import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
 public class AsesorMySQL implements AsesorDAO{
@@ -135,6 +136,32 @@ public class AsesorMySQL implements AsesorDAO{
             try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
         }
         return usuarios;
+    }
+
+    @Override
+    public ArrayList<Curso> listarCursosAsesorados(int fidAsesor) {
+        ArrayList<Curso> cursos = new ArrayList<>();
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call LISTAR_CURSOS_ASESOR(?)}");
+            cs.setInt("_idAsesor", fidAsesor);
+            rs = cs.executeQuery();
+            while(rs.next()) {
+                Curso curso = new Curso();
+                curso.setIdCurso(rs.getInt("idCurso"));
+                curso.setCodigo(rs.getString("CodigoCurso"));
+                curso.setNombre(rs.getString("nombre"));
+                curso.setNivel(rs.getInt("nivel"));
+                curso.setCreditos(rs.getInt("creditos"));
+                cursos.add(curso);
+            }
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return cursos;
     }
     
 }

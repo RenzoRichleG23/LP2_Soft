@@ -32,25 +32,29 @@ public class MaterialMySQL implements MaterialDAO{
         int resultado=0;
         try{
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call INSERTAR_MATERIAL(?,?,?,?,?,?,?,?,?,?,?)}");
+            cs = con.prepareCall("{call INSERTAR_MATERIAL(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
             
             cs.registerOutParameter("_idPost",java.sql.Types.INTEGER);
             cs.setInt("_fidUsuario",material.getUsuario().getIdUsuario());
-            cs.setString("_fidCurso",material.getCurso().getCodigo());
-            cs.setString("_comentarioPost",material.getContenido());
+            cs.setString("_contenido",material.getContenido());
             cs.setInt("_bloqueado", 0);
             cs.setInt("_likes", 0);
             cs.setInt("_prioridad",material.getPrioridad());
             cs.setDate("_fechaRegistro",new java.sql.Date(material.getFechaRegistro().getTime()));
             cs.setInt("_activo", 1);
-            cs.setString("_nombreArchivo",material.getNombreArchivo());
+            cs.setInt("_tipo", 3);
+            cs.setInt("_numeroContent", 0);
+            cs.setInt("_fidCurso", material.getCurso().getIdCurso());
+            cs.setInt("_fidProfesro", material.getProfesor().getIdProfesor());
+            cs.setInt("_sumatoriaCalificaciones", 0);
+            cs.setInt("_cantidadCalificaciones", 0);
+            cs.setString("_nombreArchivo", material.getNombreArchivo());        
             File file=new File(material.getNombreArchivo());
             FileInputStream input = new FileInputStream(file);
             cs.setBlob("_archivo",input);
-            
+            cs.setInt("_tipoMAterial", material.getTipoMaterial());
             cs.executeUpdate();
-            material.setIdPost(cs.getInt("_idPost"));
-            
+            material.setIdPost(cs.getInt("_idPost"));            
             resultado=1;
         }catch(Exception ex){
             System.out.println(ex.getMessage());

@@ -16,5 +16,6 @@ public interface UsuarioDAO {
     ArrayList<Usuario> listarAmigosNombreCodigo(int idUsuario, String nombreCodigo);
     int hacerAdmin(int idUsuario);
     int agregarAmigo(int idUsuario1, int idUsuario2);
+    int eliminarAmigo(int idUsuario1, int idUsuario2);
     int esAmigo(int idUsuario1, int idUsuario2);
 }

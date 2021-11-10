@@ -13,6 +13,7 @@ import pe.edu.pucp.LP2Soft.controller.mysql.GestNotificaciones.MensajeMySQL;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestNotificaciones.NotificacionMySQL;
 import pe.edu.pucp.LP2Soft.model.GestNotificaciones.Mensaje;
 import pe.edu.pucp.LP2Soft.model.GestNotificaciones.Notificacion;
+import pe.edu.pucp.LP2Soft.model.GestNotificaciones.UltimoMensaje;
 
 @WebService(serviceName = "NotificacionesWS")
 public class NotificacionesWS {
@@ -51,11 +52,26 @@ public class NotificacionesWS {
                 tipo, subTipo, idUsuarioNotificador, idCursoFavorito, idEventoAgendado, idPost);
         return resultado;
     }
+    
+    @WebMethod(operationName = "eliminarSolicitudAmistad")
+    public int eliminarSolicitudAmistad(@WebParam(name = "idUsuarioNotificado") int idUsuarioNotificado,
+            @WebParam(name = "idUsuarioNotificador") int idUsuarioNotificador) {
+        int resultado = daoNotificacion.eliminarSolicitudAmistad(idUsuarioNotificado, idUsuarioNotificador);
+        return resultado;
+    }
 
     @WebMethod(operationName = "listarNotificaciones")
     public ArrayList<Notificacion> listarNotificaciones(@WebParam(name = "idUsuario") int idUsuario) {
         ArrayList<Notificacion> notificaciones = null;
         notificaciones = daoNotificacion.listarNotificaciones(idUsuario);
         return notificaciones;
+    }
+
+
+    @WebMethod(operationName = "listarMensajesUltimos")
+    public ArrayList<UltimoMensaje> listarMensajesUltimos(@WebParam(name = "idUsuario") int idUsuario) {
+        ArrayList<UltimoMensaje> mensajes = null;
+        mensajes = daoMensaje.listarUltimosMensajes(idUsuario);
+        return mensajes;
     }
 }
