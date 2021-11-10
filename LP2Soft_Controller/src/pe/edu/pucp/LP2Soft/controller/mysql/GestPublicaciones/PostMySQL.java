@@ -161,4 +161,48 @@ public class PostMySQL implements PostDAO{
         }
         return posts;
     }
+
+    @Override
+    public int aumentarLike(int idPost) {
+        int resultado = 0;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call AUMENTAR_LIKE(?)}");
+            
+            cs.setInt("_idPost", idPost);
+         
+            cs.executeUpdate();
+            
+            resultado=1;
+            
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{cs.close();}catch(Exception ex){System.out.println(ex.getMessage());};
+            try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());};
+        }
+        return resultado;
+    }
+
+    @Override
+    public int disminuirLike(int idPost) {
+        int resultado = 0;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call DISMINUIR_LIKE(?)}");
+            
+            cs.setInt("_idPost", idPost);
+         
+            cs.executeUpdate();
+            
+            resultado=1;
+            
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{cs.close();}catch(Exception ex){System.out.println(ex.getMessage());};
+            try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());};
+        }
+        return resultado;
+    }
 }

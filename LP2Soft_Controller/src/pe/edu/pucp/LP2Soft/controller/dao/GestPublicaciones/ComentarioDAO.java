@@ -10,6 +10,6 @@ import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Comentario;
 public interface ComentarioDAO {
     int insertar(Comentario comment);
     int modificar(Comentario comment);
-    int eliminar(int idComentario);
+    int eliminar(Comentario comentario);
     ArrayList<Comentario> listarTodos(int idPost);
 }
