@@ -52,6 +52,13 @@ public class NotificacionesWS {
                 tipo, subTipo, idUsuarioNotificador, idCursoFavorito, idEventoAgendado, idPost);
         return resultado;
     }
+    
+    @WebMethod(operationName = "eliminarSolicitudAmistad")
+    public int eliminarSolicitudAmistad(@WebParam(name = "idUsuarioNotificado") int idUsuarioNotificado,
+            @WebParam(name = "idUsuarioNotificador") int idUsuarioNotificador) {
+        int resultado = daoNotificacion.eliminarSolicitudAmistad(idUsuarioNotificado, idUsuarioNotificador);
+        return resultado;
+    }
 
     @WebMethod(operationName = "listarNotificaciones")
     public ArrayList<Notificacion> listarNotificaciones(@WebParam(name = "idUsuario") int idUsuario) {

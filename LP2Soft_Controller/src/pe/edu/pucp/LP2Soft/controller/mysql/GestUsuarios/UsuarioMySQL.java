@@ -252,5 +252,21 @@ public class UsuarioMySQL implements UsuarioDAO{
         }
         return resultado; 
     }
-
+    @Override
+    public int eliminarAmigo(int idUsuario1, int idUsuario2) {
+        int resultado=0;
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ELIMINAR_AMIGO(?,?)}");
+            cs.setInt("_idUsuario1", idUsuario1);
+            cs.setInt("_idUsuario2", idUsuario2);
+            resultado = cs.executeUpdate();
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return resultado; 
+    }
 }
