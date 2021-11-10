@@ -156,4 +156,34 @@ public class ProfesorMySQL implements ProfesorDAO{
         }
         return profesor;
     }
+
+    @Override
+    public ArrayList<Profesor> listarProfesorXCurso(int idCurso) {
+        ArrayList<Profesor> profesores = new ArrayList<>();
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call LISTA_PROFESORES_CURSO(?)}");
+            cs.setInt("_idCurso", idCurso);
+            rs = cs.executeQuery();
+            while(rs.next()) {
+                Profesor profesor = new Profesor();
+                profesor.setIdProfesor(rs.getInt("idProfesor"));
+                profesor.setNombre(rs.getString("nombre"));
+                profesor.setCalificacion(rs.getFloat("calificacion"));
+                profesor.setCorreo(rs.getString("correo"));
+                profesor.setDescripcion(rs.getString("descripcion"));
+                profesor.setFoto(rs.getBytes("foto"));
+                profesor.setSumatoriaResenias(rs.getInt("sumatoriaResenias"));
+                profesor.setCantidadResenias(rs.getInt("cantidadResenias"));
+                System.out.println(profesor.getIdProfesor());
+                profesores.add(profesor);
+            }
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return profesores;    
+    }
 }
