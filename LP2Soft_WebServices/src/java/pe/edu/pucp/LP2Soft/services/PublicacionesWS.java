@@ -97,4 +97,11 @@ public class PublicacionesWS {
         eventos = daoEvento.listarMisEventos(idUsuario);
         return eventos;
     }
+    
+    @WebMethod(operationName = "listarEventos")
+    public ArrayList<Evento> listarEventos() {
+        ArrayList<Evento> eventos = null;
+        eventos = daoEvento.listarTodos();
+        return eventos;
+    }
 }

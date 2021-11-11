@@ -163,6 +163,7 @@ public class EventoMySQL implements EventoDAO{
     
     @Override
     public ArrayList<Evento> listarTodos() {
+        int resultado=0;
         ArrayList<Evento> eventos = new ArrayList<>();
         try{
             con = DBManager.getInstance().getConnection();
@@ -170,37 +171,34 @@ public class EventoMySQL implements EventoDAO{
             rs = cs.executeQuery();
             while(rs.next()){
                 Evento evento = new Evento();
-                evento.setIdPost(rs.getInt("idPost"));
                 Usuario usuario=new Usuario();
-                usuario.setIdUsuario(rs.getInt("fidUsuario"));
+                usuario.setIdUsuario(rs.getInt("idUsuario"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setApellido(rs.getString("apellido"));
                 evento.setUsuario(usuario);
-                evento.setContenido(rs.getString("comentarioPost"));
-                if(rs.getInt("bloqueado")==1)
-                    evento.setBloqueado(true);
-                else
-                    evento.setBloqueado(false);
+                evento.setIdPost(rs.getInt("idPost"));
                 evento.setLikes(rs.getInt("likes"));
-                evento.setPrioridad(rs.getInt("prioridad"));
+                evento.setNumeroComent(rs.getInt("numeroComent"));
                 evento.setFechaRegistro(rs.getDate("fechaRegistro"));
-                evento.setActivo(true);
-                evento.setNombreDelEvento(rs.getString("nombreDelEvento"));
+                evento.setNombreDelEvento(rs.getString("tituloEvento"));
+                evento.setContenido(rs.getString("contenido"));
+                evento.setEnlaceZoom(rs.getString("enlaceZoom"));
                 evento.setFechaDelEvento(rs.getDate("fechaDelEvento"));
-                /*evento.setNombreArchivo(rs.getString("nombreArchivo"));
-                File file = new File(evento.getNombreArchivo());
-                FileOutputStream output = new FileOutputStream(file);
-                InputStream input = rs.getBinaryStream("archivo");
-                byte[] buffer = new byte[1024];
-                while(input.read(buffer)>0){
-                    output.write(buffer);
-                }*/
+                evento.setHoraInicio(rs.getInt("horaInicio"));
+                evento.setHoraFin(rs.getInt("horaFin"));
+                evento.setArchivo(rs.getBytes("archivo"));
                 eventos.add(evento);
             }
+            resultado=1;
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }finally{
             try{ cs.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
             try{ con.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
         }
-        return eventos;
+        if(resultado==1)
+            return eventos;
+        else
+            return null;
     }
 }
