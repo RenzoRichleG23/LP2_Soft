@@ -15,7 +15,7 @@ public abstract class Post {
     private String contenido;
     private boolean bloqueado;
     private boolean activo;
-
+    private int idCurso;
     private int numeroComent;
     private int tipo; // 1Generico; 2Evento; 3Material; 4Resenia
     
@@ -133,4 +133,13 @@ public abstract class Post {
     public void setNumeroComent(int numeroComent) {
         this.numeroComent = numeroComent;
     }
+
+    public int getIdCurso() {
+        return idCurso;
+    }
+
+    public void setIdCurso(int idCurso) {
+        this.idCurso = idCurso;
+    }
+    
 }

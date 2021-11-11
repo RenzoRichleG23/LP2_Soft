@@ -108,7 +108,14 @@ public class PublicacionesWS {
     
     @WebMethod(operationName = "insertar_postXCurso")
     public int insertar_postXCurso(@WebParam(name = "post") PostGenerico post) {
-        int resultado = daoPost.insertar(post);
+        int resultado = daoPost.insertar_postXCurso(post);
         return resultado;
+    }
+    
+    @WebMethod(operationName = "listarXcurso")
+    public ArrayList<PostGenerico> listarXcurso(@WebParam(name = "idCurso") int idCurso) {
+        ArrayList<PostGenerico> posts = null;
+        posts = daoPost.listarXcurso(idCurso);
+        return posts;
     }
 }
