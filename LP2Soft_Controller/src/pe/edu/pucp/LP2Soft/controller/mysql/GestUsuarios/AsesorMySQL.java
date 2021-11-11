@@ -15,6 +15,7 @@ import java.sql.DriverManager;
 import java.sql.CallableStatement;
 import pe.edu.pucp.LP2Soft.controller.config.DBManager;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
+import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Resenia;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
 public class AsesorMySQL implements AsesorDAO{
@@ -162,6 +163,29 @@ public class AsesorMySQL implements AsesorDAO{
             try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
         }
         return cursos;
+    }
+
+    @Override
+    public int insertarReseniaAsesor(Resenia re) {
+        int resultado=-1;
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call INSERTAR_RESENIA_ASESOR(?,?,?,?,?,?)}");
+            cs.registerOutParameter("_idResenia", java.sql.Types.INTEGER);
+            cs.setInt("_fidUsuario", re.getUsuario().getIdUsuario());
+            cs.setString("_descripcion", re.getContenido());
+            cs.setInt("_prioridad", re.getPrioridad());
+            cs.setInt("_fidAsesorReseniado", re.getUsuarioReseniado().getAsesor().getIdAsesor());
+            cs.setInt("_calificacion", re.getCalificacion());
+            cs.executeUpdate();
+            resultado = cs.getInt("_idResenia");
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return resultado;
     }
     
 }

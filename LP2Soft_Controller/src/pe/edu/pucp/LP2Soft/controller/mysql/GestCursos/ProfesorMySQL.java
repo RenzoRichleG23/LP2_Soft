@@ -188,13 +188,14 @@ public class ProfesorMySQL implements ProfesorDAO{
         ArrayList<Profesor> profesores = new ArrayList<>();
         try {
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call LISTA_PROFESORES_CURSO(?)}");
+            cs = con.prepareCall("{call LISTAR_PROFESORES_CURSO(?)}");
             cs.setInt("_idCurso", idCurso);
             rs = cs.executeQuery();
             while(rs.next()) {
                 Profesor profesor = new Profesor();
                 profesor.setIdProfesor(rs.getInt("idProfesor"));
                 profesor.setNombre(rs.getString("p.nombre"));
+                System.out.println(profesor.getNombre());
                 profesor.setCalificacion(rs.getFloat("calificacion"));
                 profesor.setCorreo(rs.getString("correo"));
                 profesor.setDescripcion(rs.getString("descripcion"));

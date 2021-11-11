@@ -31,17 +31,19 @@ public class Principal_Post {
         Usuario usuario = new Usuario();
         usuario.setIdUsuario(20186019);
         ej1.setUsuario(usuario);
-        ej1.setContenido("Hola");
+        ej1.setContenido("Hola prueba2");
+        ej1.setIdCurso(30);
 //        try{
 //            ej1.setFechaRegistro(formato.parse(formato.format(dt)));
 //        }catch(Exception ex){
 //            System.out.println(ex.getMessage());
 //        }
-        ej1.setPrioridad(2);
+        ej1.setPrioridad(0);
 //        
         PostDAO daoP = new PostMySQL();
 //        System.out.println(formato.format(dt));
-        daoP.insertar(ej1);
+        //daoP.insertar_postXCurso(ej1);
+        daoP.listarXcurso(30);
 //        
 //        
 //        //modificar

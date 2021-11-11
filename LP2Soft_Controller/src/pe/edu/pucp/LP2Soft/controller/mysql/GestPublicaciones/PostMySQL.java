@@ -205,4 +205,79 @@ public class PostMySQL implements PostDAO{
         }
         return resultado;
     }
+
+    @Override
+    public int insertar_postXCurso(PostGenerico post) {
+        int resultado = 0;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call INSERTAR_POST_CURSO(?,?,?,?,?,?)}");
+            
+            cs.registerOutParameter("_idPost", java.sql.Types.INTEGER);
+            
+            cs.setInt("_fidUsuario", post.getUsuario().getIdUsuario());
+            cs.setString("_contenido", post.getContenido());
+            cs.setInt("_prioridad",post.getPrioridad());
+            
+            SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            Date dt = new Date();
+            post.setFechaRegistro(formato.parse(formato.format(dt)));
+            
+            cs.setDate("_fechaRegistro", new java.sql.Date(post.getFechaRegistro().getTime()));
+            
+            cs.setInt("_fidCurso",post.getIdCurso());
+            cs.executeUpdate();
+            post.setIdPost(cs.getInt("_idPost"));
+            resultado=post.getIdPost();
+            
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{cs.close();}catch(Exception ex){System.out.println(ex.getMessage());};
+            try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());};
+        }
+        return resultado;
+    }
+
+    @Override
+    public ArrayList<PostGenerico> listarXcurso(int idCurso) {
+        ArrayList<PostGenerico> posts = new ArrayList<>();
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call LISTAR_POST_CURSO(?)}");
+            cs.setInt("_idCurso",idCurso);
+            rs = cs.executeQuery();
+            while(rs.next()){           
+                
+                PostGenerico post = new PostGenerico();
+                post.setIdPost(rs.getInt("idPost"));
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(rs.getInt("fidUsuario"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setApellido(rs.getString("apellido"));
+                //usuario.setFoto(rs.getBytes("foto"));
+                post.setUsuario(usuario);
+                post.setContenido(rs.getString("contenido"));
+                post.setIdCurso(idCurso);
+                //System.out.print(post.getIdCurso());
+                if(rs.getInt("bloqueado")==1)
+                    post.setBloqueado(true);
+                else
+                    post.setBloqueado(false);
+                
+                post.setLikes(rs.getInt("likes"));
+                post.setPrioridad(rs.getInt("prioridad"));
+                post.setFechaRegistro(rs.getDate("fechaRegistro"));
+                post.setActivo(true);
+                post.setTipo(1);
+                post.setNumeroComent(rs.getInt("numeroComent"));
+                posts.add(post);
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{ cs.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+            try{ con.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+        }
+        return posts;    }
 }

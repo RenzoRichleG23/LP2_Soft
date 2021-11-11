@@ -9,12 +9,14 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import pe.edu.pucp.LP2Soft.controller.dao.GestPublicaciones.ComentarioDAO;
 import pe.edu.pucp.LP2Soft.controller.dao.GestPublicaciones.EventoDAO;
+import pe.edu.pucp.LP2Soft.controller.dao.GestPublicaciones.MaterialDAO;
 import pe.edu.pucp.LP2Soft.controller.dao.GestPublicaciones.PostDAO;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestPublicaciones.ComentarioMySQL;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestPublicaciones.EventoMySQL;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestPublicaciones.PostMySQL;
 import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Comentario;
 import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Evento;
+import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Material;
 import pe.edu.pucp.LP2Soft.model.GestPublicaciones.PostGenerico;
 
 @WebService(serviceName = "PublicacionesWS")
@@ -22,7 +24,7 @@ public class PublicacionesWS {
     private PostDAO daoPost;
     private ComentarioDAO daoComentario;
     private EventoDAO daoEvento;
-    
+    private MaterialDAO daoMaterial;
     public PublicacionesWS(){
         daoPost = new PostMySQL();
         daoComentario = new ComentarioMySQL();
@@ -103,5 +105,24 @@ public class PublicacionesWS {
         ArrayList<Evento> eventos = null;
         eventos = daoEvento.listarTodos();
         return eventos;
+    }
+    
+    @WebMethod(operationName = "insertar_Material")
+    public int insertar_Material(@WebParam(name = "material") Material material) {
+        int resultado = daoMaterial.insertar_Material(material);
+        return resultado;
+    }
+    
+    @WebMethod(operationName = "insertar_postXCurso")
+    public int insertar_postXCurso(@WebParam(name = "post") PostGenerico post) {
+        int resultado = daoPost.insertar_postXCurso(post);
+        return resultado;
+    }
+    
+    @WebMethod(operationName = "listarXcurso")
+    public ArrayList<PostGenerico> listarXcurso(@WebParam(name = "idCurso") int idCurso) {
+        ArrayList<PostGenerico> posts = null;
+        posts = daoPost.listarXcurso(idCurso);
+        return posts;
     }
 }
