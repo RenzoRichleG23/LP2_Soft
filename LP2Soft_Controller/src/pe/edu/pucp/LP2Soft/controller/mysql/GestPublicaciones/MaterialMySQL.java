@@ -39,8 +39,7 @@ public class MaterialMySQL implements MaterialDAO{
             cs.setString("_contenido",material.getContenido());
             cs.setInt("_bloqueado", 0);
             cs.setInt("_likes", 0);
-            cs.setInt("_prioridad",material.getPrioridad());
-            cs.setDate("_fechaRegistro",new java.sql.Date(material.getFechaRegistro().getTime()));
+            cs.setInt("_prioridad",material.getPrioridad());            
             cs.setInt("_activo", 1);
             cs.setInt("_tipo", 3);
             cs.setInt("_numeroContent", 0);
@@ -53,6 +52,7 @@ public class MaterialMySQL implements MaterialDAO{
             FileInputStream input = new FileInputStream(file);
             cs.setBlob("_archivo",input);
             cs.setInt("_tipoMAterial", material.getTipoMaterial());
+            cs.setInt("_indice_tipoMaterial", material.getTipoMaterial());
             cs.executeUpdate();
             material.setIdPost(cs.getInt("_idPost"));            
             resultado=1;
