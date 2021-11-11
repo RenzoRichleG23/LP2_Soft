@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import pe.edu.pucp.LP2Soft.controller.dao.GestUsuarios.AsesorDAO;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestUsuarios.AsesorMySQL;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
+import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Resenia;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Asesor;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
@@ -33,13 +34,20 @@ public class Principal_Asesor {
 //            ArrayList<Usuario> usuariosAsesor = daoAsesor.listarXnombreYcurso("renzo");
 //            Usuario user = usuariosAsesor.get(0);
 //            System.out.println(user.getNombre());
-              ArrayList<Curso> cursos = daoAsesor.listarCursosAsesorados(8);
-              Curso curso;
-              for(int i=0;i<3;i++){
-                  curso = cursos.get(i);
-                  System.out.println(curso.getNombre());
-              }
-            
+//              ArrayList<Curso> cursos = daoAsesor.listarCursosAsesorados(8);
+//              Curso curso;
+//              for(int i=0;i<3;i++){
+//                  curso = cursos.get(i);
+//                  System.out.println(curso.getCreditos());
+//              }
+                Resenia re = new Resenia();
+                re.setCalificacion(5);
+                re.setContenido("Eres la mejor de lp2");
+                re.setPrioridad(0);
+                re.getUsuario().setIdUsuario(20186022);
+                re.getUsuarioReseniado().setIdUsuario(20186018);
+                int num = daoAsesor.insertarReseniaAsesor(re);
+                System.out.println(num);
         } catch (Exception ex){
             System.out.println(ex.getMessage());
         }

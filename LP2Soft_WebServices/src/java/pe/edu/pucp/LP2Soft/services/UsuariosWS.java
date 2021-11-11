@@ -15,6 +15,7 @@ import pe.edu.pucp.LP2Soft.controller.mysql.GestCursos.CursoMySQL;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestUsuarios.AsesorMySQL;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestUsuarios.UsuarioMySQL;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
+import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Resenia;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Asesor;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
@@ -110,5 +111,17 @@ public class UsuariosWS {
         ArrayList<Curso> cursos = null;
         cursos = daoCurso.listarCursos(idUsuario);
         return cursos;
+    }
+    @WebMethod(operationName = "listarCursosAsesorados")
+    public ArrayList<Curso> listarCursosAsesorados(@WebParam(name = "idAsesor") int idAsesor){
+        ArrayList<Curso> cursos = null;
+        cursos = daoAsesor.listarCursosAsesorados(idAsesor);
+        return cursos;
+    }
+    
+    @WebMethod(operationName = "insertarReseniaAsesor")
+    public int insertarReseniaAsesor(@WebParam(name = "resenia") Resenia resenia) {    
+        int resultado = daoAsesor.insertarReseniaAsesor(resenia);
+        return resultado;
     }
 }
