@@ -105,4 +105,10 @@ public class PublicacionesWS {
         int resultado = daoMaterial.insertar_Material(material);
         return resultado;
     }
+    
+    @WebMethod(operationName = "insertar_postXCurso")
+    public int insertar_postXCurso(@WebParam(name = "post") PostGenerico post) {
+        int resultado = daoPost.insertar(post);
+        return resultado;
+    }
 }
