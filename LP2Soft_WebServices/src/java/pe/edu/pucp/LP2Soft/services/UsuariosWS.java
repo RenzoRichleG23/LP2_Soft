@@ -111,4 +111,10 @@ public class UsuariosWS {
         cursos = daoCurso.listarCursos(idUsuario);
         return cursos;
     }
+    @WebMethod(operationName = "listarCursosAsesorados")
+    public ArrayList<Curso> listarCursosAsesorados(@WebParam(name = "idAsesor") int idAsesor){
+        ArrayList<Curso> cursos = null;
+        cursos = daoAsesor.listarCursosAsesorados(idAsesor);
+        return cursos;
+    }
 }
