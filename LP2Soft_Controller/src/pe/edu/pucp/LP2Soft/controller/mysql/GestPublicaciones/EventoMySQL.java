@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -78,20 +79,24 @@ public class EventoMySQL implements EventoDAO{
         int resultado=0;
         try{
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call MODIFICAR_EVENTO(?,?,?,?,?,?)}");
+            cs = con.prepareCall("{call MODIFICAR_EVENTO(?,?,?,?,?,?,?,?,?)}");
       
             cs.setInt("_idPost",evento.getIdPost());
-            cs.setString("_comentarioPost",evento.getContenido());
-            if(evento.getBloqueado()==false)
-                cs.setInt("_bloqueado", 0);
-            else
-                cs.setInt("_bloqueado", 1);
-            cs.setInt("_likes", evento.getLikes());
-            cs.setString("_nombreDelEvento", evento.getNombreDelEvento());
+            cs.setString("_contenido",evento.getContenido());
+            
+            SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            Date dt = new Date();
+            evento.setFechaRegistro(formato.parse(formato.format(dt)));
+            
+            cs.setDate("_fechaRegistro", new java.sql.Date(evento.getFechaRegistro().getTime()));
+            
+            
+            cs.setString("_tituloEvento", evento.getNombreDelEvento());
             cs.setDate("_fechaDelEvento",new java.sql.Date(evento.getFechaDelEvento().getTime()));
-            /*File file=new File(evento.getNombreArchivo());
-            FileInputStream input = new FileInputStream(file);
-            cs.setBlob("_archivo",input);*/
+            cs.setInt("_horaInicio",evento.getHoraInicio());
+            cs.setInt("_horaFin",evento.getHoraFin());
+            cs.setString("_enlaceZoom",evento.getEnlaceZoom());
+            cs.setBytes("_archivo", evento.getArchivo());
             
             cs.executeUpdate();
             
@@ -138,7 +143,8 @@ public class EventoMySQL implements EventoDAO{
             while(rs.next()){
                 Evento evento = new Evento();
                 evento.setIdPost(rs.getInt("idPost"));
-                evento.setFechaRegistro(rs.getDate("fechaRegistro"));
+                Timestamp ts1 = rs.getTimestamp("fechaRegistro");
+                evento.setFechaRegistro(ts1);
                 evento.setNombreDelEvento(rs.getString("tituloEvento"));
                 evento.setContenido(rs.getString("contenido"));
                 evento.setEnlaceZoom(rs.getString("enlaceZoom"));
@@ -179,7 +185,8 @@ public class EventoMySQL implements EventoDAO{
                 evento.setIdPost(rs.getInt("idPost"));
                 evento.setLikes(rs.getInt("likes"));
                 evento.setNumeroComent(rs.getInt("numeroComent"));
-                evento.setFechaRegistro(rs.getDate("fechaRegistro"));
+                Timestamp ts1 = rs.getTimestamp("fechaRegistro");
+                evento.setFechaRegistro(ts1);
                 evento.setNombreDelEvento(rs.getString("tituloEvento"));
                 evento.setContenido(rs.getString("contenido"));
                 evento.setEnlaceZoom(rs.getString("enlaceZoom"));
@@ -200,5 +207,71 @@ public class EventoMySQL implements EventoDAO{
             return eventos;
         else
             return null;
+    }
+
+    @Override
+    public int agendarEvento(int idPost, int idUsuario) {
+        int resultado=0;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call AGENDAR_EVENTO(?,?)}");
+            
+            cs.setInt("_idPost",idPost);
+            cs.setInt("_idUsuario",idUsuario);
+            cs.executeUpdate();
+
+            resultado=1;
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{ cs.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+            try{ con.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+        }
+        return resultado;
+    }
+
+    @Override
+    public int desagendarEvento(int idPost, int idUsuario) {
+        int resultado=0;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call DESAGENDAR_EVENTO(?,?)}");
+            
+            cs.setInt("_idPost",idPost);
+            cs.setInt("_idUsuario",idUsuario);
+            cs.executeUpdate();
+
+            resultado=1;
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{ cs.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+            try{ con.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+        }
+        return resultado;
+    }
+
+    @Override
+    public int eventoAgendado(int idPost, int idUsuario) {
+        int resultado=0;
+        try{
+            
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call EVENTO_AGENDADO(?,?,?)}");
+            
+            cs.registerOutParameter("_resultado",java.sql.Types.INTEGER);
+            cs.setInt("_idPost",idPost);
+            cs.setInt("_idUsuario",idUsuario);
+            cs.executeUpdate();
+            
+            resultado=cs.getInt("_resultado");
+            
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{ cs.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+            try{ con.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+        }
+        return resultado;
     }
 }

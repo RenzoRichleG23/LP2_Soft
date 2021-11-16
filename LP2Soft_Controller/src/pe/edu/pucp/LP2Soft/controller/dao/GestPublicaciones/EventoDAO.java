@@ -12,4 +12,7 @@ public interface EventoDAO {
     int eliminar(int idEvento);
     ArrayList<Evento> listarMisEventos(int idUsuario);
     ArrayList<Evento> listarTodos();
+    int agendarEvento(int idPost,int idUsuario);
+    int desagendarEvento(int idPost,int idUsuario);
+    int eventoAgendado(int idPost,int idUsuario);
 }

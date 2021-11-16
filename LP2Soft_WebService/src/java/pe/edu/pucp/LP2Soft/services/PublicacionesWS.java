@@ -125,4 +125,34 @@ public class PublicacionesWS {
         posts = daoPost.listarXcurso(idCurso);
         return posts;
     }
+    
+    @WebMethod(operationName = "modificarEvento")
+    public int modificarEvento(@WebParam(name = "evento") Evento evento) {
+        int resultado = daoEvento.modificar(evento);
+        return resultado;
+    }
+    
+    @WebMethod(operationName = "eliminarEvento")
+    public int eliminarEvento(@WebParam(name = "idevento") int idevento) {
+        int resultado = daoEvento.eliminar(idevento);
+        return resultado;
+    }
+    
+    @WebMethod(operationName = "agendarEvento")
+    public int agendarEvento(@WebParam(name = "idevento") int idEvento,@WebParam(name = "idusuario") int idUsuario) {
+        int resultado = daoEvento.agendarEvento(idEvento,idUsuario);
+        return resultado;
+    }
+    
+    @WebMethod(operationName = "desagendarEvento")
+    public int desagendarEvento(@WebParam(name = "idevento") int idEvento,@WebParam(name = "idusuario") int idUsuario) {
+        int resultado = daoEvento.desagendarEvento(idEvento,idUsuario);
+        return resultado;
+    }
+    
+    @WebMethod(operationName = "eventoAgendado")
+    public int eventoAgendado(@WebParam(name = "idevento") int idEvento,@WebParam(name = "idusuario") int idUsuario) {
+        int resultado = daoEvento.eventoAgendado(idEvento,idUsuario);
+        return resultado;
+    }
 }
