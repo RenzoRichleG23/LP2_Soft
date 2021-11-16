@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
+  <services>
+    <service name="CursosWS">
+      <implementation-class>pe.edu.pucp.LP2Soft.services.CursosWS</implementation-class>
+    </service>
+    <service name="NotificacionesWS">
+      <implementation-class>pe.edu.pucp.LP2Soft.services.NotificacionesWS</implementation-class>
+    </service>
+    <service name="PublicacionesWS">
+      <implementation-class>pe.edu.pucp.LP2Soft.services.PublicacionesWS</implementation-class>
+    </service>
+    <service name="UsuariosWS">
+      <implementation-class>pe.edu.pucp.LP2Soft.services.UsuariosWS</implementation-class>
+    </service>
+  </services>
+  <clients/>
+</jax-ws>
