@@ -13,6 +13,7 @@ import pe.edu.pucp.LP2Soft.controller.dao.GestPublicaciones.MaterialDAO;
 import pe.edu.pucp.LP2Soft.controller.dao.GestPublicaciones.PostDAO;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestPublicaciones.ComentarioMySQL;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestPublicaciones.EventoMySQL;
+import pe.edu.pucp.LP2Soft.controller.mysql.GestPublicaciones.MaterialMySQL;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestPublicaciones.PostMySQL;
 import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Comentario;
 import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Evento;
@@ -29,6 +30,7 @@ public class PublicacionesWS {
         daoPost = new PostMySQL();
         daoComentario = new ComentarioMySQL();
         daoEvento  =new EventoMySQL();
+        daoMaterial = new MaterialMySQL();
     }
     
     @WebMethod(operationName = "insertarPost")
@@ -124,5 +126,42 @@ public class PublicacionesWS {
         ArrayList<PostGenerico> posts = null;
         posts = daoPost.listarXcurso(idCurso);
         return posts;
+    }
+    
+    @WebMethod(operationName = "modificarEvento")
+    public int modificarEvento(@WebParam(name = "evento") Evento evento) {
+        int resultado = daoEvento.modificar(evento);
+        return resultado;
+    }
+    
+    @WebMethod(operationName = "eliminarEvento")
+    public int eliminarEvento(@WebParam(name = "idevento") int idevento) {
+        int resultado = daoEvento.eliminar(idevento);
+        return resultado;
+    }
+    
+    @WebMethod(operationName = "agendarEvento")
+    public int agendarEvento(@WebParam(name = "idevento") int idEvento,@WebParam(name = "idusuario") int idUsuario) {
+        int resultado = daoEvento.agendarEvento(idEvento,idUsuario);
+        return resultado;
+    }
+    
+    @WebMethod(operationName = "desagendarEvento")
+    public int desagendarEvento(@WebParam(name = "idevento") int idEvento,@WebParam(name = "idusuario") int idUsuario) {
+        int resultado = daoEvento.desagendarEvento(idEvento,idUsuario);
+        return resultado;
+    }
+    
+    @WebMethod(operationName = "eventoAgendado")
+    public int eventoAgendado(@WebParam(name = "idevento") int idEvento,@WebParam(name = "idusuario") int idUsuario) {
+        int resultado = daoEvento.eventoAgendado(idEvento,idUsuario);
+        return resultado;
+    }
+    
+     @WebMethod(operationName = "listar_material_tipo_indice")
+    public ArrayList<Material> listar_material_tipo_indice(@WebParam(name = "idCurso") int idCurso , @WebParam(name = "tipoMaterial") int tipoMaterial , @WebParam(name = "indice") int indice) {
+        ArrayList<Material> materiales = null;
+        materiales = daoMaterial.listar_material_tipo_indice(idCurso , tipoMaterial , indice);
+        return materiales;
     }
 }
