@@ -163,16 +163,17 @@ public class MaterialMySQL implements MaterialDAO{
         try{
             con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call LISTA_MATERIAL_TIPO_INDICE(?,?,?)}");
-            rs = cs.executeQuery();
+            
             cs.setInt("_idCurso",idCurso);
             cs.setInt("_tipoMaterial",tipoMaterial);
             cs.setInt("_indice_tipoMaterial",indice);
+            rs = cs.executeQuery();
             while(rs.next()){
                 Material material = new Material();
                 material.setIdPost(rs.getInt("idMaterial"));
                 
                 Curso curso=new Curso();
-                curso.setCodigo(rs.getString("fidCurso"));
+                curso.setIdCurso(rs.getInt("fidCurso"));
                 material.setCurso(curso);
                 
                 Profesor profesor = new Profesor();
@@ -185,13 +186,7 @@ public class MaterialMySQL implements MaterialDAO{
                            
                 
                 
-                File file = new File(material.getNombreArchivo());
-                FileOutputStream output = new FileOutputStream(file);
-                InputStream input = rs.getBinaryStream("archivo");
-                byte[] buffer = new byte[1024];
-                while(input.read(buffer)>0){
-                    output.write(buffer);
-                }
+                material.setArchivo(rs.getBytes("archivo"));
                 
                 material.setTipoMaterial(rs.getInt("tipoMaterial"));
                 material.setIndice_tipoMaterial(rs.getInt("indice_tipoMaterial"));

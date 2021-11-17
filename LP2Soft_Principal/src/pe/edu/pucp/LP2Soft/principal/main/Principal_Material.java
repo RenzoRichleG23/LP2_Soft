@@ -47,9 +47,14 @@ public class Principal_Material {
 //        material.setContenido("PC1-20212-P1");
 //      
 //        daoMaterial.modificar(materiales.get(0));
-        ProfesorDAO daoProfesor = new ProfesorMySQL();
+//        ProfesorDAO daoProfesor = new ProfesorMySQL();
         //daoMaterial.eliminar(material.getIdPost());
-        daoProfesor.listarProfesorXCurso(30);
+//        daoProfesor.listarProfesorXCurso(30);
 //        System.out.println("Fin");
+           MaterialDAO dao = new MaterialMySQL();
+           ArrayList<Material> m = dao.listar_material_tipo_indice(30, 1, 2);
+          
+        
+           
     }
 }
