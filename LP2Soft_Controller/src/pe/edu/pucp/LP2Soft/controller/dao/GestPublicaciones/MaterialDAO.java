@@ -11,4 +11,5 @@ public interface MaterialDAO {
     int modificar(Material material);
     int eliminar(int idMaterial);
     ArrayList<Material> listarTodos();
+    ArrayList<Material> listar_material_tipo_indice(int idCurso, int tipoMaterial, int indice);
 }
