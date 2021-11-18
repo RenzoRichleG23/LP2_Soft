@@ -158,10 +158,17 @@ public class PublicacionesWS {
         return resultado;
     }
     
-     @WebMethod(operationName = "listar_material_tipo_indice")
+    @WebMethod(operationName = "listar_material_tipo_indice")
     public ArrayList<Material> listar_material_tipo_indice(@WebParam(name = "idCurso") int idCurso , @WebParam(name = "tipoMaterial") int tipoMaterial , @WebParam(name = "indice") int indice) {
         ArrayList<Material> materiales = null;
         materiales = daoMaterial.listar_material_tipo_indice(idCurso , tipoMaterial , indice);
         return materiales;
+    }
+    
+    @WebMethod(operationName = "descargar_material")
+    public Material descargar_material(@WebParam(name = "idMaterial") int idMaterial ,@WebParam(name = "idCurso") int idCurso ) {
+        Material material = new Material();
+        material = daoMaterial.descargar_material(idMaterial , idCurso);
+        return material;
     }
 }
