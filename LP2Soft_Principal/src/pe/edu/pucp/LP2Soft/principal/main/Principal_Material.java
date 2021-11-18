@@ -52,7 +52,7 @@ public class Principal_Material {
 //        daoProfesor.listarProfesorXCurso(30);
 //        System.out.println("Fin");
            MaterialDAO dao = new MaterialMySQL();
-           ArrayList<Material> m = dao.listar_material_tipo_indice(30, 1, 2);
+           Material m = dao.descargar_material(6,30);
           
         
            
