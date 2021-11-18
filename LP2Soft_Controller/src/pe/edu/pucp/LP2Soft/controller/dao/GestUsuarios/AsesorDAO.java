@@ -5,6 +5,7 @@ package pe.edu.pucp.LP2Soft.controller.dao.GestUsuarios;
 
 import java.util.ArrayList;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
+import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Post;
 import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Resenia;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Asesor;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
@@ -15,6 +16,8 @@ public interface AsesorDAO {
     int eliminar(int idAsesor);
     ArrayList<Asesor> listarTodos();
     ArrayList<Usuario> listarXnombreYcurso(String nombre);
-    ArrayList<Curso> listarCursosAsesorados(int fidAsesor);
+    ArrayList<Curso> listarCursosAsesorados(int fidUsuario);
     int insertarReseniaAsesor(Resenia re);
+    ArrayList<Resenia> listarReseniasAsesor(int fidAsesor);
+    int eliminarReseniaAsesor(int idResenia);
 }
