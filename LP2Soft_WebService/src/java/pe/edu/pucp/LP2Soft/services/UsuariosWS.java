@@ -124,4 +124,16 @@ public class UsuariosWS {
         int resultado = daoAsesor.insertarReseniaAsesor(resenia);
         return resultado;
     }
+    
+    @WebMethod(operationName = "listarReseniasAsesor")
+    public ArrayList<Resenia> listarReseniasAsesor(@WebParam(name = "idAsesor") int idAsesor){
+        ArrayList<Resenia> resenias = null;
+        resenias = daoAsesor.listarReseniasAsesor(idAsesor);
+        return resenias;
+    }
+    @WebMethod(operationName = "eliminarReseniaAsesor")
+    public int eliminarReseniaAsesor(@WebParam(name = "idResenia") int idResenia) {    
+        int resultado = daoAsesor.eliminarReseniaAsesor(idResenia);
+        return resultado;
+    }    
 }
