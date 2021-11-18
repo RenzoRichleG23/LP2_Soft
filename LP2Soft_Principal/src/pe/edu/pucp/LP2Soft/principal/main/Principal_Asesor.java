@@ -31,23 +31,31 @@ public class Principal_Asesor {
 //            daoAsesor.insertar(asesor, 20186016, 35);    
 //            
 //            //Listar asesores
-//            ArrayList<Usuario> usuariosAsesor = daoAsesor.listarXnombreYcurso("renzo");
-//            Usuario user = usuariosAsesor.get(0);
-//            System.out.println(user.getNombre());
-//              ArrayList<Curso> cursos = daoAsesor.listarCursosAsesorados(8);
-//              Curso curso;
+//              ArrayList<Usuario> usuariosAsesor = daoAsesor.listarXnombreYcurso("renzo");
+//              Usuario user = usuariosAsesor.get(0);
+//              System.out.println(user.getNombre());
+//              ArrayList<Resenia> resenias = daoAsesor.listarReseniasAsesor(1);
+//              Resenia resenia;
 //              for(int i=0;i<3;i++){
-//                  curso = cursos.get(i);
-//                  System.out.println(curso.getCreditos());
+//                  resenia = resenias.get(i);
+//                  System.out.println(resenia.getCalificacion());
 //              }
-                Resenia re = new Resenia();
-                re.setCalificacion(5);
-                re.setContenido("Eres la mejor de lp2");
-                re.setPrioridad(0);
-                re.getUsuario().setIdUsuario(20186022);
-                re.getUsuarioReseniado().setIdUsuario(20186018);
-                int num = daoAsesor.insertarReseniaAsesor(re);
-                System.out.println(num);
+//                Resenia re = new Resenia();
+//                re.setCalificacion(5);
+//                re.setContenido("Renzo es un capo enseñando");
+//                re.setPrioridad(0);
+//                Usuario u = new Usuario();
+//                Usuario a = new Usuario();
+//                u.setIdUsuario(5);
+//                a.setIdUsuario(6);
+//                re.setUsuario(u);
+//                re.setUsuarioReseniado(a);
+//                int num = daoAsesor.insertarReseniaAsesor(re);
+                //System.out.println(num);
+                
+                daoAsesor.eliminarReseniaAsesor(12);
+                
+                
         } catch (Exception ex){
             System.out.println(ex.getMessage());
         }
