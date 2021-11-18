@@ -18,10 +18,11 @@ import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
 public class CursoMySQL implements CursoDAO{
     Connection con;
-    Statement st;
-    PreparedStatement ps;
     ResultSet rs;
     CallableStatement cs;
+    Connection con2;
+    ResultSet rs2;
+    CallableStatement cs2;
     @Override
     public int insertar(Curso curso) {
         int resultado = 0;
@@ -120,21 +121,31 @@ public class CursoMySQL implements CursoDAO{
                 Curso curso = new Curso();
                 curso.setIdCurso(rs.getInt("idCurso"));
                 curso.setCodigo(rs.getString("CodigoCurso"));
-                //System.out.println(curso.getCodigo());
                 curso.setNombre(rs.getString("nombre"));
                 curso.setNivel(rs.getInt("nivel"));
                 curso.setCreditos(rs.getFloat("creditos"));
                 curso.setEstado(rs.getInt("estado"));
-//                if(rs.getInt("favorito") == 0)
-//                    curso.setFavorito(false);
-//                else curso.setFavorito(true);
-//                
+                curso.setCreditosRequeridos(rs.getFloat("creditosRequeridos"));
+                if(rs.getInt("favorito") == 0)
+                    curso.setFavorito(false);
+                else curso.setFavorito(true);
+                
+                cs2 = con.prepareCall("{call MOSTRAR_REQUISITOSCURSOSXCURSOS(?)}");
+                cs2.setInt("_idCurso",curso.getIdCurso());
+                rs2 = cs2.executeQuery();
+                ArrayList<Curso> cursosReq = new ArrayList<>();
+                while(rs2.next()) {
+                    Curso curso2 = new Curso();
+                    curso2.setIdCurso(rs2.getInt("fidCurso2"));
+                    cursosReq.add(curso2);
+                }
+                curso.setCursosRequeridos(cursosReq);
                 cursos.add(curso);
             }
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
-            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {cs.close(); cs2.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
             try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
         }
         return cursos;
