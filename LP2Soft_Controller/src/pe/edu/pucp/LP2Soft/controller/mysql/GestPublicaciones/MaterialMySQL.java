@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import pe.edu.pucp.LP2Soft.controller.config.DBManager;
 import pe.edu.pucp.LP2Soft.controller.dao.GestPublicaciones.MaterialDAO;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
+import pe.edu.pucp.LP2Soft.model.GestCursos.Profesor;
 import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Material;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
@@ -32,19 +33,24 @@ public class MaterialMySQL implements MaterialDAO{
         int resultado=0;
         try{
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call INSERTAR_MATERIAL(?,?,?,?,?,?,?,?,?)}");            
+            cs = con.prepareCall("{call INSERTAR_MATERIAL(?,?,?,?,?,?,?,?,?,?,?)}");            
             cs.registerOutParameter("_idPost",java.sql.Types.INTEGER);
+            
             cs.setInt("_fidUsuario",material.getUsuario().getIdUsuario());
-            cs.setString("_contenido",material.getContenido());                 
-            cs.setInt("_fidCurso", material.getCurso().getIdCurso());
+            cs.setString("_contenido",material.getContenido()); 
+            
+            cs.setInt("_fidCurso", material.getCurso().getIdCurso()); 
+            cs.setInt("_fidCursoMaterial", material.getIdCurso());           
             cs.setInt("_fidProfesor", material.getProfesor().getIdProfesor());            
-            cs.setString("_nombreArchivo", material.getNombreArchivo());                    
+            cs.setString("_nombreArchivo", material.getNombreArchivo()); 
+            
             cs.setBytes("_archivo",material.getArchivo());
             cs.setInt("_tipoMaterial", material.getTipoMaterial());
-            cs.setInt("_indice_tipoMaterial", material.getTipoMaterial());
+            cs.setInt("_indice_tipoMaterial", material.getIndice_tipoMaterial());
+            cs.setString("_nota",material.getNota()); 
             cs.executeUpdate();
             material.setIdPost(cs.getInt("_idPost"));            
-            resultado=1;
+            resultado=material.getIdPost();
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }finally{
@@ -151,4 +157,49 @@ public class MaterialMySQL implements MaterialDAO{
         return materiales;
     }
     
+    @Override
+    public ArrayList<Material> listar_material_tipo_indice(int idCurso ,int tipoMaterial, int indice) {
+        ArrayList<Material> materiales = new ArrayList<>();
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call LISTA_MATERIAL_TIPO_INDICE(?,?,?)}");
+            
+            cs.setInt("_idCurso",idCurso);
+            cs.setInt("_tipoMaterial",tipoMaterial);
+            cs.setInt("_indice_tipoMaterial",indice);
+            rs = cs.executeQuery();
+            while(rs.next()){
+                Material material = new Material();
+                material.setIdPost(rs.getInt("idMaterial"));
+                
+                Curso curso=new Curso();
+                curso.setIdCurso(rs.getInt("fidCurso"));
+                material.setCurso(curso);
+                
+                Profesor profesor = new Profesor();
+                profesor.setIdProfesor(rs.getInt("fidProfesor"));
+                material.setProfesor(profesor);
+                
+                material.setSumatoriaCalificaiones(rs.getInt("sumatoriaCalificaciones"));
+                material.setCantidadCalificaiones(rs.getInt("cantidadCalificaciones"));
+                material.setNombreArchivo(rs.getString("nombreArchivo"));
+                           
+                
+                
+                material.setArchivo(rs.getBytes("archivo"));
+                
+                material.setTipoMaterial(rs.getInt("tipoMaterial"));
+                material.setIndice_tipoMaterial(rs.getInt("indice_tipoMaterial"));
+                material.setNota(rs.getString("nota"));
+                
+                materiales.add(material);
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{ cs.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+            try{ con.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+        }
+        return materiales;    
+    }
 }
