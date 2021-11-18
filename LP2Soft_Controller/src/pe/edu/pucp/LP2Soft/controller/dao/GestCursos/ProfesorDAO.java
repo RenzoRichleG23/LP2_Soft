@@ -17,4 +17,6 @@ public interface ProfesorDAO {
     ArrayList<Curso>listarCursoProfesor(int  idProfesor);
     ArrayList<Profesor>listarProfesorXCurso(int idCurso);
     int insertarReseniaProfesor(Resenia re);
+    ArrayList<Resenia> listarReseniasProfesor(int fidProfesor);
+    int eliminarReseniasProfesor(int idResenia);
 }

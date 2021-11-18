@@ -12,6 +12,8 @@ import pe.edu.pucp.LP2Soft.controller.mysql.GestCursos.CursoMySQL;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestCursos.ProfesorMySQL;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Profesor;
+import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Resenia;
+import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
 /**
  *
@@ -56,7 +58,30 @@ public class Principal_Curso {
 //       System.out.println(curso.getCreditos());
 //       System.out.println(curso.getCodigo());
 //       System.out.println(curso.getNombre());
-       
+         ArrayList<Resenia> resenias;
+         ProfesorDAO daoProfesor = new ProfesorMySQL();
+         Profesor profesor;
+         Resenia resenia;
+         Resenia resenia2;
+         Usuario usuario;
+         usuario = new Usuario();
+         resenia = new Resenia();
+         resenia2 = new Resenia();
+         profesor = new Profesor();
+         usuario.setIdUsuario(8);
+         profesor.setIdProfesor(16);
+         resenia.setCalificacion(4);
+         resenia.setPrioridad(1);
+         resenia.setProfesor(profesor);
+         resenia.setUsuario(usuario);
+         resenia.setContenido("Buen profesor");
+         daoProfesor.eliminarReseniasProfesor(34);
+         
+         int resultado;
+         
+         //resultado = daoProfesor.insertarReseniaProfesor(resenia);
+         resenias = daoProfesor.listarReseniasProfesor(1);
+         //System.out.println(resultado);
        
    }
 }
