@@ -13,6 +13,7 @@ import pe.edu.pucp.LP2Soft.controller.mysql.GestCursos.CursoMySQL;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestCursos.ProfesorMySQL;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Profesor;
+import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Resenia;
 
 @WebService(serviceName = "CursosWS")
 public class CursosWS {
@@ -62,6 +63,24 @@ public class CursosWS {
         ArrayList<Profesor> profesores = null;
         profesores = daoProfesor.listarProfesorXCurso(idCurso);
         return profesores;
-    }   
+    }
+    @WebMethod(operationName = "insertarReseniaProfesor")
+    public int insertarReseniaAsesor(@WebParam(name = "resenia") Resenia resenia) {    
+        int resultado = daoProfesor.insertarReseniaProfesor(resenia);
+        return resultado;
+    }
+    
+    @WebMethod(operationName = "listarReseniasProfesor")
+    public ArrayList<Resenia> listarReseniasProfesor(@WebParam(name = "idProfesor") int idProfesor){
+        ArrayList<Resenia> resenias = null;
+        resenias = daoProfesor.listarReseniasProfesor(idProfesor);
+        return resenias;
+    }
+    
+    @WebMethod(operationName = "eliminarReseniasProfesor")
+    public int eliminarReseniasProfesor(@WebParam(name = "idResenia") int idResenia) {    
+        int resultado = daoProfesor.eliminarReseniasProfesor(idResenia);
+        return resultado;
+    }    
 
 }

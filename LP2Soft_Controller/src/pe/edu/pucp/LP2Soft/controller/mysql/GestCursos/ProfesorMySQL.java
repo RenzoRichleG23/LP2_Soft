@@ -14,6 +14,9 @@ import pe.edu.pucp.LP2Soft.controller.config.DBManager;
 import pe.edu.pucp.LP2Soft.controller.dao.GestCursos.ProfesorDAO;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Profesor;
+import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Resenia;
+import pe.edu.pucp.LP2Soft.model.GestUsuarios.Asesor;
+import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
 public class ProfesorMySQL implements ProfesorDAO{
     Connection con;
@@ -212,5 +215,93 @@ public class ProfesorMySQL implements ProfesorDAO{
             try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
         }
         return profesores;    
+    }
+    
+    @Override
+    public int insertarReseniaProfesor(Resenia re) {
+        int resultado=-1;
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call INSERTAR_RESENIA_PROFESOR(?,?,?,?,?,?)}");
+            cs.registerOutParameter("_resultado", java.sql.Types.INTEGER);
+            cs.setInt("_idUsuario", re.getUsuario().getIdUsuario());
+            cs.setString("_descripcion", re.getContenido());
+            cs.setInt("_prioridad", re.getPrioridad());
+            cs.setInt("_fidProfesorReseniado", re.getProfesor().getIdProfesor());
+            cs.setInt("_calificacion", re.getCalificacion());
+            cs.executeUpdate();
+            resultado = cs.getInt("_resultado");
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return resultado;
+    }
+    
+    @Override
+    public ArrayList<Resenia> listarReseniasProfesor(int fidProfesor) {
+        ArrayList<Resenia> resenias = new ArrayList<>();
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call LISTAR_RESENIAS_PROFESOR(?)}");
+            cs.setInt("_idProfesor", fidProfesor);
+            rs = cs.executeQuery();
+            while(rs.next()) {
+                Resenia resenia = new Resenia();
+                resenia.setIdPost(rs.getInt("idPost"));
+                resenia.setUsuario(new Usuario());
+                resenia.setProfesor(new Profesor());
+                resenia.getUsuario().setIdUsuario(rs.getInt("fidUsuario")); 
+                resenia.getUsuario().setNombre(rs.getString("unombre"));   
+                resenia.getUsuario().setApellido(rs.getString("uapellido")); 
+                resenia.getUsuario().setFoto(rs.getBytes("ufoto"));   
+                resenia.getProfesor().setNombre(rs.getString("prnombre"));
+                
+                
+                
+                resenia.setCalificacion(rs.getInt("calificacion"));
+                
+                resenia.setContenido(rs.getString("contenido"));
+                
+                resenia.setBloqueado(rs.getBoolean("bloqueado"));
+                
+                resenia.setLikes(rs.getInt("likes"));
+                
+                resenia.setPrioridad(rs.getInt("prioridad"));
+               
+                resenia.setFechaRegistro(rs.getDate("fechaRegistro"));
+                
+                resenia.setActivo(true);
+                
+                resenia.setTipo(rs.getInt("tipo"));
+                
+                resenias.add(resenia);
+            }
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return resenias;
+    }
+    
+    @Override
+    public int eliminarReseniasProfesor(int idResenia) {
+        int resultado=0;
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ELIMINAR_RESENIA_PROFESOR(?)}");
+            cs.setInt("_idResenia", idResenia);
+            resultado = cs.executeUpdate();
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return resultado;
     }
 }
