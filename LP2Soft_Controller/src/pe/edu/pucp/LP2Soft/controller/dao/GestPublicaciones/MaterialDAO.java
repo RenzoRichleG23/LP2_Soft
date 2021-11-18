@@ -12,4 +12,5 @@ public interface MaterialDAO {
     int eliminar(int idMaterial);
     ArrayList<Material> listarTodos();
     ArrayList<Material> listar_material_tipo_indice(int idCurso, int tipoMaterial, int indice);
+    Material descargar_material(int idMaterial, int idCurso);
 }

@@ -3,6 +3,7 @@
  */
 package pe.edu.pucp.LP2Soft.controller.mysql.GestPublicaciones;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -202,4 +203,47 @@ public class MaterialMySQL implements MaterialDAO{
         }
         return materiales;    
     }
+
+    @Override
+    public Material descargar_material(int idMaterial, int idCurso) {
+        Material material = new Material();
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call DESCARGAR_MATERIAL(?,?)}");
+            
+            cs.setInt("_idMaterial",idMaterial);
+            cs.setInt("_fidCurso", idCurso);
+            rs = cs.executeQuery();
+             while(rs.next()){
+                material.setIdPost(idMaterial);
+
+                Curso curso=new Curso();
+                curso.setIdCurso(idCurso);
+                material.setCurso(curso);
+
+                Profesor profesor = new Profesor();
+                profesor.setIdProfesor(rs.getInt("fidProfesor"));
+                material.setProfesor(profesor);
+
+                material.setSumatoriaCalificaiones(rs.getInt("sumatoriaCalificaciones"));
+                material.setCantidadCalificaiones(rs.getInt("cantidadCalificaciones"));
+                material.setNombreArchivo(rs.getString("nombreArchivo"));
+
+
+
+                material.setArchivo(rs.getBytes("archivo"));
+
+                material.setTipoMaterial(rs.getInt("tipoMaterial"));
+                material.setIndice_tipoMaterial(rs.getInt("indice_tipoMaterial"));
+                material.setNota(rs.getString("nota")); 
+             }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{ cs.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+            try{ con.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+        }
+        return material;
+    }
+  
 }
