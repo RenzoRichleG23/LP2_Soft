@@ -163,7 +163,7 @@ public class MaterialMySQL implements MaterialDAO{
         ArrayList<Material> materiales = new ArrayList<>();
         try{
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call LISTA_MATERIAL_TIPO_INDICE(?,?,?)}");
+            cs = con.prepareCall("{call LISTAR_MATERIAL_TIPO_INDICE(?,?,?)}");
             
             cs.setInt("_idCurso",idCurso);
             cs.setInt("_tipoMaterial",tipoMaterial);
@@ -179,6 +179,7 @@ public class MaterialMySQL implements MaterialDAO{
                 
                 Profesor profesor = new Profesor();
                 profesor.setIdProfesor(rs.getInt("fidProfesor"));
+                profesor.setNombre(rs.getString("nombre"));
                 material.setProfesor(profesor);
                 
                 material.setSumatoriaCalificaiones(rs.getInt("sumatoriaCalificaciones"));
@@ -223,6 +224,7 @@ public class MaterialMySQL implements MaterialDAO{
 
                 Profesor profesor = new Profesor();
                 profesor.setIdProfesor(rs.getInt("fidProfesor"));
+                
                 material.setProfesor(profesor);
 
                 material.setSumatoriaCalificaiones(rs.getInt("sumatoriaCalificaciones"));
