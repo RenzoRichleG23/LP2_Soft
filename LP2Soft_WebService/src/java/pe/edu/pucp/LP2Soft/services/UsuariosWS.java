@@ -143,5 +143,11 @@ public class UsuariosWS {
         return user;
     }
     
-    
+       
+    @WebMethod(operationName = "listarCursosPostular")
+    public ArrayList<Curso> listarCursosPostular(){
+        ArrayList<Curso> cursos = null;
+        cursos = daoCurso.listarCursosPostular();
+        return cursos;
+    }
 }
