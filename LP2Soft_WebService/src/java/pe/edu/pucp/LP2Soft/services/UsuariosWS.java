@@ -15,6 +15,7 @@ import pe.edu.pucp.LP2Soft.controller.mysql.GestCursos.CursoMySQL;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestUsuarios.AsesorMySQL;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestUsuarios.UsuarioMySQL;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
+import pe.edu.pucp.LP2Soft.model.GestPublicaciones.PostGenerico;
 import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Resenia;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Asesor;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
@@ -140,5 +141,13 @@ public class UsuariosWS {
     public Usuario recuperarContrasenia(@WebParam(name = "codigoPUCP") String codigoPUCP) {    
         Usuario user = daoUsuario.recuperarContrasenia(codigoPUCP);
         return user;
-    }   
+    }
+    
+    @WebMethod(operationName = "listarMisPublicaciones")
+    public ArrayList<PostGenerico> listarMisPublicaciones(@WebParam(name = "idUsuario") int idUsuario,@WebParam(name = "idCurso") int idCurso,
+            @WebParam(name = "fechaI") String fechaI,@WebParam(name = "fechaF") String fechaF,@WebParam(name = "flag") int flag) {
+        ArrayList<PostGenerico> posts = null;
+        posts = daoUsuario.listarMisPublicaciones(idUsuario,idCurso,fechaI,fechaF,flag);
+        return posts;
+    }
 }
