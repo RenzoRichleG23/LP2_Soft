@@ -7,7 +7,9 @@ package pe.edu.pucp.LP2Soft.principal.main;
 
 import java.util.ArrayList;
 import pe.edu.pucp.LP2Soft.controller.dao.GestUsuarios.AsesorDAO;
+import pe.edu.pucp.LP2Soft.controller.dao.GestUsuarios.UsuarioDAO;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestUsuarios.AsesorMySQL;
+import pe.edu.pucp.LP2Soft.controller.mysql.GestUsuarios.UsuarioMySQL;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
 import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Resenia;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Asesor;
@@ -27,7 +29,7 @@ public class Principal_Asesor {
 //            asesor.setCalificacion(4);        
 //            asesor.setPrecioPorHora(30);
 //            
-              AsesorDAO daoAsesor = new AsesorMySQL();
+              //AsesorDAO daoAsesor = new AsesorMySQL();
 //            daoAsesor.insertar(asesor, 20186016, 35);    
 //            
 //            //Listar asesores
@@ -53,8 +55,11 @@ public class Principal_Asesor {
 //                int num = daoAsesor.insertarReseniaAsesor(re);
                 //System.out.println(num);
                 
-                daoAsesor.eliminarReseniaAsesor(12);
-                
+                //daoAsesor.eliminarReseniaAsesor(12);
+                UsuarioDAO daoUser = new UsuarioMySQL();
+                Usuario user = daoUser.recuperarContrasenia("20184024");
+                System.out.println(user.getCorreo());
+                System.out.println(user.getContrasenia());
                 
         } catch (Exception ex){
             System.out.println(ex.getMessage());
