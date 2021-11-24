@@ -274,4 +274,85 @@ public class EventoMySQL implements EventoDAO{
         }
         return resultado;
     }
+
+    @Override
+    public ArrayList<Evento> listarEventosAgendados(int idUsuario) {
+        ArrayList<Evento> eventos = new ArrayList<>();
+        int resultado=0;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call LISTAR_MIS_EVENTOS_AGENDADOS(?)}");
+            cs.setInt("_idUsuario",idUsuario);
+            rs = cs.executeQuery();
+            while(rs.next()){
+                Evento evento = new Evento();
+                evento.setFechaDelEvento(rs.getDate("fechaDelEvento"));
+                eventos.add(evento);
+            }
+            resultado=1;
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{ cs.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+            try{ con.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+        }
+        if(resultado==1)
+            return eventos;
+        else
+            return null;
+    }
+
+    @Override
+    public ArrayList<Evento> listarEventosAgendadosFecha(int idUsuario, String fecha) {
+        int resultado=0;
+        ArrayList<Evento> eventos = new ArrayList<>();
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call LISTAR_MIS_EVENTOS_AGENDADOS_FECHA(?,?)}");
+            
+            cs.setInt("_idUsuario",idUsuario);
+            SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+            Date fechaCalendario=null;
+            try{
+                fechaCalendario=formato.parse(fecha);
+            }catch(Exception ex){
+                System.out.println(ex.getMessage());
+            }
+            cs.setDate("_fechaDelEvento", new java.sql.Date(fechaCalendario.getTime()));
+            
+            rs = cs.executeQuery();
+            while(rs.next()){
+                Evento evento = new Evento();
+                Usuario usuario=new Usuario();
+                usuario.setIdUsuario(rs.getInt("idUsuario"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setApellido(rs.getString("apellido"));
+                evento.setUsuario(usuario);
+                evento.setIdPost(rs.getInt("idPost"));
+                evento.setLikes(rs.getInt("likes"));
+                evento.setNumeroComent(rs.getInt("numeroComent"));
+                Timestamp ts1 = rs.getTimestamp("fechaRegistro");
+                evento.setFechaRegistro(ts1);
+                evento.setNombreDelEvento(rs.getString("tituloEvento"));
+                evento.setContenido(rs.getString("contenido"));
+                evento.setEnlaceZoom(rs.getString("enlaceZoom"));
+                evento.setFechaDelEvento(rs.getDate("fechaDelEvento"));
+                evento.setHoraInicio(rs.getInt("horaInicio"));
+                evento.setHoraFin(rs.getInt("horaFin"));
+                evento.setArchivo(rs.getBytes("archivo"));
+                eventos.add(evento);
+            }
+            resultado=1;
+            
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{ cs.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+            try{ con.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+        }
+        if(resultado==1)
+            return eventos;
+        else
+            return null;
+    }
 }
