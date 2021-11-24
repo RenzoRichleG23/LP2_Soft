@@ -150,4 +150,10 @@ public class UsuariosWS {
         posts = daoUsuario.listarMisPublicaciones(idUsuario,idCurso,fechaI,fechaF,flag);
         return posts;
     }
+    @WebMethod(operationName = "listarCursosPostular")
+    public ArrayList<Curso> listarCursosPostular(){
+        ArrayList<Curso> cursos = null;
+        cursos = daoCurso.listarCursosPostular();
+        return cursos;
+    }
 }
