@@ -186,4 +186,12 @@ public class PublicacionesWS {
         eventos = daoEvento.listarEventosAgendadosFecha(idUsuario,fecha);
         return eventos;
     }
+    
+    @WebMethod(operationName = "listarMisPublicaciones")
+    public ArrayList<PostGenerico> listarMisPublicaciones(@WebParam(name = "idUsuario") int idUsuario,@WebParam(name = "idCurso") int idCurso,
+            @WebParam(name = "fechaI") String fechaI,@WebParam(name = "fechaF") String fechaF,@WebParam(name = "flag") int flag) {
+        ArrayList<PostGenerico> posts = null;
+        posts = daoPost.listarMisPublicaciones(idUsuario,idCurso,fechaI,fechaF,flag);
+        return posts;
+    }
 }

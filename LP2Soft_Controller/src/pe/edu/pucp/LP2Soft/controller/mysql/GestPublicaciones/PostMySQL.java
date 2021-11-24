@@ -280,4 +280,66 @@ public class PostMySQL implements PostDAO{
             try{ con.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
         }
         return posts;    }
+    
+    @Override
+    public ArrayList<PostGenerico> listarMisPublicaciones(int idUsuario, int idCurso, String fechaI, String fechaF, int flag) {
+        ArrayList<PostGenerico> posts = new ArrayList<>();
+        int resultado=0;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call LISTAR_MIS_PUBLICACIONES(?,?,?,?,?)}");
+            
+            cs.setInt("_idUsuario",idUsuario);
+            cs.setInt("_fidCurso",idCurso);
+            cs.setInt("_flag",flag);
+            SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+            Date fechaInicio=null;
+            Date fechaFin=null;
+            try{
+                fechaInicio=formato.parse(fechaI);
+                fechaFin=formato.parse(fechaF);
+            }catch(Exception ex){
+                System.out.println(ex.getMessage());
+            }
+            cs.setDate("_fechaInicio", new java.sql.Date(fechaInicio.getTime()));
+            cs.setDate("_fechaFin", new java.sql.Date(fechaFin.getTime()));
+            
+            rs = cs.executeQuery();
+            while(rs.next()){
+                
+                PostGenerico post = new PostGenerico();
+                post.setIdPost(rs.getInt("idPost"));
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(rs.getInt("fidUsuario"));
+                //usuario.setNombre(rs.getString("nombre"));
+                //usuario.setApellido(rs.getString("apellido"));
+                //usuario.setFoto(rs.getBytes("foto"));
+                post.setUsuario(usuario);
+                post.setContenido(rs.getString("contenido"));
+                
+                if(rs.getInt("bloqueado")==1)
+                    post.setBloqueado(true);
+                else
+                    post.setBloqueado(false);
+                
+                post.setLikes(rs.getInt("likes"));
+                post.setPrioridad(rs.getInt("prioridad"));
+                post.setFechaRegistro(rs.getDate("fechaRegistro"));
+                post.setActivo(true);
+                post.setTipo(rs.getInt("tipo"));
+                post.setNumeroComent(rs.getInt("numeroComent"));
+                posts.add(post);
+            }
+            resultado=1;
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{ cs.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+            try{ con.close(); }catch(Exception ex){ System.out.println(ex.getMessage()); }
+        }
+        if(resultado==1)
+            return posts;
+        else
+            return null;
+    }
 }
