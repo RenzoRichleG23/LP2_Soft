@@ -13,4 +13,5 @@ public interface CursoDAO {
     ArrayList<Curso> listarCursos(int idUsuario);
     Curso MostrarCurso(int idCurso);
     ArrayList<Curso> listaXciclo(int nivel);
+    int actualizarCursoxUsuario(int fidUsuario, int fidCurso, int estado, int favorito);
 }

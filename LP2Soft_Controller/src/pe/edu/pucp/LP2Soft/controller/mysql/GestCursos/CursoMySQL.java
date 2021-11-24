@@ -228,4 +228,23 @@ public class CursoMySQL implements CursoDAO{
         return cursos;
     }
 
+    @Override
+    public int actualizarCursoxUsuario(int fidUsuario, int fidCurso, int estado, int favorito) {
+        int resultado=0;
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call MODIFICAR_CURSOXUSUARIO(?,?,?,?)}");
+            cs.setInt("_fidUsuario", fidUsuario);
+            cs.setInt("_fidCurso", fidCurso);
+            cs.setInt("_estado", estado);
+            cs.setInt("_favorito", favorito);
+            resultado = cs.executeUpdate();
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return resultado; 
+    }
 }
