@@ -136,4 +136,9 @@ public class UsuariosWS {
         int resultado = daoAsesor.eliminarReseniaAsesor(idResenia);
         return resultado;
     }    
+    @WebMethod(operationName = "recuperarContrasenia")
+    public Usuario recuperarContrasenia(@WebParam(name = "codigoPUCP") String codigoPUCP) {    
+        Usuario user = daoUsuario.recuperarContrasenia(codigoPUCP);
+        return user;
+    }   
 }
