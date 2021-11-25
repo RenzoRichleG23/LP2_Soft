@@ -25,6 +25,7 @@ import pe.edu.pucp.LP2Soft.controller.mysql.GestCursos.CursoMySQL;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestUsuarios.AsesorMySQL;
 import pe.edu.pucp.LP2Soft.controller.mysql.GestUsuarios.UsuarioMySQL;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
+import pe.edu.pucp.LP2Soft.model.GestPublicaciones.PostGenerico;
 import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Resenia;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Asesor;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
@@ -186,4 +187,19 @@ public class UsuariosWS {
         }
         return reporteBytes;
     }
+        
+    @WebMethod(operationName = "recuperarContrasenia")
+    public Usuario recuperarContrasenia(@WebParam(name = "codigoPUCP") String codigoPUCP) {    
+        Usuario user = daoUsuario.recuperarContrasenia(codigoPUCP);
+        return user;
+    }
+    
+       
+    @WebMethod(operationName = "listarCursosPostular")
+    public ArrayList<Curso> listarCursosPostular(){
+        ArrayList<Curso> cursos = null;
+        cursos = daoCurso.listarCursosPostular();
+        return cursos;
+    }
+
 }

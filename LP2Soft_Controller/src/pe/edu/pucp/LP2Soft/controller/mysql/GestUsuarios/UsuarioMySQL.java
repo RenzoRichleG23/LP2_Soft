@@ -15,6 +15,7 @@ import java.sql.CallableStatement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import pe.edu.pucp.LP2Soft.controller.config.DBManager;
+import pe.edu.pucp.LP2Soft.model.GestPublicaciones.PostGenerico;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Asesor;
 
 public class UsuarioMySQL implements UsuarioDAO{
@@ -269,4 +270,26 @@ public class UsuarioMySQL implements UsuarioDAO{
         }
         return resultado; 
     }
+    
+    @Override
+    public Usuario recuperarContrasenia(String codigoPUCP) {
+        Usuario usuario = new Usuario();
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call OBTENER_CONTRASENIA(?)}");
+            cs.setString("_codigo", codigoPUCP);
+            rs = cs.executeQuery();    
+            if(rs.next()) {
+                usuario.setCorreo(rs.getString("correo"));
+                usuario.setContrasenia(rs.getString("contrasenia"));
+            }
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return usuario;
+    }
+   
 }

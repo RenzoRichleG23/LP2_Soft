@@ -179,8 +179,14 @@ public class MaterialMySQL implements MaterialDAO{
                 
                 Profesor profesor = new Profesor();
                 profesor.setIdProfesor(rs.getInt("fidProfesor"));
-                profesor.setNombre(rs.getString("nombre"));
+                profesor.setNombre(rs.getString("p.nombre"));
                 material.setProfesor(profesor);
+                
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(rs.getInt("idUsuario"));
+                usuario.setNombre(rs.getString("u.nombre"));
+                usuario.setApellido(rs.getString("u.apellido"));
+                material.setUsuario(usuario);
                 
                 material.setSumatoriaCalificaiones(rs.getInt("sumatoriaCalificaciones"));
                 material.setCantidadCalificaiones(rs.getInt("cantidadCalificaciones"));

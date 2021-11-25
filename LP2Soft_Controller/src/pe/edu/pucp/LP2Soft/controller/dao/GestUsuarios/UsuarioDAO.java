@@ -4,6 +4,7 @@
 package pe.edu.pucp.LP2Soft.controller.dao.GestUsuarios;
 
 import java.util.ArrayList;
+import pe.edu.pucp.LP2Soft.model.GestPublicaciones.PostGenerico;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
 //xd
@@ -18,4 +19,6 @@ public interface UsuarioDAO {
     int agregarAmigo(int idUsuario1, int idUsuario2);
     int eliminarAmigo(int idUsuario1, int idUsuario2);
     int esAmigo(int idUsuario1, int idUsuario2);
+    Usuario recuperarContrasenia(String codigoPUCP);
+    
 }

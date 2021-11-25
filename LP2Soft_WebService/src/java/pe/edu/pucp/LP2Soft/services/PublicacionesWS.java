@@ -4,6 +4,7 @@
 package pe.edu.pucp.LP2Soft.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -170,5 +171,27 @@ public class PublicacionesWS {
         Material material = new Material();
         material = daoMaterial.descargar_material(idMaterial , idCurso);
         return material;
+    }
+    
+    @WebMethod(operationName = "listarEventosAgendados")
+    public ArrayList<Evento> listarEventosAgendados(@WebParam(name = "idUsuario") int idUsuario) {
+        ArrayList<Evento> eventos = null;
+        eventos = daoEvento.listarEventosAgendados(idUsuario);
+        return eventos;
+    }
+    
+    @WebMethod(operationName = "listarEventosAgendadosFecha")
+    public ArrayList<Evento> listarEventosAgendadosFecha(@WebParam(name = "idUsuario") int idUsuario,@WebParam(name = "fecha") String fecha) {
+        ArrayList<Evento> eventos = null;
+        eventos = daoEvento.listarEventosAgendadosFecha(idUsuario,fecha);
+        return eventos;
+    }
+    
+    @WebMethod(operationName = "listarMisPublicaciones")
+    public ArrayList<PostGenerico> listarMisPublicaciones(@WebParam(name = "idUsuario") int idUsuario,@WebParam(name = "idCurso") int idCurso,
+            @WebParam(name = "fechaI") String fechaI,@WebParam(name = "fechaF") String fechaF,@WebParam(name = "flag") int flag) {
+        ArrayList<PostGenerico> posts = null;
+        posts = daoPost.listarMisPublicaciones(idUsuario,idCurso,fechaI,fechaF,flag);
+        return posts;
     }
 }

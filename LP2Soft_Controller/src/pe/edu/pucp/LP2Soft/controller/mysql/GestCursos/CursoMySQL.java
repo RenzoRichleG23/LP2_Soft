@@ -228,4 +228,46 @@ public class CursoMySQL implements CursoDAO{
         return cursos;
     }
 
+    @Override
+    public int actualizarCursoxUsuario(int fidUsuario, int fidCurso, int estado, int favorito) {
+        int resultado=0;
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call MODIFICAR_CURSOXUSUARIO(?,?,?,?)}");
+            cs.setInt("_fidUsuario", fidUsuario);
+            cs.setInt("_fidCurso", fidCurso);
+            cs.setInt("_estado", estado);
+            cs.setInt("_favorito", favorito);
+            resultado = cs.executeUpdate();
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return resultado; 
+    }
+
+    @Override
+    public ArrayList<Curso> listarCursosPostular() {
+        ArrayList<Curso> cursos = new ArrayList<>();
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call LISTAR_CURSOS_POSTULAR()}");
+            rs = cs.executeQuery();
+            while(rs.next()) {
+                Curso curso = new Curso();
+                curso.setIdCurso(rs.getInt("idCurso"));
+                curso.setCodigo(rs.getString("CodigoCurso"));
+                curso.setNombre(rs.getString("nombre"));
+                cursos.add(curso);
+            }
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close(); cs2.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return cursos;
+    }
 }

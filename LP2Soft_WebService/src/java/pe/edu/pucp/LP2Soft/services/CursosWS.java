@@ -86,10 +86,14 @@ public class CursosWS {
     public int eliminarReseniasProfesor(@WebParam(name = "idResenia") int idResenia) {    
         int resultado = daoProfesor.eliminarReseniasProfesor(idResenia);
         return resultado;
-    }
+    }    
     
-    
-    
-    
-
+    @WebMethod(operationName = "actualizarCursoxUsuario")
+    public int actualizarCursoxUsuario(@WebParam(name = "fidUsuario") int fidUsuario,
+            @WebParam(name = "fidCurso") int fidCurso,
+            @WebParam(name = "estado") int estado,
+            @WebParam(name = "favorito") int favorito) {    
+        int resultado = daoCurso.actualizarCursoxUsuario(fidUsuario, fidCurso, estado, favorito);
+        return resultado;
+    }    
 }

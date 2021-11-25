@@ -15,4 +15,5 @@ public interface PostDAO {
     int disminuirLike(int idPost);
     int insertar_postXCurso(PostGenerico post);
     ArrayList<PostGenerico> listarXcurso(int idCurso);
+    ArrayList<PostGenerico> listarMisPublicaciones(int idUsuario,int idCurso,String fechaI,String fechaF,int flag);
 }
