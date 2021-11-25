@@ -3,7 +3,11 @@
  */
 package pe.edu.pucp.LP2Soft.services;
 
+import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.TimeZone;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -14,6 +18,7 @@ import pe.edu.pucp.LP2Soft.controller.mysql.GestCursos.ProfesorMySQL;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
 import pe.edu.pucp.LP2Soft.model.GestCursos.Profesor;
 import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Resenia;
+import pe.edu.pucp.LP2Soft.servlet.ReporteReseniasAsesores;
 
 @WebService(serviceName = "CursosWS")
 public class CursosWS {
@@ -81,6 +86,10 @@ public class CursosWS {
     public int eliminarReseniasProfesor(@WebParam(name = "idResenia") int idResenia) {    
         int resultado = daoProfesor.eliminarReseniasProfesor(idResenia);
         return resultado;
-    }    
+    }
+    
+    
+    
+    
 
 }

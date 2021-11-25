@@ -4,10 +4,20 @@
 
 package pe.edu.pucp.LP2Soft.services;
 
+import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.TimeZone;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import pe.edu.pucp.LP2Soft.controller.config.DBManager;
 import pe.edu.pucp.LP2Soft.controller.dao.GestCursos.CursoDAO;
 import pe.edu.pucp.LP2Soft.controller.dao.GestUsuarios.AsesorDAO;
 import pe.edu.pucp.LP2Soft.controller.dao.GestUsuarios.UsuarioDAO;
@@ -18,6 +28,7 @@ import pe.edu.pucp.LP2Soft.model.GestCursos.Curso;
 import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Resenia;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Asesor;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
+import pe.edu.pucp.LP2Soft.servlet.ReporteReseniasAsesores;
 
 @WebService(serviceName = "UsuariosWS")
 public class UsuariosWS {
@@ -135,5 +146,44 @@ public class UsuariosWS {
     public int eliminarReseniaAsesor(@WebParam(name = "idResenia") int idResenia) {    
         int resultado = daoAsesor.eliminarReseniaAsesor(idResenia);
         return resultado;
-    }    
+    }
+
+    @WebMethod(operationName = "generarReporte")
+    public byte[] generarReporte(@WebParam(name = "idAsesor") int idAsesor) {    
+        byte[] reporteBytes = null;
+        try{
+            Locale.setDefault(new Locale("es","PE"));
+            TimeZone.setDefault(TimeZone.getTimeZone("GMT-5"));
+            JasperReport reporte = (JasperReport)
+                    JRLoader.loadObject(
+                ReporteReseniasAsesores.class.getResource(
+                                "/pe/edu/pucp/LP2Soft/reportes/ReporteAsesor.jasper"));
+            
+            String rutaSubReporte = ReporteReseniasAsesores.class.getResource(
+                                "/pe/edu/pucp/LP2Soft/reportes/ReporteAlumnos.jasper").getPath();
+            rutaSubReporte = rutaSubReporte.replace("%20"," ");
+            
+            //String rutaImagen = ReporteReseniasAsesores.class.getResource(
+                //                "/pe/edu/pucp/LP2Soft/img/infunables.jpg").getPath();
+            
+            Connection con = DBManager.getInstance().getConnection();
+            
+            HashMap hm = new HashMap();
+            
+            //Image imagen = (new ImageIcon(rutaImagen)).getImage();
+            //hm.put("pImagen",imagen);
+            hm.put("idAsesor",idAsesor);
+            hm.put("rutaSubReporteAlumnos", rutaSubReporte);
+            
+            JasperPrint jp = JasperFillManager.fillReport(reporte,hm,con);
+            
+            con.close();
+            
+            reporteBytes = JasperExportManager.exportReportToPdf(jp);
+            
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return reporteBytes;
+    }
 }
