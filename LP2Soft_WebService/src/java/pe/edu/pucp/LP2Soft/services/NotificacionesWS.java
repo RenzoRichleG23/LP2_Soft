@@ -74,4 +74,12 @@ public class NotificacionesWS {
         mensajes = daoMensaje.listarUltimosMensajes(idUsuario);
         return mensajes;
     }
+    
+    @WebMethod(operationName = "existeEventoAgendado")
+    public int existeEventoAgendado(@WebParam(name = "idUsuario") int idUsuario,
+            @WebParam(name = "idEvento") int idEvento) {
+        int resultado = 0;
+        resultado = daoNotificacion.existeNotificaconEvento(idUsuario, idEvento);
+        return resultado;
+    }
 }

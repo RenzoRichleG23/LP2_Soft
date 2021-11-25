@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import pe.edu.pucp.LP2Soft.controller.config.DBManager;
 import pe.edu.pucp.LP2Soft.controller.dao.GestNotificaciones.NotificacionDAO;
 import pe.edu.pucp.LP2Soft.model.GestNotificaciones.Notificacion;
+import pe.edu.pucp.LP2Soft.model.GestPublicaciones.Evento;
 import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 
 public class NotificacionMySQL implements NotificacionDAO {
@@ -69,6 +70,13 @@ public class NotificacionMySQL implements NotificacionDAO {
                     notificacion.getUsuarioNotificador().setCodigoPUCP(rs.getString("codigoUsuarioNotificador"));
                     notificacion.getUsuarioNotificador().setFoto(rs.getBytes("fotoUsuarioNotificador"));
                 }
+                else if(notificacion.getTipo()==3) {
+                    Timestamp ts2 = rs.getTimestamp("fechaDelEvento");
+                    notificacion.setEventoAgendado(new Evento());
+                    notificacion.getEventoAgendado().setIdPost(rs.getInt("idEventoAgendado"));
+                    notificacion.getEventoAgendado().setNombreDelEvento(rs.getString("tituloDelEvento"));
+                    notificacion.getEventoAgendado().setFechaDelEvento(ts2);
+                }
                 notificaciones.add(notificacion);
             }
         } catch(Exception ex) {
@@ -89,6 +97,26 @@ public class NotificacionMySQL implements NotificacionDAO {
             cs.setInt("_idUsuario1", idUsuarioNotificado);
             cs.setInt("_idUsuario2", idUsuarioNotificador);
             resultado = cs.executeUpdate();
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return resultado; 
+    }
+
+    @Override
+    public int existeNotificaconEvento(int idUsuario, int idEvento) {
+        int resultado=0;
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call EXISTE_NOTIFICACION_EVENTO(?,?,?)}");
+            cs.registerOutParameter("_resultado", java.sql.Types.INTEGER);
+            cs.setInt("_fidUsuario", idUsuario);
+            cs.setInt("_idEvento", idEvento);
+            cs.executeUpdate();
+            resultado = cs.getInt("_resultado");
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
         } finally {

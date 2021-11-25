@@ -11,4 +11,5 @@ public interface NotificacionDAO {
             int idUsuarioNotificador, int idCursoFavorito, int idEventoAgendado, int idPost);
     ArrayList<Notificacion> listarNotificaciones(int idUsuario);
     int eliminarSolicitudAmistad(int idUsuarioNotificado, int idUsuarioNotificador);
+    int existeNotificaconEvento(int idUsuario, int idEvento);
 }
