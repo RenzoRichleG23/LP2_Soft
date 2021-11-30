@@ -20,5 +20,5 @@ public interface UsuarioDAO {
     int eliminarAmigo(int idUsuario1, int idUsuario2);
     int esAmigo(int idUsuario1, int idUsuario2);
     Usuario recuperarContrasenia(String codigoPUCP);
-    
+    int modificarContrasenia(int idUsuario, String newPassword);
 }

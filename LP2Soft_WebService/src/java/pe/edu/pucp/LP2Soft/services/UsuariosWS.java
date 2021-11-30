@@ -194,6 +194,11 @@ public class UsuariosWS {
         return user;
     }
     
+    @WebMethod(operationName = "recuperarContrasenia")
+    public int modificarContrasenia(@WebParam(name = "idUsuario") int idUsuario, @WebParam(name = "newPassword") String newPassword) {    
+        int resultado = daoUsuario.modificarContrasenia(idUsuario, newPassword);
+        return resultado;
+    }
        
     @WebMethod(operationName = "listarCursosPostular")
     public ArrayList<Curso> listarCursosPostular(){

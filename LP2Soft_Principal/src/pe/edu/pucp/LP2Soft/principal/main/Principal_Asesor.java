@@ -24,12 +24,15 @@ import pe.edu.pucp.LP2Soft.model.GestUsuarios.Usuario;
 public class Principal_Asesor {
     public static void main(String[] args) {
         try {
-            CursoDAO _daoCurso = new CursoMySQL();
-            ArrayList<Curso> cursos = _daoCurso.listarCursosPostular();
-            for(int i=0;i<20;i++){
-                Curso curso = cursos.get(i);
-                System.out.println(curso.getNombre());
-            }
+//            CursoDAO _daoCurso = new CursoMySQL();
+//            ArrayList<Curso> cursos = _daoCurso.listarCursosPostular();
+//            for(int i=0;i<20;i++){
+//                Curso curso = cursos.get(i);
+//                System.out.println(curso.getNombre());
+//            }
+            UsuarioDAO _daoUser = new UsuarioMySQL();
+            int resultado = _daoUser.modificarContrasenia(14, "pepitoluchito");
+            System.out.println(resultado);
                 
         } catch (Exception ex){
             System.out.println(ex.getMessage());

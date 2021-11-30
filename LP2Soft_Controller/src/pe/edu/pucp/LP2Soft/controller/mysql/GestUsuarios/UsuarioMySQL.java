@@ -291,5 +291,23 @@ public class UsuarioMySQL implements UsuarioDAO{
         }
         return usuario;
     }
+
+    @Override
+    public int modificarContrasenia(int idUsuario, String newPassword) {
+        int resultado = 0;
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call MODIFICAR_CONTRASENIA(?,?)}");
+            cs.setInt("_idUsuario", idUsuario);
+            cs.setString("_newPassword", newPassword);            
+            resultado = cs.executeUpdate();
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {cs.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+            try {con.close();} catch (Exception ex) {System.out.println(ex.getMessage());}
+        }
+        return resultado;
+    }
    
 }
